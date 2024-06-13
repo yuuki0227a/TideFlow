@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">TideFlow</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_graph">グラフ</string>
+    <string name="menu_report">レポート</string>
+    <string name="menu_calendar">Calendar</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_terms_of_service">利用規約</string>
+    <string name="menu_app">アプリケーション</string>
+    <string name="menu_start">開始</string>
+    <string name="menu_stop">停止</string>
+    <string name="menu_policy">ポリシー</string>
+    <string name="menu_list_title">メニュー</string>
+
+    <string name="calender_day_of_week_sunday">日</string>
+    <string name="calender_day_of_week_monday">月</string>
+    <string name="calender_day_of_week_tuesday">火</string>
+    <string name="calender_day_of_week_wednesday">水</string>
+    <string name="calender_day_of_week_thursday">木</string>
+    <string name="calender_day_of_week_friday">金</string>
+    <string name="calender_day_of_week_saturday">土</string>
+</resources>
