@@ -165,7 +165,7 @@ class TideFlowManager {
      * @param data 潮汐データ(すべて)
      * @return TideFlowDataのMapを返す。
      * */
-    fun getTideFlowDataMap(data: String): MutableMap<Triple<Int, Int, Int>, TideFlowData>{
+    private fun getTideFlowDataMap(data: String): MutableMap<Triple<Int, Int, Int>, TideFlowData>{
         val tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowData> = mutableMapOf()
         // レコードをマップに分割する。
         for(dataRecord in data.lines()){
@@ -254,10 +254,10 @@ class TideFlowManager {
      * @param fileNameYear ファイルネームにする年。(yyyy.txt)
      * @param data 潮汐データ(レスポンスで得た文字列)
      * */
-    fun saveToTideFileTxt(context: Context, fileNameYear: Int, data: String) {
+    fun saveToTideFileTxt(context: Context, fileNameYear: Int, data: String, locationName: String) {
         try {
             // ファイル名を作成
-            val fileName = String.format(TIDE_FILE_TXT_NAME, fileNameYear)
+            val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
             // ファイル出力ストリームを開く
             val fileOutputStream: FileOutputStream = context.openFileOutput(fileName, Context.MODE_PRIVATE)
             // データを書き込む
@@ -274,14 +274,15 @@ class TideFlowManager {
     /**
      * 潮汐データのtxtファイルを読み込む。
      * @param context コンテキスト
-     * @param fileNameYear 潮汐データのファイルネームの年。(yyyy.txt)
+     * @param fileNameYear 潮汐データのファイルネームの年。(yyyy_xx.txt) xx: ロケーション
      * @return 潮汐の生データ。※ファイルがなければnull
      * */
-    fun readFromTideFileTxt(context: Context, fileNameYear: Int): String? {
+    fun readFromTideFileTxt(context: Context, fileNameYear: Int, locationName: String): MutableMap<Triple<Int, Int, Int>, TideFlowData> {
         var fileInputStream: FileInputStream? = null
-        return try {
+        var tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowData> = mutableMapOf()
+        try {
             // ファイル名を作成
-            val fileName = String.format(TIDE_FILE_TXT_NAME, fileNameYear)
+            val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
             // ファイル入力ストリームを開く
             fileInputStream = context.openFileInput(fileName)
             // ストリームからデータを読み込む
@@ -292,14 +293,16 @@ class TideFlowManager {
                 stringBuilder.append(line).append('\n')
             }
             // 読み込んだデータを文字列として返す
-            stringBuilder.toString()
+            val data = stringBuilder.toString()
+            // tideFlowDataMapを作成する。
+            tideFlowDataMap = getTideFlowDataMap(data)
         } catch (e: IOException) {
             e.printStackTrace()
-            null
         } finally {
             // ストリームを閉じる
             fileInputStream?.close()
         }
+        return tideFlowDataMap
     }
 
     /**
@@ -308,9 +311,9 @@ class TideFlowManager {
      * @param fileNameYear ファイルネームの年。(yyyy.txt)
      * @return 潮汐データファイルパス
      * */
-    fun getFilePath(context: Context, fileNameYear: Int): String {
+    fun getFilePath(context: Context, fileNameYear: Int, locationName: String): String {
         // ファイル名を作成
-        val fileName = String.format(TIDE_FILE_TXT_NAME, fileNameYear)
+        val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
         // 内部ストレージのファイルディレクトリを取得し、ファイルパスを生成
         val file = File(context.filesDir, fileName)
         return file.absolutePath

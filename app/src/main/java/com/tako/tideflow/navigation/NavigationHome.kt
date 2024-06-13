@@ -20,6 +20,8 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     private lateinit var mContext: Context
     private val mHandler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private val mTideFlowManager: TideFlowManager by lazy { TideFlowManager() }
+    // 潮汐データをレコードごとのマップにする。
+    private var mTideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData> = mutableMapOf()
 
     /** ナビゲーションメニューアイコン押下時など、画面作成時のみ通る
      * 更新処理では通らない */
@@ -50,8 +52,30 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         /*TODO. 観測地点は設定ファイルから取得する*/
         // 観測地点
         val locationName = "OS"
-        // データ取得処理とコールバックのセット
-        mTideFlowManager.getTideFlowDataTxt(dateNow.year, locationName, this)
+        // ファイルの存在確認
+        if (!File(mTideFlowManager.getFilePath(mContext, dateNow.year, locationName)).exists()) {
+            /* ない場合は取得する。ファイル出力も行う。 */
+            // データ取得/出力処理とコールバックのセット(本年)
+            mTideFlowManager.getTideFlowDataTxt(dateNow.year, locationName, this)
+        }
+        // ファイル読み込み
+        mTideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateNow.year, locationName)
+        println("mTideFlowDataMap: $mTideFlowDataMap")
+
+        /*TODO. テスト*/
+        val tideFlowData = mTideFlowDataMap[Triple(dateNow.year, dateNow.monthValue, dateNow.dayOfMonth)]
+        if(tideFlowData != null){
+            mBinding.textView6.text = String.format(
+                "観測地点: %s\n" +
+                        "日付: %s/%s/%s\n" +
+                        "満潮時間: %s:%s\t\t潮位: %s\n" +
+                        "干潮時間: %s:%s\t\t潮位: %s\n",
+                tideFlowData.locationName,
+                tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third,
+                tideFlowData.highTideTimes[0].first, tideFlowData.highTideTimes[0].second, tideFlowData.highTideTimes[0].third,
+                tideFlowData.lowTideTimes[0].first, tideFlowData.lowTideTimes[0].second, tideFlowData.lowTideTimes[0].third,
+            )
+        }
     }
 
     override fun onStart() {
@@ -87,21 +111,22 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
      * */
     override fun onDataFetched(data: String) {
         mHandler.post {
-            // データ受信後の処理
-
-            // 潮汐データをレコードごとのマップにする。
-            val tideFlowDataMap = mTideFlowManager.getTideFlowDataMap(data)
+            /* データ受信後の処理 */
             // tideFlowDataMapから一つのデータを取り出して、「年」を関数に渡す。
-            for(tideFlowData in tideFlowDataMap){
+            for(tideFlowData in mTideFlowDataMap){
                 // ファイル出力。※存在する場合は上書き。
-                mTideFlowManager.saveToTideFileTxt(mContext, tideFlowData.value.tideDate.first, data)
+                mTideFlowManager.saveToTideFileTxt(mContext, tideFlowData.value.tideDate.first, data, tideFlowData.value.locationName)
+                // mTideFlowDataMapにデータがなければ読み込む
+                if(mTideFlowDataMap.isEmpty()){
+                    mTideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, tideFlowData.value.tideDate.first, tideFlowData.value.locationName)
+                }
                 break
             }
 
             /*TODO. 以下テスト*/
             val today = LocalDate.now()
-            println("★★★　${tideFlowDataMap[Triple(today.year,today.monthValue,today.dayOfMonth)]}　★★★")
-            println("★★★　${tideFlowDataMap.size}　★★★")
+            println("★★★　${mTideFlowDataMap[Triple(today.year,today.monthValue,today.dayOfMonth)]}　★★★")
+            println("★★★　${mTideFlowDataMap.size}　★★★")
         }
     }
 
