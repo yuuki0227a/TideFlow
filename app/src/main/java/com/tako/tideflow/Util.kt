@@ -35,4 +35,27 @@ object Util {
             "日" -> textView.setTextColor(Color.RED)
         }
     }
+
+    /**
+     * Mapのvalueからkeyを取り出す。
+     * */
+    fun getKeyFromValue(map: Map<Triple<Int, Int, Int>, Int>, value: Int): Triple<Int, Int, Int>? {
+        for ((key, mapValue) in map) {
+            if (mapValue == value) {
+                return key
+            }
+        }
+        return null
+    }
+    /**
+     * Mapのvalueからkeyを取り出す。
+     * */
+    fun getKeyFromValue(map: Map<String, String>, value: String): String? {
+        for ((key, mapValue) in map) {
+            if (mapValue == value) {
+                return key
+            }
+        }
+        return null
+    }
 }

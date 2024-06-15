@@ -283,6 +283,10 @@ class TideFlowManager {
         try {
             // ファイル名を作成
             val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
+            // 存在確認
+            if(!File(context.filesDir, fileName).exists()){
+                return tideFlowDataList
+            }
             // ファイル入力ストリームを開く
             fileInputStream = context.openFileInput(fileName)
             // ストリームからデータを読み込む
@@ -317,6 +321,10 @@ class TideFlowManager {
         try {
             // ファイル名を作成
             val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
+            // 存在確認
+            if(!File(context.filesDir, fileName).exists()){
+                return tideFlowDataMap
+            }
             // ファイル入力ストリームを開く
             fileInputStream = context.openFileInput(fileName)
             // ストリームからデータを読み込む

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/navi_steps">
+    app:startDestination="@id/navi_home">
 
     <fragment
-        android:id="@+id/navi_steps"
+        android:id="@+id/navi_home"
         android:name="com.tako.tideflow.navigation.NavigationHome"
         android:label="Fragment1" />
 
@@ -15,7 +15,7 @@
         android:label="Fragment2">
         <action
             android:id="@+id/action_navi_calendar_to_navi_steps"
-            app:destination="@id/navi_steps"
+            app:destination="@id/navi_home"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
@@ -27,7 +27,7 @@
         android:label="Fragment4">
         <action
             android:id="@+id/action_navi_setting_to_navi_steps"
-            app:destination="@id/navi_steps"
+            app:destination="@id/navi_home"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"

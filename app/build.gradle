@@ -54,4 +54,8 @@ dependencies {
     // http通信
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'  //setting.gradle → maven {url "https://jitpack.io"}
+    // Kotlin Coroutinesの依存関係
+//    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"  // ライフサイクルを利用する場合
+//    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"  // Kotlin Coroutinesの依存ライブラリ
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"  // Android向けのCoroutinesの依存ライブラリ
 }
