@@ -53,4 +53,5 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     // http通信
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'  //setting.gradle → maven {url "https://jitpack.io"}
 }

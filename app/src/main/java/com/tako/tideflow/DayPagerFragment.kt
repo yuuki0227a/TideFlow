@@ -1,0 +1,364 @@
+package com.tako.tideflow
+
+import android.content.Context
+import android.graphics.Color
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.github.mikephil.charting.components.AxisBase
+import com.tako.tideflow.databinding.FragmentDayPagerBinding
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.listener.ChartTouchListener
+import com.github.mikephil.charting.listener.OnChartGestureListener
+import java.time.LocalDate
+import java.util.Calendar
+
+class DayPagerFragment(
+    private val tideFlowData: TideFlowManager.TideFlowData,
+    private val locationMap: MutableMap<String, String>,
+) : Fragment() {
+    private lateinit var mBinding: FragmentDayPagerBinding
+    private lateinit var mContext: Context
+
+    companion object{
+        const val DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT = "%2d:%02d"
+        const val DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT = "%3d\tcm"
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        mBinding = FragmentDayPagerBinding.inflate(inflater, container, false)
+        mContext = mBinding.root.context
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+//        /* 日付表示 */
+//        mBinding.dayPagerDate.text =
+//            String.format("%04d/%02d/%02d", tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third)
+//        /* 曜日表示 */
+//        // 曜日取得
+//        val dayOfWeekEN = LocalDate.of(
+//            tideFlowData.tideDate.first,
+//            tideFlowData.tideDate.second,
+//            tideFlowData.tideDate.third
+//        ).dayOfWeek.toString()
+//        // 日本語に変更
+//        val dayOfWeekJP = Util.dayOfWeekENtoJP(dayOfWeekEN)
+//        // viewにセット
+//        mBinding.dayPagerDateDayOfWeek.text = String.format(
+//            Util.DAY_OF_WEEK_FORMAT,
+//            dayOfWeekJP
+//        )
+//        // テキストの色を変更
+//        Util.dayOfWeekTextColorJP(dayOfWeekJP, mBinding.dayPagerDateDayOfWeek)
+        /* 満潮 */
+        // 1
+        if(tideFlowData.highTideTimes[0].third != 999){
+            mBinding.dayPagerHighTideTimesTime1.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.highTideTimes[0].first, tideFlowData.highTideTimes[0].second,
+            )
+            mBinding.dayPagerHighTideTimesTideLevel1.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[0].third,
+            )
+        }
+        // 2
+        if(tideFlowData.highTideTimes[1].third != 999){
+            mBinding.dayPagerHighTideTimesTime2.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.highTideTimes[1].first, tideFlowData.highTideTimes[1].second,
+            )
+            mBinding.dayPagerHighTideTimesTideLevel2.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[1].third,
+            )
+        }
+        // 3
+        if(tideFlowData.highTideTimes[2].third != 999){
+            mBinding.dayPagerHighTideTimesTime3.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.highTideTimes[2].first, tideFlowData.highTideTimes[2].second,
+            )
+            mBinding.dayPagerHighTideTimesTideLevel3.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[2].third,
+            )
+        }
+        // 4
+        if(tideFlowData.highTideTimes[3].third != 999){
+            mBinding.dayPagerHighTideTimesTime4.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.highTideTimes[3].first, tideFlowData.highTideTimes[3].second,
+            )
+            mBinding.dayPagerHighTideTimesTideLevel4.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[3].third,
+            )
+        }
+
+        /* 干潮 */
+        // 1
+        if(tideFlowData.lowTideTimes[0].third != 999){
+            mBinding.dayPagerLowTideTimesTime1.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.lowTideTimes[0].first, tideFlowData.lowTideTimes[0].second,
+            )
+            mBinding.dayPagerLowTideTimesTideLevel1.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[0].third,
+            )
+        }
+        // 2
+        if(tideFlowData.lowTideTimes[1].third != 999){
+            mBinding.dayPagerLowTideTimesTime2.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.lowTideTimes[1].first, tideFlowData.lowTideTimes[1].second,
+            )
+            mBinding.dayPagerLowTideTimesTideLevel2.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[1].third,
+            )
+        }
+        // 3
+        if(tideFlowData.lowTideTimes[2].third != 999){
+            mBinding.dayPagerLowTideTimesTime3.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.lowTideTimes[2].first, tideFlowData.lowTideTimes[2].second,
+            )
+            mBinding.dayPagerLowTideTimesTideLevel3.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[2].third,
+            )
+        }
+        // 4
+        if(tideFlowData.lowTideTimes[3].third != 999){
+            mBinding.dayPagerLowTideTimesTime4.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT, tideFlowData.lowTideTimes[3].first, tideFlowData.lowTideTimes[3].second,
+            )
+            mBinding.dayPagerLowTideTimesTideLevel4.text = String.format(
+                DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[3].third,
+            )
+        }
+
+        /* １時間毎の潮汐データの折線グラフ */
+        createLineChart()
+    }
+
+    /**
+     * １時間毎の潮汐データの折線グラフを作成する。
+     * */
+    private fun createLineChart(){
+        val hourlyTideLevelList: ArrayList<Float> = arrayListOf()
+        for(hourlyTideLevel in tideFlowData.hourlyTideLevels){
+            hourlyTideLevelList.add(hourlyTideLevel.toFloat())
+        }
+        // ③元データをEntry型に変換したリストを準備
+        val dataEntries = mutableListOf<Entry>()
+        hourlyTideLevelList.forEachIndexed { index, value ->
+            // X軸は配列のインデックス番号
+            val dataEntry = Entry(index.toFloat(), value)
+            dataEntries.add(dataEntry)
+        }
+        // ④グラフ線やポインタなどの機能、デザインなどを設定
+        val lineDataSet = LineDataSet(dataEntries, "グラフ名")
+
+        // ⑤ラベルやグラフなどの機能、デザインなどを設定
+        // x軸のラベルをbottomに表示
+        mBinding.dayPagerLineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+
+        // ⑥グラフのデータに格納
+        mBinding.dayPagerLineChart.data = LineData(lineDataSet)
+
+        /* x軸ラベルの作成 */
+        // x軸のラベル
+        val quarterList: ArrayList<String> = arrayListOf()
+        // 0～23を追加する。
+        val xTimeMax = 24
+        for((xTime, _) in (0 until xTimeMax).withIndex()){
+            quarterList.add("$xTime")
+        }
+        // x軸の項目名を設定
+        val formatter: ValueFormatter = object : ValueFormatter() {
+            override fun getAxisLabel(value: Float, axis: AxisBase): String {
+                /*
+                *   データ削除後の再描画でラベルが要素外まで参照されてしまう
+                *   要素外を参照しないように対応。原因は不明。 */
+                if (quarterList.size <= value.toInt()) {
+                    return "e"
+                }
+                return quarterList[value.toInt()]
+            }
+        }
+        lineDataSet.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                // 小数点以下は消す。
+                return "%.0f".format(value)
+            }
+        }
+
+        /* グラフデザイン */
+        // グラフの線の太さ
+        lineDataSet.lineWidth = 5.0f
+        // グラフモード(曲線)
+        lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
+        // グラフの色
+        lineDataSet.colors = listOf(Color.BLUE)
+        // 点の色
+        lineDataSet.circleColors = listOf(Color.CYAN)
+        // 点の大きさ
+        lineDataSet.circleRadius = 3.0f
+        // 塗りつぶし
+        lineDataSet.setDrawFilled(true)
+        // 値非表示
+        lineDataSet.setDrawValues(true)
+        // ポインタ非表示
+        lineDataSet.setDrawCircles(true)
+        // 値のテキストカラー
+        lineDataSet.valueTextColor = Color.WHITE
+        // 値のテキストサイズ
+        lineDataSet.valueTextSize = 8f
+
+        /* グラフ設定 */
+        // データがない場合のテキスト
+        mBinding.dayPagerLineChart.setNoDataText("データがありません")
+        // タップでの点の選択を無効
+        mBinding.dayPagerLineChart.isHighlightPerTapEnabled = false
+        // ピンチでのズームを無効
+        mBinding.dayPagerLineChart.setPinchZoom(false)
+        // データの最大表示範囲を制限 (データ数が多い場合横にスクロールで表示エリアを移動可能)
+//        mBinding.dayPagerLineChart.setVisibleXRangeMaximum(10f) // ※
+        // データの最小表示範囲を制限 (データ数が多い場合横にスクロールで表示エリアを移動可能)
+//        mBinding.dayPagerLineChart.setVisibleXRangeMinimum(5f) // ※
+        // データの表示位置を指定したX軸の値にする(インデックスではなくX軸の値を指定)
+        mBinding.dayPagerLineChart.moveViewToX((hourlyTideLevelList.size - 1).toFloat()) // ※
+
+        // 日付が本日の場合のみ表示する。
+        if(LocalDate.now().dayOfMonth == tideFlowData.tideDate.third){
+            // 選択したX軸の位置をハイライト表示(currentHour: 現時刻にフォーカスさせる)
+            val calendar = Calendar.getInstance()
+            val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+            mBinding.dayPagerLineChart.highlightValue(currentHour.toFloat(),0) // ※
+        }
+
+        // 表示されているデータの一番低い値を取得
+        mBinding.dayPagerLineChart.lowestVisibleX
+        // 表示されているデータの一番高い値を取得
+        mBinding.dayPagerLineChart.highestVisibleX
+        // ダブルタップでのズームを無効
+        mBinding.dayPagerLineChart.isDoubleTapToZoomEnabled = false
+        // グラフアニメーション
+        mBinding.dayPagerLineChart.animateXY(1, 1)
+        // グラフ拡大許可
+        mBinding.dayPagerLineChart.setScaleEnabled(false)
+        // タッチイベントを無効にする
+        mBinding.dayPagerLineChart.setTouchEnabled(false)
+
+        /* ラベルのカスタマイズ */
+        // 右下のDescription Labelを非表示
+        mBinding.dayPagerLineChart.description.isEnabled = false
+        // グラフ名ラベルを非表示
+        mBinding.dayPagerLineChart.legend.isEnabled = false
+        // Y軸右側ラベルを非表示
+        mBinding.dayPagerLineChart.axisRight.isEnabled = false
+        // 上からのオフセット
+        mBinding.dayPagerLineChart.extraTopOffset = 30f
+
+        /* x軸関連 */
+        mBinding.dayPagerLineChart.xAxis.apply {
+            // ラベルカラー
+            textColor = Color.WHITE
+            // ラベル表示の数
+            labelCount = quarterList.size - 1
+            // ラベル挿入
+            valueFormatter = formatter
+            // ラベルを1.0ずつ増加させる　※これをしないと0.5のときなどに余計なラベルが追加される
+            granularity = 1f
+            // グリッド表示
+            setDrawGridLines(false)
+            // ラベル表示
+            setDrawLabels(true)
+            // 枠線表示
+            setDrawAxisLine(true)
+        }
+
+        /* Y軸関連(左側) */
+        mBinding.dayPagerLineChart.axisLeft.apply {
+            // ラベルカラー
+            textColor = Color.WHITE
+            // グリッド表示
+            setDrawGridLines(false)
+            // ラベル表示
+            setDrawLabels(false)
+            // 枠線表示
+            setDrawAxisLine(false)
+            // y軸ラベルの表示個数
+            labelCount = 10
+            // y左軸最大値
+//            axisMaximum = 300f
+            // y左軸最小値
+//            axisMinimum = 0f
+        }
+
+        /* データのポインタを画像(Image)にする */
+//        var icon: Drawable? = ResourcesCompat.getDrawable(getResources(), R.drawable.android, null)
+//        val dataEntry = Entry(key.toFloat(), value.toFloat(), icon)
+        // アイコンを非表示にする
+//        lineDataSet.setDrawIcons(false)
+        // 表示するデータ値数を指定
+//        lineChart.setMaxVisibleValueCount(200)
+
+        /* 画像をリサイズ */
+//        val icon: Drawable? = ResourcesCompat.getDrawable(getResources(), R.drawable.myImage, null)
+//        val bitmap = (icon as BitmapDrawable).bitmap
+//        val resizeDrawable = BitmapDrawable(resources, Bitmap.createScaledBitmap(bitmap, 40, 40, true))
+//        val dataEntry = Entry(value.first, value.second, resizeDrawable)
+
+        /* タップした際にデータを取得する */
+        // Chartのリスナーを設定します
+        mBinding.dayPagerLineChart.setOnChartGestureListener(object : OnChartGestureListener {
+            override fun onChartGestureStart(me: MotionEvent?, lastPerformedGesture: ChartTouchListener.ChartGesture?) {
+                // タッチジェスチャーが開始された際の処理
+            }
+
+            override fun onChartGestureEnd(me: MotionEvent?, lastPerformedGesture: ChartTouchListener.ChartGesture?) {
+                // タッチジェスチャーが終了した際の処理
+            }
+
+            override fun onChartLongPressed(me: MotionEvent?) {
+                // 長押しされた際の処理
+            }
+
+            override fun onChartDoubleTapped(me: MotionEvent?) {
+                // ダブルタップされた際の処理
+            }
+
+            override fun onChartSingleTapped(me: MotionEvent?) {
+                // シングルタップされた際の処理
+                // タップされた位置にあるデータを取得してみる
+                val highlight = mBinding.dayPagerLineChart.getHighlightByTouchPoint(me?.x ?: 0f, me?.y ?: 0f)
+                if (highlight != null) {
+                    val entry = mBinding.dayPagerLineChart.data.getDataSetByIndex(highlight.dataSetIndex).getEntryForIndex(highlight.x.toInt())
+                    Log.e("------", entry.y.toString())
+                }
+            }
+
+            override fun onChartFling(me1: MotionEvent?, me2: MotionEvent?, velocityX: Float, velocityY: Float) {
+                // フリックされた際の処理
+            }
+
+            override fun onChartScale(me: MotionEvent?, scaleX: Float, scaleY: Float) {
+                // ズームされた際の処理
+            }
+
+            override fun onChartTranslate(me: MotionEvent?, dX: Float, dY: Float) {
+                // 移動された際の処理
+            }
+        })
+
+        /* グラフをリセットする */
+//        lineChart.data?.clearValues()
+//        lineChart.clear()
+//        lineChart.notifyDataSetChanged()
+//        lineChart.invalidate()
+    }
+}

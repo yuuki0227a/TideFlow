@@ -181,7 +181,7 @@ class TideFlowManager {
      * @param dataRecord 潮汐データ(１行)
      * @return TideFlowDataを返す。
      * */
-    private fun getTideFlowData(dataRecord: String): TideFlowData{
+    fun getTideFlowData(dataRecord: String): TideFlowData{
         val tideFlowData = TideFlowData()
 
         /* データ分割 */
@@ -269,6 +269,40 @@ class TideFlowManager {
             e.printStackTrace()
             println("ファイル保存失敗")
         }
+    }
+
+    /**
+     * ファイルから読み込んだ潮汐データのリストを返す。
+     * @param context コンテキスト
+     * @param fileNameYear 潮汐データのファイルネームの年。(yyyy_xx.txt) xx: ロケーション
+     * @return データリスト
+     * */
+    fun getTideFlowDataList(context: Context, fileNameYear: Int, locationName: String): List<String>{
+        var fileInputStream: FileInputStream? = null
+        var tideFlowDataList: List<String> = listOf()
+        try {
+            // ファイル名を作成
+            val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
+            // ファイル入力ストリームを開く
+            fileInputStream = context.openFileInput(fileName)
+            // ストリームからデータを読み込む
+            val inputStreamReader = fileInputStream.bufferedReader()
+            val stringBuilder = StringBuilder()
+            var line: String?
+            while (inputStreamReader.readLine().also { line = it } != null) {
+                stringBuilder.append(line).append('\n')
+            }
+            // 読み込んだデータを文字列として返す
+            val data = stringBuilder.toString()
+            // リストにする。
+            tideFlowDataList = data.lines()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            // ストリームを閉じる
+            fileInputStream?.close()
+        }
+        return tideFlowDataList
     }
 
     /**

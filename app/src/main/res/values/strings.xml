@@ -20,4 +20,6 @@
     <string name="calender_day_of_week_thursday">木</string>
     <string name="calender_day_of_week_friday">金</string>
     <string name="calender_day_of_week_saturday">土</string>
+
+    <string name="day_pager_def_str">-</string>
 </resources>
