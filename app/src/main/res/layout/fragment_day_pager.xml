@@ -17,37 +17,6 @@
             android:layout_margin="10dp"
             android:orientation="vertical">
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="5dp"-->
-<!--                android:gravity="center_horizontal|center_vertical"-->
-<!--                android:orientation="horizontal"-->
-<!--                tools:visibility="gone">-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/day_pager_date"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="0dp"-->
-<!--                    android:layout_marginEnd="10dp"-->
-<!--                    android:gravity="center_horizontal|center_vertical"-->
-<!--                    android:text="@string/day_pager_def_str"-->
-<!--                    android:textSize="34sp"-->
-<!--                    android:textStyle="bold" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/day_pager_date_day_of_week"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_margin="0dp"-->
-<!--                    android:gravity="center_horizontal|center_vertical"-->
-<!--                    android:text="@string/day_pager_def_str"-->
-<!--                    android:textSize="34sp"-->
-<!--                    android:textStyle="bold" />-->
-
-<!--            </LinearLayout>-->
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -313,7 +282,8 @@
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/day_pager_lineChart"
                 android:layout_width="match_parent"
-                android:layout_height="400dp" />
+                android:layout_height="400dp"
+                android:layout_marginBottom="5dp" />
         </LinearLayout>
 
     </LinearLayout>

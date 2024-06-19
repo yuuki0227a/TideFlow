@@ -1,6 +1,8 @@
 package com.tako.tideflow
 
+import android.app.Activity
 import android.graphics.Color
+import android.view.WindowManager
 import android.widget.TextView
 
 object Util {
@@ -57,5 +59,22 @@ object Util {
             }
         }
         return null
+    }
+
+    /**
+     * 画面タッチを無効にする。
+     * */
+    fun disableUserInteraction(activity: Activity) {
+        activity.window?.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        )
+    }
+
+    /**
+     * 画面タッチを有効にする。
+     * */
+    fun enableUserInteraction(activity: Activity) {
+        activity.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 }

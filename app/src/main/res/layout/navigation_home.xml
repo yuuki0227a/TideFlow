@@ -2,10 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_layout_nav_home"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/nav_home_linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -273,11 +275,13 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/loading_progress_bar_linear"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#80000000"
         android:gravity="center_horizontal|center_vertical"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -290,10 +294,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:visibility="visible" />
+                android:id="@+id/loading_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="200dp"
+                android:text="読み込み中です…"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -303,27 +309,12 @@
             android:orientation="vertical">
 
             <ProgressBar
-                android:id="@+id/progressBar"
+                android:id="@+id/loading_progress_bar"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="100dp"
                 android:layout_height="100dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal|center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="200dp"
-                android:text="読み込み中です…" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

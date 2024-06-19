@@ -26,10 +26,14 @@ import com.tako.tideflow.ViewPagerAdapter
 import com.tako.tideflow.databinding.NavigationHomeBinding
 import java.io.File
 import java.io.IOException
-import java.lang.Exception
 import java.time.LocalDate
 
 class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
+
+    companion object{
+        const val ERROR_COUNT_SEC = 5
+        const val ERROR_COUNT_RESET = 0
+    }
 
     private lateinit var mBinding: NavigationHomeBinding
     private lateinit var mContext: Context
@@ -41,8 +45,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     private val mTideFlowDataList: ArrayList<TideFlowData> = arrayListOf()
     // 選択中のタブポジション
     private var mTabSelectedPosition = 0
-    // スレッド管理
-    private var mUpdateFragmentThread: Thread? = null
 
     data class TideFlowData(
         val viewPager2: ViewPager2,
@@ -59,13 +61,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         // スクロール後のポジションを記憶
         var selectedPosition: Int = 0,
     )
-//    private fun memberReset(){
-//        mTideFlowDataMap = mutableMapOf()
-//        mTideFlowDataList = listOf()
-//        mTideDatePosition = mutableMapOf()
-//        mTodayPosition = 0
-//        mSelectedPosition = 0
-//    }
 
     /** ナビゲーションメニューアイコン押下時など、画面作成時のみ通る
      * 更新処理では通らない */
@@ -145,6 +140,10 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         mTabSelectedPosition = SettingSharedPref(mContext).mLocationNameTabSelected
         // 選択中の観測地点の画面を表示する。
         updatePositionView()
+
+        // タブテキストの設定
+        setLocationTabText()
+
         return  mBinding.root
     }
 
@@ -152,11 +151,34 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         println("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         // タブポジションのデータ(観測地点)から画面を作成する。
-        initView(mTideFlowDataList[mTabSelectedPosition])
+        loadFragment(mTideFlowDataList[mTabSelectedPosition])
+        // ロード画面表示
+        showLoadingWindow(true)
     }
 
     /**
-     *
+     * ロード画面表示と画面タッチの有効/無効を切り替える。
+     * @param switch true:画面ON、タッチ無効　　false:画面OFF、タッチ有効
+     * */
+    private fun showLoadingWindow(switch: Boolean){
+        when(switch){
+            true -> {
+                // ロード画面の表示
+                mBinding.loadingProgressBarLinear.isVisible = true
+                // タッチイベントを無効にする
+                activity?.let { Util.disableUserInteraction(it) }
+            }
+            false -> {
+                // ロード画面の表示
+                mBinding.loadingProgressBarLinear.isVisible = false
+                // タッチイベントを無効にする
+                activity?.let { Util.enableUserInteraction(it) }
+            }
+        }
+    }
+
+    /**
+     * viewのイベント登録
      * */
     private fun registerListener(tideFlowData: TideFlowData){
         // スクロールしたときのイベント
@@ -183,18 +205,25 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         mBinding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Log.i("tab","11111")
-                // 選択されたタブポジションを記録する。
-                if (tab != null) {
-                    SettingSharedPref(mContext).mLocationNameTabSelected = tab.position
-                }else{
-                    SettingSharedPref(mContext).mLocationNameTabSelected = 0
+                if(!mBinding.loadingProgressBarLinear.isVisible){
+                    Log.i("tab","11111-2")
+                    mErrorCount = ERROR_COUNT_RESET
+                    // 選択されたタブポジションを記録する。
+                    if (tab != null) {
+                        SettingSharedPref(mContext).mLocationNameTabSelected = tab.position
+                    }else{
+                        SettingSharedPref(mContext).mLocationNameTabSelected = 0
+                    }
+                    // ポジション更新
+                    mTabSelectedPosition = SettingSharedPref(mContext).mLocationNameTabSelected
+                    // 画面切り替え(観測地点の画面を表示する)
+                    updatePositionView()
+                    // タブポジションのデータ(観測地点)から画面を作成する。
+                    loadFragment(mTideFlowDataList[mTabSelectedPosition])
                 }
-                // ポジション更新
-                mTabSelectedPosition = SettingSharedPref(mContext).mLocationNameTabSelected
-                // 画面切り替え(観測地点の画面を表示する)
-                updatePositionView()
-                // タブポジションのデータ(観測地点)から画面を作成する。
-                initView(mTideFlowDataList[mTabSelectedPosition])
+                // ロード画面表示
+                showLoadingWindow(true)
+
             }
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 Log.i("tab","22222")
@@ -206,43 +235,23 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     }
 
     /**
-     * 画面作成(viewpagerなど)
+     * 画面読み込み(viewpagerなど)
      * */
-    private fun initView(tideFlowData: TideFlowData){
-//        Thread{
-//            // ファイル出力が終了していない場合があるため、ファイル作成終了まで待つ。
-//            while (tideFlowData.tideFlowDataMap.isEmpty()){
-//                // 画面更新
-//                updateFragment()
-//                Thread.sleep(300)
-//            }
-//        }.start()
-
-        println("mUpdateFragmentThread!!.isAlive 1  ${mUpdateFragmentThread?.isAlive}")
-//        if(mUpdateFragmentThread != null){
-//            mUpdateFragmentThread = null
-//        }
-        mUpdateFragmentThread = Thread{
-            // 画面更新
-//            updateFragment()
-            // ファイル出力が終了していない場合があるため、ファイル作成終了まで待つ。
-//            if(tideFlowData.tideFlowDataMap.isEmpty()){
-//                Thread.sleep(3000)
-//                updateFragment()
-//            }
+    private fun loadFragment(tideFlowData: TideFlowData){
+        Thread{
             while (tideFlowData.tideFlowDataMap.isEmpty()){
                 // 画面更新
                 updateFragment()
-                Thread.sleep(3000)
+                Thread.sleep(1000)
+                if(ERROR_COUNT_SEC <= mErrorCount){
+                    break
+                }
             }
-        }
-        mUpdateFragmentThread!!.start()
-//        try {
-//            mUpdateFragmentThread?.interrupt()
-//        }catch (e: Exception){
-//            e.printStackTrace()
-//        }
-        println("mUpdateFragmentThread!!.isAlive 2  ${mUpdateFragmentThread?.isAlive}")
+            mHandler.post{
+                // ロード画面非表示
+                showLoadingWindow(false)
+            }
+        }.start()
     }
 
     override fun onStart() {
@@ -263,12 +272,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     override fun onStop() {
         println("onStop")
         super.onStop()
-        try {
-            mUpdateFragmentThread?.interrupt()
-            mUpdateFragmentThread = null
-        }catch (e: InterruptedException){
-            e.printStackTrace()
-        }
     }
 
     override fun onDestroy() {
@@ -293,7 +296,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                 data,
                 tideFlowData.locationName
             )
-//            Toast.makeText(mContext, "ファイル出力 OK", Toast.LENGTH_LONG).show()
+//            Toast.makeText(mContext, "ダウンロード完了", Toast.LENGTH_SHORT).show()
         }
         println("ファイル出力 OK")
     }
@@ -301,43 +304,59 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     /**
      * 通信失敗時に呼ばれる関数
      * */
+    private var mErrorCount = 0
     override fun onError(exception: IOException) {
         mHandler.post {
-            Toast.makeText(mContext, "通信失敗", Toast.LENGTH_LONG).show()
+            mErrorCount++
+            if(ERROR_COUNT_SEC <= mErrorCount){
+                Toast.makeText(mContext, "通信失敗", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    /**
+     *　LocationNameTabのテキストの設定
+     * */
+    private fun setLocationTabText(){
+        /* 観測地点 */
+        // 各タブのインスタンスを取得してテキストを変更
+        mBinding.tabLayout.getTabAt(0)?.text = SettingSharedPref(mContext).mLocation0SpinnerItem
+        mBinding.tabLayout.getTabAt(1)?.text = SettingSharedPref(mContext).mLocation1SpinnerItem
+        mBinding.tabLayout.getTabAt(2)?.text = SettingSharedPref(mContext).mLocation2SpinnerItem
+        mBinding.tabLayout.getTabAt(3)?.text = SettingSharedPref(mContext).mLocation3SpinnerItem
+        mBinding.tabLayout.getTabAt(4)?.text = SettingSharedPref(mContext).mLocation4SpinnerItem
+        mBinding.tabLayout.getTabAt(5)?.text = SettingSharedPref(mContext).mLocation5SpinnerItem
+        mBinding.tabLayout.getTabAt(6)?.text = SettingSharedPref(mContext).mLocation6SpinnerItem
+        mBinding.tabLayout.getTabAt(7)?.text = SettingSharedPref(mContext).mLocation7SpinnerItem
+        mBinding.tabLayout.getTabAt(8)?.text = SettingSharedPref(mContext).mLocation8SpinnerItem
+        mBinding.tabLayout.getTabAt(9)?.text = SettingSharedPref(mContext).mLocation9SpinnerItem
+
+        // tabLayoutの初期ポジション(0～9)
+        val initialPosition = SettingSharedPref(mContext).mLocationNameTabSelected
+        val initialTab = mBinding.tabLayout.getTabAt(initialPosition)
+        if (initialTab != null) {
+//            mBinding.tabLayout.setScrollPosition(initialPosition, 0f, false)
+            mBinding.tabLayout.selectTab(initialTab)
+            mBinding.tabLayout.post {
+                val tabView = (mBinding.tabLayout.getChildAt(0) as ViewGroup).getChildAt(initialPosition)
+                mBinding.tabLayout.scrollTo(tabView.left - (mBinding.tabLayout.width - tabView.width) / 2, 0)
+            }
         }
     }
 
     /**
      * Fragment内のデータを更新する。
      * */
+    var i = 0
     private fun updateFragment(){
+        println("updateFragment():              $i")
+        i++
+
         // 本日日付
         val dateNow = LocalDate.now()
         val year = dateNow.year
         val month = dateNow.monthValue
         val day = dateNow.dayOfMonth
-
-        mHandler.post {
-            /* 観測地点 */
-            // 各タブのインスタンスを取得してテキストを変更
-            mBinding.tabLayout.getTabAt(0)?.text = SettingSharedPref(mContext).mLocation0SpinnerItem
-            mBinding.tabLayout.getTabAt(1)?.text = SettingSharedPref(mContext).mLocation1SpinnerItem
-            mBinding.tabLayout.getTabAt(2)?.text = SettingSharedPref(mContext).mLocation2SpinnerItem
-            mBinding.tabLayout.getTabAt(3)?.text = SettingSharedPref(mContext).mLocation3SpinnerItem
-            mBinding.tabLayout.getTabAt(4)?.text = SettingSharedPref(mContext).mLocation4SpinnerItem
-            mBinding.tabLayout.getTabAt(5)?.text = SettingSharedPref(mContext).mLocation5SpinnerItem
-            mBinding.tabLayout.getTabAt(6)?.text = SettingSharedPref(mContext).mLocation6SpinnerItem
-            mBinding.tabLayout.getTabAt(7)?.text = SettingSharedPref(mContext).mLocation7SpinnerItem
-            mBinding.tabLayout.getTabAt(8)?.text = SettingSharedPref(mContext).mLocation8SpinnerItem
-            mBinding.tabLayout.getTabAt(9)?.text = SettingSharedPref(mContext).mLocation9SpinnerItem
-
-            // tabLayoutの初期ポジション(0～9)
-            val initialPosition = SettingSharedPref(mContext).mLocationNameTabSelected
-            val initialTab = mBinding.tabLayout.getTabAt(initialPosition)
-            if (initialTab != null) {
-                mBinding.tabLayout.selectTab(initialTab)
-            }
-        }
 
         /* 選択中の観測地点の取得 */
         // タブレイアウトから選択中のロケーションのシンボルを取得
@@ -352,10 +371,10 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
             if (!File(mTideFlowManager.getFilePath(mContext, dateNow.year, locationName)).exists()) {
                 /* ない場合は取得する。ファイル出力も行う。 */
                 // データ取得/出力処理とコールバックのセット(本年)
-                mTideFlowManager.getTideFlowDataTxt(dateNow.year, locationName, this)
+                mTideFlowManager.getTideFlowDataTxt(mContext, dateNow.year, locationName, this)
             }
             // ファイル読み込み(Map)
-            mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateNow.year, locationName)
+            mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateNow, locationName)
 
             println("★★★　mTideFlowDataMap  ${mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap.size}")
 

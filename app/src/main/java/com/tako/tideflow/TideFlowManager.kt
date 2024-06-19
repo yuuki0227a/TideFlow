@@ -1,6 +1,7 @@
 package com.tako.tideflow
 
 import android.content.Context
+import com.tako.tideflow.navigation.NavigationHome
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
@@ -8,6 +9,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import kotlin.concurrent.thread
 
 class TideFlowManager {
@@ -81,6 +84,11 @@ class TideFlowManager {
         const val RECORD_LENGTH_MAX = 136
         // 潮汐データのファイルネームフォーマット
         const val TIDE_FILE_TXT_NAME = "%s.txt"
+        // メモリに取り込むデータの前後範囲
+        const val READ_DATA_RANGE = 20
+        const val RECORD_DATE_YEAR_START = 72
+        const val RECORD_DATE_MONTH_START = 74
+        const val RECORD_DATE_DAY_START = 76
     }
 
     /**
@@ -94,14 +102,15 @@ class TideFlowManager {
     /**
      * データ受信完了時にコールバックを呼び出す関数
      * */
-    private fun fetchData(url: String, callback: DataFetchCallback) {
+    private fun fetchData(context: Context, url: String, callback: DataFetchCallback) {
+//        Handler(Looper.getMainLooper()).post {
+//            Toast.makeText(context, "ダウンロード中", Toast.LENGTH_SHORT).show()
+//        }
         thread {
             val client = OkHttpClient()
-
             val request = Request.Builder()
                 .url(url)
                 .build()
-
             try {
                 val response: Response = client.newCall(request).execute()
                 val responseData = response.body?.string()
@@ -138,12 +147,12 @@ class TideFlowManager {
      * @param locationName 観測地点
      * @param callback コールバック先(インターフェイスの実装先)を指定する。
      * */
-    fun getTideFlowDataTxt(year: Int, locationName: String, callback: DataFetchCallback){
+    fun getTideFlowDataTxt(context: Context, year: Int, locationName: String, callback: DataFetchCallback){
         // URL作成
         val url = String.format(TIDE_DATA_TXT_URL_FORMAT, year, locationName)
         println("url $url")
         // データ取得
-        fetchData(url, callback)
+        fetchData(context, url, callback)
     }
 
     /**
@@ -165,14 +174,27 @@ class TideFlowManager {
      * @param data 潮汐データ(すべて)
      * @return TideFlowDataのMapを返す。
      * */
-    private fun getTideFlowDataMap(data: String): MutableMap<Triple<Int, Int, Int>, TideFlowData>{
+    private fun getTideFlowDataMap(data: String, currentDate: LocalDate): MutableMap<Triple<Int, Int, Int>, TideFlowData>{
         val tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowData> = mutableMapOf()
         // レコードをマップに分割する。
-        for(dataRecord in data.lines()){
-            if(RECORD_LENGTH_MAX == dataRecord.length){
-                val tideFlowData = getTideFlowData(dataRecord)
-                tideFlowDataMap[tideFlowData.tideDate] = tideFlowData
+        for (dataRecord in data.lines()) {
+            if (RECORD_LENGTH_MAX == dataRecord.length) {
+                val year = dataRecord.substring(RECORD_DATE_YEAR_START, RECORD_DATE_YEAR_START+2).trim().toInt() + 2000
+                val month = dataRecord.substring(RECORD_DATE_MONTH_START, RECORD_DATE_MONTH_START+2).trim().toInt()
+                val day = dataRecord.substring(RECORD_DATE_DAY_START, RECORD_DATE_DAY_START+2).trim().toInt()
+                val recordDate = LocalDate.of(year, month, day)
+                var diff = ChronoUnit.DAYS.between(currentDate, recordDate)
+                // マイナス値の場合はプラスにする。
+                if (diff < 0) {
+                    diff *= -1
+                }
+                // 指定日から●●日の場合はデータをメモリに格納する。
+                if (diff <= READ_DATA_RANGE) {
+                    val tideFlowData = getTideFlowData(dataRecord)
+                    tideFlowDataMap[tideFlowData.tideDate] = tideFlowData
+                }
             }
+
         }
         return tideFlowDataMap
     }
@@ -315,12 +337,12 @@ class TideFlowManager {
      * @param fileNameYear 潮汐データのファイルネームの年。(yyyy_xx.txt) xx: ロケーション
      * @return 潮汐の生データ。※ファイルがなければnull
      * */
-    fun readFromTideFileTxt(context: Context, fileNameYear: Int, locationName: String): MutableMap<Triple<Int, Int, Int>, TideFlowData> {
+    fun readFromTideFileTxt(context: Context, date: LocalDate, locationName: String): MutableMap<Triple<Int, Int, Int>, TideFlowData> {
         var fileInputStream: FileInputStream? = null
         var tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowData> = mutableMapOf()
         try {
             // ファイル名を作成
-            val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", fileNameYear, locationName))
+            val fileName = String.format(TIDE_FILE_TXT_NAME, String.format("%s_%s", date.year, locationName))
             // 存在確認
             if(!File(context.filesDir, fileName).exists()){
                 return tideFlowDataMap
@@ -337,7 +359,7 @@ class TideFlowManager {
             // 読み込んだデータを文字列として返す
             val data = stringBuilder.toString()
             // tideFlowDataMapを作成する。
-            tideFlowDataMap = getTideFlowDataMap(data)
+            tideFlowDataMap = getTideFlowDataMap(data, date)
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {
