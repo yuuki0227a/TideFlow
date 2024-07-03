@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tako.tideflow.databinding.ActivityMainBinding
 import java.lang.Exception
 
@@ -22,11 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
 
-        /*TODO. 表示しても画面操作が可能
-        *  背景色を透過したい。*/
-//        mBinding.roadingFrameLayout.isVisible = false
-
-//        mBinding.constraintLayoutMain.isEnabled = true
+        /*TODO. */
+        // ThreeTenBPの初期化
+//        AndroidThreeTen.init(this)
     }
 
     override fun onResume() {

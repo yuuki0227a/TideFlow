@@ -1,6 +1,8 @@
 package com.tako.tideflow.navigation
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -17,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tako.tideflow.LocationList
 import com.tako.tideflow.R
 import com.tako.tideflow.SettingSharedPref
@@ -26,6 +29,7 @@ import com.tako.tideflow.ViewPagerAdapter
 import com.tako.tideflow.databinding.NavigationHomeBinding
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import java.time.LocalDate
 
 class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
@@ -154,6 +158,21 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         loadFragment(mTideFlowDataList[mTabSelectedPosition])
         // ロード画面表示
         showLoadingWindow(true)
+        // ThreeTenBPの初期化
+        AndroidThreeTen.init(mContext)
+
+        /*TODO. テスト*/
+        try {
+            var today = org.threeten.bp.LocalDate.now()
+            for(index in 0 until 5){
+                val moonAge = getMoonAge(today)
+                println("日付: $today")
+                println("月齢: $moonAge")
+                today = today.plusDays(1L)
+            }
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     /**
@@ -232,6 +251,12 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                 Log.i("tab","33333")
             }
         })
+
+        //TODO. 潮見表(大阪)ボタン
+        mBinding.sioMieyellButton.setOnClickListener {
+            val url = "https://sio.mieyell.jp/select?po=52706"
+            openBrowser(url)
+        }
     }
 
     /**
@@ -439,6 +464,28 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         }
         // タブポジションのデータを表示する。
         mTideFlowDataList[mTabSelectedPosition].linearLayout.isVisible = true
+    }
+
+    /**
+     * 指定URLで外部ブラウザ(規定ブラウザ)を開く。
+     * @param url 開くページ
+     * */
+    private fun openBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
+    }
+
+    /**
+     *
+     * */
+    private fun getMoonAge(date: org.threeten.bp.LocalDate): Double {
+        // 2000年1月6日の満月日を基準日とする
+        val baseDate = org.threeten.bp.LocalDate.of(2000, 1, 6)
+        val days = org.threeten.bp.temporal.ChronoUnit.DAYS.between(baseDate, date)
+        val synodicMonth = 29.53058867 // 平均朔望月（約29.53日）
+
+        return (days % synodicMonth) // 月齢
     }
 
 }
