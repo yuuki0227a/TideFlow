@@ -5,10 +5,10 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/menu_home" />
 
-<!--    <item-->
-<!--        android:id="@+id/navi_calendar"-->
-<!--        android:icon="@drawable/ic_baseline_calendar_month_24"-->
-<!--        android:title="@string/menu_calendar" />-->
+    <item
+        android:id="@+id/navi_calendar"
+        android:icon="@drawable/ic_baseline_calendar_month_24"
+        android:title="@string/menu_calendar" />
 
 <!--    <item-->
 <!--        android:id="@+id/navi_graph"-->

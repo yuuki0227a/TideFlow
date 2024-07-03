@@ -331,7 +331,7 @@
             android:id="@+id/sio_mieyell_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="潮見表(大阪)" />
+            android:text="月齢カレンダー" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

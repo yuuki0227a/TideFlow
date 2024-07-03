@@ -254,7 +254,8 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 
         //TODO. 潮見表(大阪)ボタン
         mBinding.sioMieyellButton.setOnClickListener {
-            val url = "https://sio.mieyell.jp/select?po=52706"
+            val url = "https://koyomi8.com/moonage.html"
+//            val url = "https://sio.mieyell.jp/select?po=52706"
             openBrowser(url)
         }
     }
