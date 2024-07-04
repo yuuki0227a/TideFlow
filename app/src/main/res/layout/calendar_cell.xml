@@ -22,7 +22,7 @@
         tools:text="日付" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutCalender"
+        android:id="@+id/calender_day_linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
@@ -32,14 +32,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dateText">
 
-        <TextView
-            android:id="@+id/calenderDayBlock"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal|center_vertical"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-<!--        <ProgressBar-->
+            <TextView
+                android:id="@+id/calender_day_tide_condition_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="潮"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/calender_day_moon_age_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="月齢"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/calender_day_imageView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:srcCompat="@android:drawable/ic_menu_gallery" />
+        </LinearLayout>
+
+        <!--        <ProgressBar-->
 <!--            android:id="@+id/calenderProgressBar"-->
 <!--            style="?android:attr/progressBarStyleHorizontal"-->
 <!--            android:layout_width="match_parent"-->

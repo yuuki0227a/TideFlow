@@ -6,9 +6,11 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.threetenabp.AndroidThreeTen
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*
@@ -73,7 +75,7 @@ class DateManager(private val date:Date){
     }
 }
 
-class DateAdapter(private val context: Context, date:Date):RecyclerView.Adapter<DateAdapter.DateAdapterHolder>() {
+class DateAdapter(context: Context, date:Date):RecyclerView.Adapter<DateAdapter.DateAdapterHolder>() {
 
     // リスナー格納変数
     private lateinit var listener: ((Int, DateAdapterHolder) -> Unit)
@@ -81,20 +83,25 @@ class DateAdapter(private val context: Context, date:Date):RecyclerView.Adapter<
     private val inflater = LayoutInflater.from(context)
     private var dateManager: DateManager = DateManager(date)
     private var dateList: List<Date> = dateManager.getDays()
-//    private var mStepsArray: ArrayList<Steps> = arrayListOf()
-//    private val setting: Setting = Setting.getNewSetting(context)
 
-    class DateAdapterHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val linearLayoutCalender: LinearLayout = view.findViewById(R.id.linearLayoutCalender)
-        val dateText: TextView = view.findViewById<TextView>(R.id.dateText)
-        val calenderDayBlock: TextView = view.findViewById<TextView>(R.id.calenderDayBlock)
-//        val progressBar: ProgressBar = view.findViewById<ProgressBar>(R.id.calenderProgressBar)
-        lateinit var date: LocalDate
+    init {
+        // ThreeTenBPの初期化
+        AndroidThreeTen.init(context)
     }
 
-//    init {
-//        mStepsArray = StepsDBHelper(context).findByAllOrderByDateAsc()
-//    }
+    class DateAdapterHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val calenderDayLinearLayout: LinearLayout = view.findViewById(R.id.calender_day_linearLayout)
+        // 日付
+        val dateText: TextView = view.findViewById(R.id.dateText)
+        // 月齢
+        val calenderDayMoonAgeTextview: TextView = view.findViewById(R.id.calender_day_moon_age_textview)
+        // 潮状態
+        val calenderDayTideConditionTextview: TextView = view.findViewById(R.id.calender_day_tide_condition_textview)
+        // 月画像
+        val calenderDayImageView: ImageView = view.findViewById(R.id.calender_day_imageView)
+        // ポジションの日付
+        lateinit var date: LocalDate
+    }
 
     //recyclerViewで並べる数
     override fun getItemCount(): Int {
@@ -116,17 +123,34 @@ class DateAdapter(private val context: Context, date:Date):RecyclerView.Adapter<
     @SuppressLint("SimpleDateFormat")
     override fun onBindViewHolder(holder: DateAdapterHolder, position: Int) {
 
+        /* 日付の初期化 */
+        // 日付をポジションから取得
         val date: Date = dateList[position]
-
         val sdf = SimpleDateFormat("yyyy-MM-dd")
         val localDate = LocalDate.parse(sdf.format(date))
         holder.date = localDate
-//        val steps: Steps? = StepsDBHelper(context).findByStepsDate(localDate.toString())
+        /* 月画像、月齢、潮状態の取得 */
+        // threeten.bpのLocalDateの取得
+        val bpLocalDate = org.threeten.bp.LocalDate.of(localDate.year, localDate.monthValue, localDate.dayOfMonth)
+        // 月齢の取得
+        val moonAge = Util.getMoonAge(bpLocalDate)
+        // 少数第一位以下を切り捨てる。
+        val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
+        // 月齢から潮情報を取得する。
+        val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
 
+        /* データの表示 */
         //日付のみ表示させる
         val dateFormat = SimpleDateFormat("d", Locale.JAPAN)
         holder.dateText.text = dateFormat.format(date)
+        // 月齢
+        holder.calenderDayMoonAgeTextview.text = String.format("月齢 %.1f", roundedMoonAge)
+        // 潮状態
+        holder.calenderDayTideConditionTextview.text = tideCondition
+        //TODO. 月画像
+//        holder.calenderDayImageView
 
+        // 当日の場合の設定
         if (dateManager.isToday(date)) {
             holder.view.setBackgroundResource(R.drawable.border_today)
 //            holder.view.setBackgroundColor(Color.YELLOW) //当日の背景は黄色
@@ -145,12 +169,18 @@ class DateAdapter(private val context: Context, date:Date):RecyclerView.Adapter<
                     Color.BLACK
                 }
             }
+        // 日付の色の設定
         holder.dateText.setTextColor(colorId)
+        // 月齢、潮状態の色の設定
+        holder.calenderDayMoonAgeTextview.setTextColor(Color.BLACK)
+        holder.calenderDayTideConditionTextview.setTextColor(Color.BLACK)
 
         //当月以外は灰色
         if (!dateManager.isCurrentMonth(date)) {
             holder.dateText.setTextColor(Color.LTGRAY)
-            holder.calenderDayBlock.setTextColor(Color.LTGRAY)
+            holder.calenderDayMoonAgeTextview.setTextColor(Color.LTGRAY)
+            holder.calenderDayMoonAgeTextview.setTextColor(Color.LTGRAY)
+            holder.calenderDayTideConditionTextview.setTextColor(Color.LTGRAY)
         }
 
         //タップしたときの処理を追加
@@ -159,23 +189,6 @@ class DateAdapter(private val context: Context, date:Date):RecyclerView.Adapter<
         }
 
 
-        /** プログレスバー設定 */
-//        if (steps == null) {
-//            holder.calenderDayBlock.isVisible = false
-//            holder.progressBar.isVisible = false
-//        }else{
-//            holder.progressBar.max = steps.stepGoal
-////        holder.progressBar.max = setting.stepsGoal.toInt()
-//            holder.calenderDayBlock.text = "${steps.getStepCount()}"
-//            if (steps.stepGoal <= steps.getStepCount()) {
-//                holder.progressBar.secondaryProgress = steps.stepGoal
-//            } else {
-//                holder.progressBar.progress = steps.getStepCount()
-//            }
-//        }
-
-        /** 背景設定 */
-//        holder.linearLayoutCalender.setBackgroundResource(R.drawable.border_calendar)
 
     }
 
