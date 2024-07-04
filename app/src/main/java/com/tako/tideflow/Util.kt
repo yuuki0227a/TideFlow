@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import java.lang.Exception
 
 object Util {
@@ -83,11 +84,11 @@ object Util {
     }
 
 
-    private const val SPRING_TIDE = "大潮"
-    private const val NEAD_TIDE = "中潮"
-    private const val NEAP_TIDE = "小潮"
-    private const val LONG_TIDE = "長潮"
-    private const val YOUNG_TIDE = "若潮"
+    const val TIDE_TYPE_SPRING = "大潮"
+    const val TIDE_TYPE_MIDDLE = "中潮"
+    const val TIDE_TYPE_NEAP = "小潮"
+    const val TIDE_TYPE_LONG = "長潮"
+    const val TIDE_TYPE_YOUNG = "若潮"
     /**
      * 月齢から潮の情報を返す。
      * @param lunarAge 月齢(少数)
@@ -95,18 +96,18 @@ object Util {
      * */
     fun getTideInfoFromLunarPhase(lunarAge: Double): String? {
         return when(lunarAge.toInt()){
-            29,0,1,2 -> SPRING_TIDE
-            3,4,5,6 -> NEAD_TIDE
-            7,8,9 -> NEAP_TIDE
-            10 -> LONG_TIDE
-            11 -> YOUNG_TIDE
-            12,13 -> NEAD_TIDE
-            14,15,16,17 -> SPRING_TIDE
-            18,19,20,21 -> NEAD_TIDE
-            22,23,24 -> NEAP_TIDE
-            25 -> LONG_TIDE
-            26 -> YOUNG_TIDE
-            27,28 -> NEAD_TIDE
+            29,0,1,2 -> TIDE_TYPE_SPRING
+            3,4,5,6 -> TIDE_TYPE_MIDDLE
+            7,8,9 -> TIDE_TYPE_NEAP
+            10 -> TIDE_TYPE_LONG
+            11 -> TIDE_TYPE_YOUNG
+            12,13 -> TIDE_TYPE_MIDDLE
+            14,15,16,17 -> TIDE_TYPE_SPRING
+            18,19,20,21 -> TIDE_TYPE_MIDDLE
+            22,23,24 -> TIDE_TYPE_NEAP
+            25 -> TIDE_TYPE_LONG
+            26 -> TIDE_TYPE_YOUNG
+            27,28 -> TIDE_TYPE_MIDDLE
             else -> null
         }
     }
@@ -135,5 +136,24 @@ object Util {
 
         return (days % synodicMonth) // 月齢
     }
+
+    /**
+     * 潮の状態ごとにテキストカラーを指定する。
+     * @param context コンテキスト
+     * @param textView 色を変えるview
+     * @param tideType 潮情報(大潮、小潮など)
+     * */
+    fun setColorForTideType(context: Context, textView: TextView, tideType: String) {
+        val color = when (tideType) {
+            TIDE_TYPE_SPRING -> ContextCompat.getColor(context, R.color.calender_spring)
+            TIDE_TYPE_MIDDLE -> ContextCompat.getColor(context, R.color.calender_middle)
+            TIDE_TYPE_NEAP -> ContextCompat.getColor(context, R.color.calender_neap)
+            TIDE_TYPE_LONG -> ContextCompat.getColor(context, R.color.calender_long)
+            TIDE_TYPE_YOUNG -> ContextCompat.getColor(context, R.color.calender_young)
+            else -> ContextCompat.getColor(context, R.color.calender_def)  // デフォルトの色
+        }
+        textView.setTextColor(color)
+    }
+
 
 }

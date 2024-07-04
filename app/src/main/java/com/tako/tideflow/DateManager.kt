@@ -3,12 +3,14 @@ package com.tako.tideflow
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.graphics.ColorUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.threetenabp.AndroidThreeTen
 import java.text.SimpleDateFormat
@@ -75,7 +77,7 @@ class DateManager(private val date:Date){
     }
 }
 
-class DateAdapter(context: Context, date:Date):RecyclerView.Adapter<DateAdapter.DateAdapterHolder>() {
+class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdapter.DateAdapterHolder>() {
 
     // リスナー格納変数
     private lateinit var listener: ((Int, DateAdapterHolder) -> Unit)
@@ -175,10 +177,15 @@ class DateAdapter(context: Context, date:Date):RecyclerView.Adapter<DateAdapter.
         holder.calenderDayMoonAgeTextview.setTextColor(Color.BLACK)
         holder.calenderDayTideConditionTextview.setTextColor(Color.BLACK)
 
-        //当月以外は灰色
+        // 潮状態ごとに色分けする。
+        if(tideCondition != null){
+            Util.setColorForTideType(context, holder.calenderDayTideConditionTextview, tideCondition)
+        }
+
+        //当月以外の場合の処理
         if (!dateManager.isCurrentMonth(date)) {
+            /* テキストカラーを灰色にする。 */
             holder.dateText.setTextColor(Color.LTGRAY)
-            holder.calenderDayMoonAgeTextview.setTextColor(Color.LTGRAY)
             holder.calenderDayMoonAgeTextview.setTextColor(Color.LTGRAY)
             holder.calenderDayTideConditionTextview.setTextColor(Color.LTGRAY)
         }

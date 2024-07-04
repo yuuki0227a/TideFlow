@@ -14,7 +14,7 @@
         android:name="com.tako.tideflow.navigation.NavigationCalender"
         android:label="Fragment2">
         <action
-            android:id="@+id/action_navi_calendar_to_navi_steps"
+            android:id="@+id/action_navi_calendar_to_navi_home"
             app:destination="@id/navi_home"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"

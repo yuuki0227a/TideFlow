@@ -4,4 +4,13 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorAccent">#FF4081</color>
     <color name="purple">#FFDA00FF</color>
+
+    <color name="tab_date_center">#00C3FF</color>
+
+    <color name="calender_spring">#FF0000</color>
+    <color name="calender_middle">#FF6F00</color>
+    <color name="calender_neap">#0040FF</color>
+    <color name="calender_long">#FFDA00FF</color>
+    <color name="calender_young">#00CC51</color>
+    <color name="calender_def">#000000</color>
 </resources>

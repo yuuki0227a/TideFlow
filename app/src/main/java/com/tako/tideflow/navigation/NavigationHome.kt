@@ -1,8 +1,6 @@
 package com.tako.tideflow.navigation
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,18 +18,17 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.tako.tideflow.CalendarFragment
 import com.tako.tideflow.LocationList
 import com.tako.tideflow.R
 import com.tako.tideflow.SettingSharedPref
 import com.tako.tideflow.TideFlowManager
 import com.tako.tideflow.Util
-import com.tako.tideflow.Util.getMoonAge
 import com.tako.tideflow.Util.openBrowser
 import com.tako.tideflow.ViewPagerAdapter
 import com.tako.tideflow.databinding.NavigationHomeBinding
 import java.io.File
 import java.io.IOException
-import java.lang.Exception
 import java.time.LocalDate
 
 class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
@@ -368,11 +365,21 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         println("updateFragment():              $i")
         i++
 
-        // 本日日付
-        val dateNow = LocalDate.now()
-        val year = dateNow.year
-        val month = dateNow.monthValue
-        val day = dateNow.dayOfMonth
+        /* タブセンターの日付 */
+        // カレンダーから遷移した場合は選択した日付を起点にする。
+        val dateCenter = if (CalendarFragment.selectDate != null) {
+            CalendarFragment.selectDate!!
+        } else {
+            LocalDate.now()
+        }
+        // selectDateをnullに戻す。
+        if(CalendarFragment.selectDate != null){
+            CalendarFragment.selectDate = null
+        }
+        /* 年月日を分ける。 */
+        val year = dateCenter.year
+        val month = dateCenter.monthValue
+        val day = dateCenter.dayOfMonth
 
         /* 選択中の観測地点の取得 */
         // タブレイアウトから選択中のロケーションのシンボルを取得
@@ -384,13 +391,13 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         val locationName = locationNameStr ?: ""
         if(locationName.isNotEmpty()){
             // ファイルの存在確認
-            if (!File(mTideFlowManager.getFilePath(mContext, dateNow.year, locationName)).exists()) {
+            if (!File(mTideFlowManager.getFilePath(mContext, dateCenter.year, locationName)).exists()) {
                 /* ない場合は取得する。ファイル出力も行う。 */
                 // データ取得/出力処理とコールバックのセット(本年)
-                mTideFlowManager.getTideFlowDataTxt(mContext, dateNow.year, locationName, this)
+                mTideFlowManager.getTideFlowDataTxt(mContext, dateCenter.year, locationName, this)
             }
             // ファイル読み込み(Map)
-            mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateNow, locationName)
+            mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateCenter, locationName)
 
             // 潮汐データがない場合はリターンする。
             if(mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap.isEmpty()){
@@ -399,7 +406,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 
             mHandler.post{
                 // ファイル読み込み(List)
-                mTideFlowDataList[mTabSelectedPosition].tideFlowDataList = mTideFlowManager.getTideFlowDataList(mContext, dateNow.year, locationName)
+                mTideFlowDataList[mTabSelectedPosition].tideFlowDataList = mTideFlowManager.getTideFlowDataList(mContext, dateCenter.year, locationName)
                 // ページャーアダプターのセット
                 mTideFlowDataList[mTabSelectedPosition].viewPager2.adapter = ViewPagerAdapter(
                     this,
@@ -430,7 +437,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 
                         if (tabDate.isEqual(currentDate)) {
                             // 今日の日付の場合、テキストの色を変更
-                            tabTextView.setTextColor(ContextCompat.getColor(mContext, R.color.purple))
+                            tabTextView.setTextColor(ContextCompat.getColor(mContext, R.color.tab_date_center))
                         }
                     } else {
                         tabTextView.text = "-"

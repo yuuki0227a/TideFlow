@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tako.tideflow.navigation.NavigationCalender
 import com.tako.tideflow.databinding.CalendarFragmentBinding
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 private const val ARG_DATE = "date"
@@ -19,6 +21,8 @@ private const val ARG_DATE = "date"
 class CalendarFragment : Fragment() {
 
     companion object {
+        // 選択した日付
+        var selectDate: LocalDate? = null
 
         //Fragmentに引数を渡す
         @JvmStatic
@@ -78,7 +82,12 @@ class CalendarFragment : Fragment() {
 
             //タップされたときの処理
             adapter.setOnItemClickListener { _: Int, holder: DateAdapter.DateAdapterHolder ->
-
+                // 選択した日付
+                selectDate = holder.date
+                // NavController取得
+                val navController = findNavController()
+                // ホーム画面に遷移
+                navController.navigate(R.id.action_navi_calendar_to_navi_home)
 //                if(MainActivity.positionDateMap[holder.date] == null){
 //                    return@setOnItemClickListener
 //                }
