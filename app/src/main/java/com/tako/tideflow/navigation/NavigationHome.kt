@@ -25,6 +25,8 @@ import com.tako.tideflow.R
 import com.tako.tideflow.SettingSharedPref
 import com.tako.tideflow.TideFlowManager
 import com.tako.tideflow.Util
+import com.tako.tideflow.Util.getMoonAge
+import com.tako.tideflow.Util.openBrowser
 import com.tako.tideflow.ViewPagerAdapter
 import com.tako.tideflow.databinding.NavigationHomeBinding
 import java.io.File
@@ -154,25 +156,13 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        // ThreeTenBPの初期化
+        AndroidThreeTen.init(mContext)
         // タブポジションのデータ(観測地点)から画面を作成する。
         loadFragment(mTideFlowDataList[mTabSelectedPosition])
         // ロード画面表示
         showLoadingWindow(true)
-        // ThreeTenBPの初期化
-        AndroidThreeTen.init(mContext)
 
-        /*TODO. テスト*/
-        try {
-            var today = org.threeten.bp.LocalDate.now()
-            for(index in 0 until 5){
-                val moonAge = getMoonAge(today)
-                println("日付: $today")
-                println("月齢: $moonAge")
-                today = today.plusDays(1L)
-            }
-        }catch (e: Exception){
-            e.printStackTrace()
-        }
     }
 
     /**
@@ -256,7 +246,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         mBinding.sioMieyellButton.setOnClickListener {
             val url = "https://koyomi8.com/moonage.html"
 //            val url = "https://sio.mieyell.jp/select?po=52706"
-            openBrowser(url)
+            openBrowser(mContext, url)
         }
     }
 
@@ -402,8 +392,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
             // ファイル読み込み(Map)
             mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateNow, locationName)
 
-            println("★★★　mTideFlowDataMap  ${mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap.size}")
-
             // 潮汐データがない場合はリターンする。
             if(mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap.isEmpty()){
                 return
@@ -467,26 +455,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         mTideFlowDataList[mTabSelectedPosition].linearLayout.isVisible = true
     }
 
-    /**
-     * 指定URLで外部ブラウザ(規定ブラウザ)を開く。
-     * @param url 開くページ
-     * */
-    private fun openBrowser(url: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        startActivity(intent)
-    }
 
-    /**
-     *
-     * */
-    private fun getMoonAge(date: org.threeten.bp.LocalDate): Double {
-        // 2000年1月6日の満月日を基準日とする
-        val baseDate = org.threeten.bp.LocalDate.of(2000, 1, 6)
-        val days = org.threeten.bp.temporal.ChronoUnit.DAYS.between(baseDate, date)
-        val synodicMonth = 29.53058867 // 平均朔望月（約29.53日）
-
-        return (days % synodicMonth) // 月齢
-    }
 
 }

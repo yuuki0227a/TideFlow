@@ -1,9 +1,13 @@
 package com.tako.tideflow
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.view.WindowManager
 import android.widget.TextView
+import java.lang.Exception
 
 object Util {
     // 曜日をカッコでくくる。
@@ -77,4 +81,59 @@ object Util {
     fun enableUserInteraction(activity: Activity) {
         activity.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
+
+
+    private const val SPRING_TIDE = "大潮"
+    private const val NEAD_TIDE = "中潮"
+    private const val NEAP_TIDE = "小潮"
+    private const val LONG_TIDE = "長潮"
+    private const val YOUNG_TIDE = "若潮"
+    /**
+     * 月齢から潮の情報を返す。
+     * @param lunarAge 月齢(少数)
+     * @return 潮の状態を返す。範囲外の数値の場合、nullを返す。
+     * */
+    fun getTideInfoFromLunarPhase(lunarAge: Double): String? {
+        return when(lunarAge.toInt()){
+            29,0,1,2 -> SPRING_TIDE
+            3,4,5,6 -> NEAD_TIDE
+            7,8,9 -> NEAP_TIDE
+            10 -> LONG_TIDE
+            11 -> YOUNG_TIDE
+            12,13 -> NEAD_TIDE
+            14,15,16,17 -> SPRING_TIDE
+            18,19,20,21 -> NEAD_TIDE
+            22,23,24 -> NEAP_TIDE
+            25 -> LONG_TIDE
+            26 -> YOUNG_TIDE
+            27,28 -> NEAD_TIDE
+            else -> null
+        }
+    }
+
+    /**
+     * 指定URLで外部ブラウザ(規定ブラウザ)を開く。
+     * @param context コンテキスト
+     * @param url 開くページのURL
+     * */
+    fun openBrowser(context: Context, url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        context.startActivity(intent)
+    }
+
+    /**
+     * 日付から月齢を求める。
+     * @param date [threeten.bp]のLocalDate
+     * @return 月齢(少数あり)
+     * */
+    fun getMoonAge(date: org.threeten.bp.LocalDate): Double {
+        // 2000年1月6日の満月日を基準日とする
+        val baseDate = org.threeten.bp.LocalDate.of(2000, 1, 6)
+        val days = org.threeten.bp.temporal.ChronoUnit.DAYS.between(baseDate, date)
+        val synodicMonth = 29.53058867 // 平均朔望月（約29.53日）
+
+        return (days % synodicMonth) // 月齢
+    }
+
 }

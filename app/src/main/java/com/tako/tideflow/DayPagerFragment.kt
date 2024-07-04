@@ -45,25 +45,23 @@ class DayPagerFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        /* 日付表示 */
-//        mBinding.dayPagerDate.text =
-//            String.format("%04d/%02d/%02d", tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third)
-//        /* 曜日表示 */
-//        // 曜日取得
-//        val dayOfWeekEN = LocalDate.of(
-//            tideFlowData.tideDate.first,
-//            tideFlowData.tideDate.second,
-//            tideFlowData.tideDate.third
-//        ).dayOfWeek.toString()
-//        // 日本語に変更
-//        val dayOfWeekJP = Util.dayOfWeekENtoJP(dayOfWeekEN)
-//        // viewにセット
-//        mBinding.dayPagerDateDayOfWeek.text = String.format(
-//            Util.DAY_OF_WEEK_FORMAT,
-//            dayOfWeekJP
-//        )
-//        // テキストの色を変更
-//        Util.dayOfWeekTextColorJP(dayOfWeekJP, mBinding.dayPagerDateDayOfWeek)
+
+        /* 月画像、月齢、潮状態の表示 */
+        // threeten.bpのLocalDateの取得
+        val bpLocalDate = org.threeten.bp.LocalDate.of(tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third)
+        // 月齢の取得
+        val moonAge = Util.getMoonAge(bpLocalDate)
+        // 少数第一位以下を切り捨てる。
+        val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
+        // 月齢から潮情報を取得する。
+        val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
+        //TODO. 月画像表示
+//        mBinding.dayPagerMoonImageView
+        // 月齢表示
+        mBinding.dayPagerMoonAgeTextView.text = String.format("%.1f", roundedMoonAge)
+        // 潮状態表示
+        mBinding.dayPagerTideConditionTextView.text = tideCondition
+
         /* 満潮 */
         // 1
         if(tideFlowData.highTideTimes[0].third != 999){
