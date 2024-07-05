@@ -27,16 +27,22 @@ import com.tako.tideflow.Util
 import com.tako.tideflow.Util.openBrowser
 import com.tako.tideflow.ViewPagerAdapter
 import com.tako.tideflow.databinding.NavigationHomeBinding
+import kotlinx.coroutines.delay
 import java.io.File
 import java.io.IOException
 import java.lang.Exception
 import java.time.LocalDate
+import kotlin.concurrent.thread
 
 class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 
     companion object{
         const val ERROR_COUNT_SEC = 5
         const val ERROR_COUNT_RESET = 0
+        const val FILE_WRITE_FINISH_BEFORE = 0
+        const val FILE_WRITE_FINISH_CURRENT = 1
+        const val FILE_WRITE_FINISH_AFTER = 2
+        var isFileWriteFinish: ArrayList<Boolean> = arrayListOf(false, false, false)
     }
 
     private lateinit var mBinding: NavigationHomeBinding
@@ -71,6 +77,8 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         println("onCreate")
         super.onCreate(savedInstanceState)
+        // フラグ初期化
+        isFileWriteFinish = arrayListOf(false, false, false)
     }
 
     /**
@@ -281,7 +289,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
      * ファイルがない場合はファイル出力を行う。
      * @param data 潮汐データの生データ。
      * */
-    override fun onDataFetched(data: String) {
+    override fun onDataFetched(data: String, fileWriteFinishFlag: Int) {
         // データの１行目だけ取り出す。(ファイル名に使用する項目を取り出すため)
         val tideFlowData = mTideFlowManager.getTideFlowData(data.lines()[0])
         mHandler.post {
@@ -294,6 +302,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                 tideFlowData.locationName
             )
 //            Toast.makeText(mContext, "ダウンロード完了", Toast.LENGTH_SHORT).show()
+            isFileWriteFinish[fileWriteFinishFlag] = true
         }
         println("ファイル出力 OK")
     }
@@ -302,12 +311,17 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
      * 通信失敗時に呼ばれる関数
      * */
     private var mErrorCount = 0
-    override fun onError(exception: IOException) {
+    override fun onError(exception: IOException, fileWriteFinishFlag: Int, year: Int) {
         mHandler.post {
             mErrorCount++
             if(ERROR_COUNT_SEC <= mErrorCount){
                 Toast.makeText(mContext, "通信失敗", Toast.LENGTH_SHORT).show()
             }
+            isFileWriteFinish[fileWriteFinishFlag] = true
+            val errorMsg = String.format(
+                "%d年のデータ取得に失敗しました。", year
+            )
+            Toast.makeText(mContext, errorMsg, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -345,6 +359,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
      * Fragment内のデータを更新する。
      * */
     private fun updateFragment(){
+        println("updateFragment()")
         /* タブセンターの日付 */
         // カレンダーから遷移した場合は選択した日付を起点にする。
         val dateCenter = if (CalendarFragment.selectDate != null) {
@@ -352,6 +367,9 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         } else {
             LocalDate.now()
         }
+        val dateMaxRange = dateCenter.plusDays(TideFlowManager.READ_DATA_RANGE.toLong())
+        val dateMinRange = dateCenter.minusDays(TideFlowManager.READ_DATA_RANGE.toLong())
+
         // selectDateをnullに戻す。
         if(CalendarFragment.selectDate != null){
             CalendarFragment.selectDate = null
@@ -370,18 +388,62 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         // 観測地点
         val locationName = locationNameStr ?: ""
         if(locationName.isNotEmpty()){
+            /* ファイル取得処理 */
             // ファイルの存在確認
             if (!File(mTideFlowManager.getFilePath(mContext, dateCenter.year, locationName)).exists()) {
                 /* ない場合は取得する。ファイル出力も行う。 */
                 // データ取得/出力処理とコールバックのセット(本年)
-                mTideFlowManager.getTideFlowDataTxt(mContext, dateCenter.year, locationName, this)
+                mTideFlowManager.getTideFlowDataTxt(mContext, dateCenter.year, locationName, this, FILE_WRITE_FINISH_CURRENT)
+            }else{
+                isFileWriteFinish[FILE_WRITE_FINISH_CURRENT] = true
             }
+            // 来年データを含む場合
+            if(dateCenter.year < dateMaxRange.year){
+                if (!File(mTideFlowManager.getFilePath(mContext, dateMaxRange.year, locationName)).exists()) {
+                    // ※上記と同処理
+                    mTideFlowManager.getTideFlowDataTxt(mContext, dateMaxRange.year, locationName, this, FILE_WRITE_FINISH_AFTER)
+                }else{
+                    isFileWriteFinish[FILE_WRITE_FINISH_AFTER] = true
+                }
+            }else{
+                println(24551651)
+                isFileWriteFinish[FILE_WRITE_FINISH_AFTER] = true
+            }
+            // 去年データを含む場合
+            if(dateMinRange.year < dateCenter.year){
+                if (!File(mTideFlowManager.getFilePath(mContext, dateMinRange.year, locationName)).exists()) {
+                    // ※上記と同処理
+                    mTideFlowManager.getTideFlowDataTxt(mContext, dateMinRange.year, locationName, this, FILE_WRITE_FINISH_BEFORE)
+                }else{
+                    isFileWriteFinish[FILE_WRITE_FINISH_BEFORE] = true
+                }
+            }else{
+                isFileWriteFinish[FILE_WRITE_FINISH_BEFORE] = true
+            }
+
+            println("isFileWriteFinish1  $isFileWriteFinish")
+            while(true){
+                Thread.sleep(100L)
+                if(isFileWriteFinish[0] && isFileWriteFinish[1] && isFileWriteFinish[2]){
+                    break
+                }
+            }
+            println("isFileWriteFinish2  $isFileWriteFinish")
+
+            /* 潮汐データ作成処理 */
+            // dateのリストをまとめる。
+            val dateList: ArrayList<LocalDate> = arrayListOf(dateMinRange, dateCenter, dateMaxRange)
             // ファイル読み込み(Map)
-            mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateCenter, locationName)
+            mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap = mTideFlowManager.readFromTideFileTxt(mContext, dateList, locationName)
 
             // 潮汐データがない場合はリターンする。
             if(mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap.isEmpty()){
                 return
+            }
+
+            /*TODO*/
+            for(map in mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap){
+                println("map $map")
             }
 
             mHandler.post{

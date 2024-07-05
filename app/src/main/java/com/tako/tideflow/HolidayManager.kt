@@ -113,8 +113,10 @@ object HolidayManager {
                 input.readBytes().toString(Charsets.UTF_8)
             }
             for(str in inputStr.lines()){
-                val splitStr = str.split(",")
-                holidays[splitStr[0]] = splitStr[1]
+                if(str.isNotEmpty()){
+                    val splitStr = str.split(",")
+                    holidays[splitStr[0]] = splitStr[1]
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
