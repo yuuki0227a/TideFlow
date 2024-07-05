@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import java.lang.Exception
 
 object Util {
     // 曜日をカッコでくくる。
@@ -148,12 +147,12 @@ object Util {
      * */
     fun setColorForTideType(context: Context, textView: TextView, tideType: String) {
         val color = when (tideType) {
-            TIDE_TYPE_SPRING -> ContextCompat.getColor(context, R.color.calender_spring)
-            TIDE_TYPE_MIDDLE -> ContextCompat.getColor(context, R.color.calender_middle)
-            TIDE_TYPE_NEAP -> ContextCompat.getColor(context, R.color.calender_neap)
-            TIDE_TYPE_LONG -> ContextCompat.getColor(context, R.color.calender_long)
-            TIDE_TYPE_YOUNG -> ContextCompat.getColor(context, R.color.calender_young)
-            else -> ContextCompat.getColor(context, R.color.calender_def)  // デフォルトの色
+            TIDE_TYPE_SPRING -> ContextCompat.getColor(context, R.color.tide_spring)
+            TIDE_TYPE_MIDDLE -> ContextCompat.getColor(context, R.color.tide_middle)
+            TIDE_TYPE_NEAP -> ContextCompat.getColor(context, R.color.tide_neap)
+            TIDE_TYPE_LONG -> ContextCompat.getColor(context, R.color.tide_long)
+            TIDE_TYPE_YOUNG -> ContextCompat.getColor(context, R.color.tide_young)
+            else -> ContextCompat.getColor(context, R.color.tide_def)  // デフォルトの色
         }
         textView.setTextColor(color)
     }

@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.graphics.ColorUtils
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.threetenabp.AndroidThreeTen
 import java.text.SimpleDateFormat
@@ -146,8 +147,9 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         // 日付のみ表示させる
         val dateFormat = SimpleDateFormat("d", Locale.JAPAN)
         holder.dateText.text = dateFormat.format(date)
-        // 月齢
-        holder.calenderDayMoonAgeTextview.text = String.format("月齢 %.1f", roundedMoonAge)
+        //TODO. 月齢
+//        holder.calenderDayMoonAgeTextview.text = String.format("月齢 %.1f", roundedMoonAge)
+        holder.calenderDayMoonAgeTextview.isVisible = false
         // 潮状態
         holder.calenderDayTideConditionTextview.text = tideCondition
         //TODO. 月画像

@@ -41,6 +41,7 @@
                 android:id="@+id/calender_day_tide_condition_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="潮"
                 android:textSize="16sp"
