@@ -1,6 +1,7 @@
 package com.tako.tideflow
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -47,9 +48,7 @@ class CalendarFragment : Fragment() {
     ): View {
         mBinding = CalendarFragmentBinding.inflate(inflater, container, false)
         mContext = mBinding.root.context
-
         mCalendarRecyclerView = mBinding.calendarRecyclerView
-
         return mBinding.root
     }
 

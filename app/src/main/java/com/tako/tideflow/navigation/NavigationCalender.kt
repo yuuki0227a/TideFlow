@@ -17,6 +17,8 @@ import com.tako.tideflow.databinding.NavigationCalenderBinding
 import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -111,7 +113,7 @@ class NavigationCalender : Fragment() {
                     mCalendarViewPager.adapter =
                         object : androidx.viewpager2.adapter.FragmentStateAdapter(this) {
                             // 最大ページ数
-                            override fun getItemCount(): Int = CalendarManager.MAX_COUNT
+                            override fun getItemCount(): Int = CalendarManager.maxCount
                             // 画面作成
                             override fun createFragment(position: Int): Fragment {
                                 return CalendarFragment.newInstance(
@@ -136,7 +138,7 @@ class NavigationCalender : Fragment() {
                     mCalendarViewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL //横方向にスライド
                     // 表示する画面ポジション
                     mCalendarViewPager.setCurrentItem(
-                        CalendarManager.TODAY_COUNT,
+                        CalendarManager.todayCount,
                         false
                     )
                     // ロード画面非表示
@@ -169,16 +171,29 @@ class NavigationCalender : Fragment() {
     //主にFragmentに渡すDateの管理
     class CalendarManager() {
         companion object {
-            const val MAX_COUNT: Int = 400
-            const val TODAY_COUNT: Int = 200
+            const val MAX_COUNT: Int = 36
+            var maxCount = MAX_COUNT
+            const val TODAY_COUNT: Int = 18
+            var todayCount = TODAY_COUNT
             const val DATE_PATTERN: String = "yyyy年MM月"
+        }
+
+        init {
+            val dateNow = LocalDate.now()
+            val dateLastYear = LocalDate.of(dateNow.minusYears(1L).year, 1 ,1)
+            val dateNextYear = LocalDate.of(dateNow.plusYears(1L).year, 12 ,31)
+            val monthsBefore = ChronoUnit.MONTHS.between(dateLastYear, dateNow).toInt()
+            val monthsAfter = ChronoUnit.MONTHS.between(dateNow, dateNextYear).toInt() + 1
+            todayCount = monthsBefore
+            maxCount = monthsBefore + monthsAfter
         }
 
         private val mCalendar: Calendar = Calendar.getInstance()
 
         fun positionToDateString(position: Int): String {
+            println("position  $position")
             val nowDate: Date = mCalendar.time
-            mCalendar.add(Calendar.MONTH, position - TODAY_COUNT)
+            mCalendar.add(Calendar.MONTH, position - todayCount)
             val format = SimpleDateFormat(DATE_PATTERN, Locale.JAPAN)
             // monthの0を消す  2023月03 → 2023年 3月
             val dateString: String = format.format(mCalendar.time).replace("年0", "年 ")
