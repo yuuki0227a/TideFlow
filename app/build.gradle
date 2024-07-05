@@ -61,4 +61,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"  // Android向けのCoroutinesの依存ライブラリ
     // AndroidThreeTenの依存関係を追加
     implementation "com.jakewharton.threetenabp:threetenabp:1.4.4"
+    // JSONのパース
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
 }

@@ -29,6 +29,7 @@ import com.tako.tideflow.ViewPagerAdapter
 import com.tako.tideflow.databinding.NavigationHomeBinding
 import java.io.File
 import java.io.IOException
+import java.lang.Exception
 import java.time.LocalDate
 
 class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
@@ -70,7 +71,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         println("onCreate")
         super.onCreate(savedInstanceState)
-
     }
 
     /**
@@ -155,32 +155,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         super.onViewCreated(view, savedInstanceState)
         // ThreeTenBPの初期化
         AndroidThreeTen.init(mContext)
-        // タブポジションのデータ(観測地点)から画面を作成する。
-        loadFragment(mTideFlowDataList[mTabSelectedPosition])
-        // ロード画面表示
-        showLoadingWindow(true)
-
-    }
-
-    /**
-     * ロード画面表示と画面タッチの有効/無効を切り替える。
-     * @param switch true:画面ON、タッチ無効　　false:画面OFF、タッチ有効
-     * */
-    private fun showLoadingWindow(switch: Boolean){
-        when(switch){
-            true -> {
-                // ロード画面の表示
-                mBinding.loadingProgressBarLinear.isVisible = true
-                // タッチイベントを無効にする
-                activity?.let { Util.disableUserInteraction(it) }
-            }
-            false -> {
-                // ロード画面の表示
-                mBinding.loadingProgressBarLinear.isVisible = false
-                // タッチイベントを無効にする
-                activity?.let { Util.enableUserInteraction(it) }
-            }
-        }
     }
 
     /**
@@ -210,9 +184,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         // タブがタップされたときのイベント
         mBinding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                Log.i("tab","11111")
-                if(!mBinding.loadingProgressBarLinear.isVisible){
-                    Log.i("tab","11111-2")
+                if(!mBinding.homeLoadingProgressBarLinear.isVisible){
                     mErrorCount = ERROR_COUNT_RESET
                     // 選択されたタブポジションを記録する。
                     if (tab != null) {
@@ -225,17 +197,17 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                     // 画面切り替え(観測地点の画面を表示する)
                     updatePositionView()
                     // タブポジションのデータ(観測地点)から画面を作成する。
-                    loadFragment(mTideFlowDataList[mTabSelectedPosition])
+                    lordFragment(mTideFlowDataList[mTabSelectedPosition])
                 }
                 // ロード画面表示
-                showLoadingWindow(true)
+                Util.showLoadingWindow(true, mBinding.homeLoadingProgressBarLinear, requireActivity())
 
             }
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                Log.i("tab","22222")
+                Log.i("tab","onTabReselected")
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                Log.i("tab","33333")
+                Log.i("tab","onTabUnselected")
             }
         })
 
@@ -250,7 +222,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     /**
      * 画面読み込み(viewpagerなど)
      * */
-    private fun loadFragment(tideFlowData: TideFlowData){
+    private fun lordFragment(tideFlowData: TideFlowData){
         Thread{
             while (tideFlowData.tideFlowDataMap.isEmpty()){
                 // 画面更新
@@ -261,8 +233,16 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                 }
             }
             mHandler.post{
-                // ロード画面非表示
-                showLoadingWindow(false)
+                /*
+                * ナビボタンを連打するとHOMEが更新される。
+                * Destroy後に画面更新が通るので例外が出る。
+                * */
+                try {
+                    // ロード画面非表示
+                    Util.showLoadingWindow(false, mBinding.homeLoadingProgressBarLinear, requireActivity())
+                }catch (e: IllegalStateException){
+                    e.printStackTrace()
+                }
             }
         }.start()
     }
@@ -270,6 +250,10 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     override fun onStart() {
         println("onStart")
         super.onStart()
+        // ロード画面表示
+        Util.showLoadingWindow(true, mBinding.homeLoadingProgressBarLinear, requireActivity())
+        // タブポジションのデータ(観測地点)から画面を作成する。
+        lordFragment(mTideFlowDataList[mTabSelectedPosition])
     }
 
     override fun onResume() {
@@ -360,11 +344,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     /**
      * Fragment内のデータを更新する。
      * */
-    var i = 0
     private fun updateFragment(){
-        println("updateFragment():              $i")
-        i++
-
         /* タブセンターの日付 */
         // カレンダーから遷移した場合は選択した日付を起点にする。
         val dateCenter = if (CalendarFragment.selectDate != null) {
@@ -405,46 +385,50 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
             }
 
             mHandler.post{
-                // ファイル読み込み(List)
-                mTideFlowDataList[mTabSelectedPosition].tideFlowDataList = mTideFlowManager.getTideFlowDataList(mContext, dateCenter.year, locationName)
-                // ページャーアダプターのセット
-                mTideFlowDataList[mTabSelectedPosition].viewPager2.adapter = ViewPagerAdapter(
-                    this,
-                    mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap,
-                    mTideFlowDataList[mTabSelectedPosition].tideDatePosition, mLocationMap)
-                // 一応nullチェック
-                if(mTideFlowDataList[mTabSelectedPosition].tideDatePosition[Triple(year, month, day)] != null){
-                    // 本日日付のポジションを保持する。
-                    mTideFlowDataList[mTabSelectedPosition].todayPosition = mTideFlowDataList[mTabSelectedPosition].tideDatePosition[Triple(year, month, day)]!!
-                }
-                // 本日日付に遷移させる。
-                mTideFlowDataList[mTabSelectedPosition].viewPager2.setCurrentItem(
-                    mTideFlowDataList[mTabSelectedPosition].todayPosition, false)
-
-                /* タブビューとビューページャーの紐づけ */
-                // TabLayoutMediatorを使用してページングをセットアップ
-                TabLayoutMediator(mTideFlowDataList[mTabSelectedPosition].tabLayoutPager, mTideFlowDataList[mTabSelectedPosition].viewPager2) { tab, position ->
-                    val date = Util.getKeyFromValue(mTideFlowDataList[mTabSelectedPosition].tideDatePosition, position)
-                    val tabView = LayoutInflater.from(mContext).inflate(R.layout.custom_tab, null)
-                    val tabTextView = tabView.findViewById<TextView>(R.id.tabTextView)
-
-                    if (date != null) {
-                        val currentDate = LocalDate.now()
-                        val tabDate = LocalDate.of(date.first, date.second, date.third)
-
-                        val dayOfWeek = Util.dayOfWeekENtoJP(tabDate.dayOfWeek.toString())
-                        tabTextView.text = String.format("%2d/%2d(%s)", date.second, date.third, dayOfWeek)
-
-                        if (tabDate.isEqual(currentDate)) {
-                            // 今日の日付の場合、テキストの色を変更
-                            tabTextView.setTextColor(ContextCompat.getColor(mContext, R.color.tab_date_center))
-                        }
-                    } else {
-                        tabTextView.text = "-"
+                try {
+                    // ファイル読み込み(List)
+                    mTideFlowDataList[mTabSelectedPosition].tideFlowDataList = mTideFlowManager.getTideFlowDataList(mContext, dateCenter.year, locationName)
+                    // ページャーアダプターのセット
+                    mTideFlowDataList[mTabSelectedPosition].viewPager2.adapter = ViewPagerAdapter(
+                        this,
+                        mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap,
+                        mTideFlowDataList[mTabSelectedPosition].tideDatePosition, mLocationMap)
+                    // 一応nullチェック
+                    if(mTideFlowDataList[mTabSelectedPosition].tideDatePosition[Triple(year, month, day)] != null){
+                        // 本日日付のポジションを保持する。
+                        mTideFlowDataList[mTabSelectedPosition].todayPosition = mTideFlowDataList[mTabSelectedPosition].tideDatePosition[Triple(year, month, day)]!!
                     }
+                    // 本日日付に遷移させる。
+                    mTideFlowDataList[mTabSelectedPosition].viewPager2.setCurrentItem(
+                        mTideFlowDataList[mTabSelectedPosition].todayPosition, false)
 
-                    tab.customView = tabView
-                }.attach()
+                    /* タブビューとビューページャーの紐づけ */
+                    // TabLayoutMediatorを使用してページングをセットアップ
+                    TabLayoutMediator(mTideFlowDataList[mTabSelectedPosition].tabLayoutPager, mTideFlowDataList[mTabSelectedPosition].viewPager2) { tab, position ->
+                        val date = Util.getKeyFromValue(mTideFlowDataList[mTabSelectedPosition].tideDatePosition, position)
+                        val tabView = LayoutInflater.from(mContext).inflate(R.layout.custom_tab, null)
+                        val tabTextView = tabView.findViewById<TextView>(R.id.tabTextView)
+
+                        if (date != null) {
+                            val currentDate = LocalDate.now()
+                            val tabDate = LocalDate.of(date.first, date.second, date.third)
+
+                            val dayOfWeek = Util.dayOfWeekENtoJP(tabDate.dayOfWeek.toString())
+                            tabTextView.text = String.format("%2d/%2d(%s)", date.second, date.third, dayOfWeek)
+
+                            if (tabDate.isEqual(currentDate)) {
+                                // 今日の日付の場合、テキストの色を変更
+                                tabTextView.setTextColor(ContextCompat.getColor(mContext, R.color.tab_date_center))
+                            }
+                        } else {
+                            tabTextView.text = "-"
+                        }
+
+                        tab.customView = tabView
+                    }.attach()
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
             }
 
         }

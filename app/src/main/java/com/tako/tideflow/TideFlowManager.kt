@@ -85,7 +85,7 @@ class TideFlowManager {
         // 潮汐データのファイルネームフォーマット
         const val TIDE_FILE_TXT_NAME = "%s.txt"
         // メモリに取り込むデータの前後範囲
-        const val READ_DATA_RANGE = 20
+        const val READ_DATA_RANGE = 90
         const val RECORD_DATE_YEAR_START = 72
         const val RECORD_DATE_MONTH_START = 74
         const val RECORD_DATE_DAY_START = 76

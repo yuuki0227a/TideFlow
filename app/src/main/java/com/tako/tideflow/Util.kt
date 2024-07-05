@@ -6,8 +6,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import java.lang.Exception
 
 object Util {
@@ -155,5 +158,46 @@ object Util {
         textView.setTextColor(color)
     }
 
+    /**
+     * ロード画面表示と画面タッチの有効/無効を切り替える。(LinearLayoutの表示非表示)
+     * @param switch true:画面ON、タッチ無効　　false:画面OFF、タッチ有効
+     * */
+    fun showLoadingWindow(switch: Boolean, linearLayout: LinearLayout, activity: Activity){
+        when(switch){
+            true -> {
+                // ロード画面の表示
+                linearLayout.isVisible = true
+                // タッチイベントを無効にする
+                activity.let { disableUserInteraction(it) }
+            }
+            false -> {
+                // ロード画面の表示
+                linearLayout.isVisible = false
+                // タッチイベントを無効にする
+                activity.let { enableUserInteraction(it) }
+            }
+        }
+    }
+
+    /**
+     * ロード画面表示と画面タッチの有効/無効を切り替える。(FrameLayoutの表示非表示)
+     * @param switch true:画面ON、タッチ無効　　false:画面OFF、タッチ有効
+     * */
+    fun showLoadingWindow(switch: Boolean, frameLayout: FrameLayout, activity: Activity){
+        when(switch){
+            true -> {
+                // ロード画面の表示
+                frameLayout.isVisible = true
+                // タッチイベントを無効にする
+                activity.let { disableUserInteraction(it) }
+            }
+            false -> {
+                // ロード画面の表示
+                frameLayout.isVisible = false
+                // タッチイベントを無効にする
+                activity.let { enableUserInteraction(it) }
+            }
+        }
+    }
 
 }

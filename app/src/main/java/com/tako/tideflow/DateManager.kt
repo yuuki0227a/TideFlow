@@ -85,6 +85,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
     private val inflater = LayoutInflater.from(context)
     private var dateManager: DateManager = DateManager(date)
     private var dateList: List<Date> = dateManager.getDays()
+    private val holidays = HolidayManager.readFromFile(context)
 
     init {
         // ThreeTenBPの初期化
@@ -142,7 +143,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
 
         /* データの表示 */
-        //日付のみ表示させる
+        // 日付のみ表示させる
         val dateFormat = SimpleDateFormat("d", Locale.JAPAN)
         holder.dateText.text = dateFormat.format(date)
         // 月齢
@@ -168,7 +169,12 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
                     Color.BLUE
                 }
                 else -> {
-                    Color.BLACK
+                    // 祝日の場合は赤にする。
+                    if(!holidays[holder.date.toString()].isNullOrEmpty()){
+                        Color.RED
+                    }else{
+                        Color.BLACK
+                    }
                 }
             }
         // 日付の色の設定
