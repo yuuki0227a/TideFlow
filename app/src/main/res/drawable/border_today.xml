@@ -6,9 +6,10 @@
         <shape>
             <solid android:color="@android:color/transparent" />
             <stroke
-                android:width="3dp"
-                android:color="#50aa0000"/>
-            <corners android:radius="10dp" />
+                android:width="4dp"
+                android:color="#B0F80000"/>
+<!--                android:color="#50aa0000"/>-->
+            <corners android:radius="2dp" />
         </shape>
     </item>
 </layer-list>

@@ -196,11 +196,14 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
             holder.dateText.setTextColor(Color.LTGRAY)
             holder.calenderDayMoonAgeTextview.setTextColor(Color.LTGRAY)
             holder.calenderDayTideConditionTextview.setTextColor(Color.LTGRAY)
+//            holder.calenderDayConstraintLayout.isEnabled = false
         }
 
         //タップしたときの処理を追加
         holder.view.setOnClickListener {
-            listener.invoke(position, holder)
+            if (dateManager.isCurrentMonth(date)) {
+                listener.invoke(position, holder)
+            }
         }
 
 

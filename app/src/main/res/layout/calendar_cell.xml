@@ -15,6 +15,7 @@
         android:layout_marginEnd="10dp"
         android:gravity="right"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +42,10 @@
                 android:id="@+id/calender_day_tide_condition_textview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="0dp"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="潮"
-                android:textSize="16sp"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -59,18 +60,18 @@
             <ImageView
                 android:id="@+id/calender_day_imageView"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
         </LinearLayout>
 
         <!--        <ProgressBar-->
-<!--            android:id="@+id/calenderProgressBar"-->
-<!--            style="?android:attr/progressBarStyleHorizontal"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="5dp"-->
-<!--            android:layout_marginStart="5dp"-->
-<!--            android:layout_marginEnd="5dp"-->
-<!--            android:progressDrawable="@drawable/progressbar" />-->
+        <!--            android:id="@+id/calenderProgressBar"-->
+        <!--            style="?android:attr/progressBarStyleHorizontal"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="5dp"-->
+        <!--            android:layout_marginStart="5dp"-->
+        <!--            android:layout_marginEnd="5dp"-->
+        <!--            android:progressDrawable="@drawable/progressbar" />-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
