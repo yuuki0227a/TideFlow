@@ -55,6 +55,15 @@ class DayPagerFragment(
         val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
         // 月齢から潮情報を取得する。
         val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
+        // 月齢表示
+        mBinding.dayPagerMoonAgeTextView.text = String.format("月齢 %.1f", roundedMoonAge)
+//        mBinding.dayPagerMoonAgeTextView.text = String.format("%.1f", roundedMoonAge)
+        // 潮状態表示
+        mBinding.dayPagerTideConditionTextView.text = tideCondition
+        // 潮状態ごとに色分けする。
+        if(tideCondition != null){
+            Util.setColorForTideType(mContext, mBinding.dayPagerTideConditionTextView, tideCondition)
+        }
         // 月画像
         when(moonAge.toInt()){
             0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
@@ -89,12 +98,6 @@ class DayPagerFragment(
             29 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_29)
             else -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
         }
-
-
-        // 月齢表示
-        mBinding.dayPagerMoonAgeTextView.text = String.format("%.1f", roundedMoonAge)
-        // 潮状態表示
-        mBinding.dayPagerTideConditionTextView.text = tideCondition
 
         /* 満潮 */
         // 1

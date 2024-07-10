@@ -9,7 +9,7 @@
     <color name="tab_date_center">#00C3FF</color>
 
     <!-- 潮状態の色 -->
-    <color name="tide_spring">#FF0000</color>
+    <color name="tide_spring">#FF3636</color>
     <color name="tide_middle">#FF6F00</color>
     <color name="tide_neap">#0040FF</color>
     <color name="tide_long">#FFDA00FF</color>
