@@ -94,7 +94,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
     }
 
     class DateAdapterHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val calenderDayLinearLayout: LinearLayout = view.findViewById(R.id.calender_day_linearLayout)
+//        val calenderDayLinearLayout: LinearLayout = view.findViewById(R.id.calender_day_linearLayout)
         // 日付
         val dateText: TextView = view.findViewById(R.id.dateText)
         // 月齢
@@ -103,6 +103,8 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         val calenderDayTideConditionTextview: TextView = view.findViewById(R.id.calender_day_tide_condition_textview)
         // 月画像
         val calenderDayImageView: ImageView = view.findViewById(R.id.calender_day_imageView)
+        // 月名
+        val calenderDayMoonNameTextView: TextView = view.findViewById(R.id.calender_day_moon_name_textView)
         // ポジションの日付
         lateinit var date: LocalDate
     }
@@ -147,13 +149,20 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         // 日付のみ表示させる
         val dateFormat = SimpleDateFormat("d", Locale.JAPAN)
         holder.dateText.text = dateFormat.format(date)
-        //TODO. 月齢
+        //TODO. 月齢 現在非表示
 //        holder.calenderDayMoonAgeTextview.text = String.format("月齢 %.1f", roundedMoonAge)
         holder.calenderDayMoonAgeTextview.isVisible = false
         // 潮状態
         holder.calenderDayTideConditionTextview.text = tideCondition
-        //TODO. 月画像
-//        holder.calenderDayImageView
+        // 月名
+        when(moonAge.toInt()){
+            0 -> holder.calenderDayMoonNameTextView.text = "新月"
+            7 -> holder.calenderDayMoonNameTextView.text = "上弦"
+            15 -> holder.calenderDayMoonNameTextView.text = "満月"
+            22 -> holder.calenderDayMoonNameTextView.text = "下弦"
+            else -> holder.calenderDayMoonNameTextView.isVisible = false
+        }
+        // 月画像
         when(moonAge.toInt()){
             0 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_00)
             1 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_01)

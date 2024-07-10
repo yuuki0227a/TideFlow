@@ -55,7 +55,7 @@ class DayPagerFragment(
         val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
         // 月齢から潮情報を取得する。
         val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
-        //TODO. 月画像表示
+        // 月画像
         when(moonAge.toInt()){
             0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
             1 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_01)
