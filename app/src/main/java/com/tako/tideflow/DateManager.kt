@@ -154,6 +154,39 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         holder.calenderDayTideConditionTextview.text = tideCondition
         //TODO. 月画像
 //        holder.calenderDayImageView
+        when(moonAge.toInt()){
+            0 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_00)
+            1 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_01)
+            2 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_02)
+            3 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_03)
+            4 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_04)
+            5 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_05)
+            6 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_06)
+            7 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_07)
+            8 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_08)
+            9 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_09)
+            10 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_10)
+            11 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_11)
+            12 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_12)
+            13 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_13)
+            14 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_14)
+            15 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_15)
+            16 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_16)
+            17 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_17)
+            18 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_18)
+            19 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_19)
+            20 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_20)
+            21 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_21)
+            22 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_22)
+            23 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_23)
+            24 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_24)
+            25 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_25)
+            26 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_26)
+            27 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_27)
+            28 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_28)
+            29 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_29)
+            else -> holder.calenderDayImageView.setImageResource(R.drawable.moon_00)
+        }
 
         // 当日の場合の設定
         if (dateManager.isToday(date)) {

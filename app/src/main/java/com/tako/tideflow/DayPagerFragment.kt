@@ -56,7 +56,41 @@ class DayPagerFragment(
         // 月齢から潮情報を取得する。
         val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
         //TODO. 月画像表示
-//        mBinding.dayPagerMoonImageView
+        when(moonAge.toInt()){
+            0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
+            1 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_01)
+            2 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_02)
+            3 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_03)
+            4 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_04)
+            5 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_05)
+            6 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_06)
+            7 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_07)
+            8 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_08)
+            9 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_09)
+            10 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_10)
+            11 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_11)
+            12 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_12)
+            13 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_13)
+            14 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_14)
+            15 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_15)
+            16 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_16)
+            17 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_17)
+            18 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_18)
+            19 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_19)
+            20 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_20)
+            21 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_21)
+            22 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_22)
+            23 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_23)
+            24 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_24)
+            25 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_25)
+            26 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_26)
+            27 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_27)
+            28 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_28)
+            29 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_29)
+            else -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
+        }
+
+
         // 月齢表示
         mBinding.dayPagerMoonAgeTextView.text = String.format("%.1f", roundedMoonAge)
         // 潮状態表示

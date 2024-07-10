@@ -61,6 +61,7 @@
                 android:id="@+id/calender_day_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_margin="5dp"
                 app:srcCompat="@android:drawable/ic_menu_gallery" />
         </LinearLayout>
 
