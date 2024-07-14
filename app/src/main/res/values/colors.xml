@@ -13,8 +13,10 @@
     <color name="secondary_variant">#018786</color>
     <color name="on_secondary">#000000</color>
 
+    <!-- 観測地点タブの本日の色 -->
+    <color name="tab_location_center">#0048FF</color>
     <!-- 日付タブの本日の色 -->
-    <color name="tab_date_center">#8700A5</color>
+    <color name="tab_date_center">@color/tab_location_center</color>
 
     <!-- 潮状態の色 -->
     <color name="tide_spring">#FF3636</color>

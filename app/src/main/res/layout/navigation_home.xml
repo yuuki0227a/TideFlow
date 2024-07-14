@@ -21,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"
-            app:tabMode="auto">
+            app:tabIndicatorColor="@color/tab_location_center"
+            app:tabMode="auto"
+            app:tabSelectedTextColor="@color/tab_location_center">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -48,30 +50,6 @@
                 android:layout_height="wrap_content"
                 android:text="TAB３" />
 
-            <!--            <com.google.android.material.tabs.TabItem-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="TAB１" />-->
-
-            <!--            <com.google.android.material.tabs.TabItem-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="TAB２" />-->
-
-            <!--            <com.google.android.material.tabs.TabItem-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="TAB３" />-->
-
-            <!--            <com.google.android.material.tabs.TabItem-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="TAB３" />-->
-
-            <!--            <com.google.android.material.tabs.TabItem-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:text="TAB３" />-->
         </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
@@ -85,7 +63,9 @@
                 android:id="@+id/tab_layout_pager_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/tab_date_center"
                 app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tab_date_center"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <androidx.viewpager2.widget.ViewPager2
@@ -106,7 +86,9 @@
                 android:id="@+id/tab_layout_pager_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+                app:tabIndicatorColor="@color/tab_date_center"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tab_date_center" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_1"
@@ -126,7 +108,9 @@
                 android:id="@+id/tab_layout_pager_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+                app:tabIndicatorColor="@color/tab_date_center"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tab_date_center" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_2"
@@ -146,7 +130,9 @@
                 android:id="@+id/tab_layout_pager_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+                app:tabIndicatorColor="@color/tab_date_center"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tab_date_center" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_3"
@@ -166,7 +152,9 @@
                 android:id="@+id/tab_layout_pager_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+                app:tabIndicatorColor="@color/tab_date_center"
+                app:tabMode="scrollable"
+                app:tabSelectedTextColor="@color/tab_date_center" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_4"
