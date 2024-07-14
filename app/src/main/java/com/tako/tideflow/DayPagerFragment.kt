@@ -1,7 +1,6 @@
 package com.tako.tideflow
 
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -20,7 +19,8 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartGestureListener
-import java.time.LocalDate
+import com.github.mikephil.charting.utils.MPPointF
+import java.time.LocalDateTime
 import java.util.Calendar
 
 class DayPagerFragment(
@@ -206,6 +206,7 @@ class DayPagerFragment(
         hourlyTideLevelList.forEachIndexed { index, value ->
             // X軸は配列のインデックス番号
             val dataEntry = Entry(index.toFloat(), value)
+            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
         // ④グラフ線やポインタなどの機能、デザインなどを設定
@@ -245,6 +246,9 @@ class DayPagerFragment(
             }
         }
 
+        // 現在の日時
+        val currentDateTime = LocalDateTime.now()
+
         /* グラフデザイン */
         // グラフの線の太さ
         lineDataSet.lineWidth = 5.0f
@@ -252,21 +256,27 @@ class DayPagerFragment(
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         // グラフの色
         lineDataSet.colors = listOf(themeGraphColor)
-//        lineDataSet.colors = listOf(Color.BLUE)
         // 点の色
-        lineDataSet.circleColors = listOf(Color.CYAN)
+//        lineDataSet.circleColors = listOf(Color.CYAN)
         // 点の大きさ
-        lineDataSet.circleRadius = 3.0f
+//        lineDataSet.circleRadius = 0.0f
+        // 塗りつぶしカラー
+        lineDataSet.fillColor = ContextCompat.getColor(
+            mContext,
+            R.color.line_chart_fill_color
+        )
         // 塗りつぶし
         lineDataSet.setDrawFilled(true)
         // 値非表示
         lineDataSet.setDrawValues(true)
         // ポインタ非表示
-        lineDataSet.setDrawCircles(true)
+        lineDataSet.setDrawCircles(false)
         // 値のテキストカラー
         lineDataSet.valueTextColor = themeTextColor
         // 値のテキストサイズ
-        lineDataSet.valueTextSize = 8f
+        lineDataSet.valueTextSize = 10f
+        // アイコンのオフセット
+        lineDataSet.iconsOffset = MPPointF(0f,2f)
 
         /* グラフ設定 */
         // データがない場合のテキスト
@@ -282,12 +292,21 @@ class DayPagerFragment(
         // データの表示位置を指定したX軸の値にする(インデックスではなくX軸の値を指定)
         mBinding.dayPagerLineChart.moveViewToX((hourlyTideLevelList.size - 1).toFloat()) // ※
 
+        /* 現日時の処理 */
         // 日付が本日の場合のみ表示する。
-        if(LocalDate.now().dayOfMonth == tideFlowData.tideDate.third){
+        if(currentDateTime.dayOfMonth == tideFlowData.tideDate.third){
             // 選択したX軸の位置をハイライト表示(currentHour: 現時刻にフォーカスさせる)
             val calendar = Calendar.getInstance()
             val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
-            mBinding.dayPagerLineChart.highlightValue(currentHour.toFloat(),0) // ※
+            // 縦横のターゲットライン
+//            mBinding.dayPagerLineChart.highlightValue(currentHour.toFloat(),0) // ※
+            /* データポイントの点の変更 */
+            // 現時刻の場合
+            if(currentDateTime.hour == currentHour){
+                // アイコン
+                val currentEntry = dataEntries[currentHour]
+                currentEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_current)
+            }
         }
 
         // 表示されているデータの一番低い値を取得

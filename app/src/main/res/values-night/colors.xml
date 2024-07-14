@@ -26,9 +26,12 @@
     <color name="tide_young">#00CC51</color>
     <color name="tide_def">#FFFFFF</color>
 
-    <!-- 折線グラフのデータポイントのテキストカラー -->
+    <!-- 折線グラフ -->
     <color name="line_chart_data_point_text_color">#FFFFFF</color>
     <color name="line_chart_graph_color">#003DFB</color><!-- グラフ -->
+    <color name="line_chart_other_circle_color">#C8C8C8</color><!-- データポイントの色 -->
+    <color name="line_chart_current_hour_circle_color">#00FFE2</color><!-- データポイントの色(現時刻) -->
+    <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
 
     <!-- bottomメニュー -->
     <color name="bottom_nav_item_checked_color">#A1AAFF</color> <!-- チェック済みカラー -->
