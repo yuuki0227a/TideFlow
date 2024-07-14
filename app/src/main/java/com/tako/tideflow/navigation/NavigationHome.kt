@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,6 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tako.tideflow.CalendarFragment
 import com.tako.tideflow.LocationList
+import com.tako.tideflow.MainActivity
 import com.tako.tideflow.R
 import com.tako.tideflow.SettingSharedPref
 import com.tako.tideflow.TideFlowManager
@@ -116,31 +118,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                 mBinding.homeViewPager24, mBinding.linear4, mBinding.tabLayoutPager4
             )
         )
-        mTideFlowDataList.add(
-            TideFlowData(
-                mBinding.homeViewPager25, mBinding.linear5, mBinding.tabLayoutPager5
-            )
-        )
-        mTideFlowDataList.add(
-            TideFlowData(
-                mBinding.homeViewPager26, mBinding.linear6, mBinding.tabLayoutPager6
-            )
-        )
-        mTideFlowDataList.add(
-            TideFlowData(
-                mBinding.homeViewPager27, mBinding.linear7, mBinding.tabLayoutPager7
-            )
-        )
-        mTideFlowDataList.add(
-            TideFlowData(
-                mBinding.homeViewPager28, mBinding.linear8, mBinding.tabLayoutPager8
-            )
-        )
-        mTideFlowDataList.add(
-            TideFlowData(
-                mBinding.homeViewPager29, mBinding.linear9, mBinding.tabLayoutPager9
-            )
-        )
 
         /* リスナー登録 */
         for(tideFlowData in mTideFlowDataList){
@@ -154,6 +131,17 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 
         // タブテキストの設定
         setLocationTabText()
+
+        mBinding.lightButton.setOnClickListener {
+            (activity as MainActivity).changeToLightMode()
+        }
+        mBinding.darkButton.setOnClickListener {
+            (activity as MainActivity).changeToDarkMode()
+        }
+        mBinding.systemButton.setOnClickListener {
+            (activity as MainActivity).changeToSystemDefaultMode()
+        }
+
 
         return  mBinding.root
     }
@@ -220,8 +208,10 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         })
 
         //TODO. 潮見表(大阪)ボタン
+//        mBinding.sioMieyellButton.isVisible = false
         mBinding.sioMieyellButton.setOnClickListener {
-            val url = "https://koyomi8.com/moonage.html"
+            val url = "https://www.youtube.com/live/sbSKv5U0tAc?si=4kJFYH0EGy1_7agH"
+//            val url = "https://koyomi8.com/moonage.html"
 //            val url = "https://sio.mieyell.jp/select?po=52706"
             openBrowser(mContext, url)
         }
@@ -262,6 +252,11 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         Util.showLoadingWindow(true, mBinding.homeLoadingProgressBarLinear, requireActivity())
         // タブポジションのデータ(観測地点)から画面を作成する。
         lordFragment(mTideFlowDataList[mTabSelectedPosition])
+
+
+        /*TODO*/
+//        mBinding.sioMieyellButton.setBackgroundColor(R.color.black)
+//        mBinding.sioMieyellButton.setBackgroundColor(R.style.TextViewSpecificStyle)
     }
 
     override fun onResume() {
@@ -336,11 +331,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         mBinding.tabLayout.getTabAt(2)?.text = SettingSharedPref(mContext).mLocation2SpinnerItem
         mBinding.tabLayout.getTabAt(3)?.text = SettingSharedPref(mContext).mLocation3SpinnerItem
         mBinding.tabLayout.getTabAt(4)?.text = SettingSharedPref(mContext).mLocation4SpinnerItem
-        mBinding.tabLayout.getTabAt(5)?.text = SettingSharedPref(mContext).mLocation5SpinnerItem
-        mBinding.tabLayout.getTabAt(6)?.text = SettingSharedPref(mContext).mLocation6SpinnerItem
-        mBinding.tabLayout.getTabAt(7)?.text = SettingSharedPref(mContext).mLocation7SpinnerItem
-        mBinding.tabLayout.getTabAt(8)?.text = SettingSharedPref(mContext).mLocation8SpinnerItem
-        mBinding.tabLayout.getTabAt(9)?.text = SettingSharedPref(mContext).mLocation9SpinnerItem
 
         // tabLayoutの初期ポジション(0～9)
         val initialPosition = SettingSharedPref(mContext).mLocationNameTabSelected
@@ -348,6 +338,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         if (initialTab != null) {
 //            mBinding.tabLayout.setScrollPosition(initialPosition, 0f, false)
             mBinding.tabLayout.selectTab(initialTab)
+            // タブがスクロール状態の場合に、選択中のタブが真ん中に来るようにする。
             mBinding.tabLayout.post {
                 val tabView = (mBinding.tabLayout.getChildAt(0) as ViewGroup).getChildAt(initialPosition)
                 mBinding.tabLayout.scrollTo(tabView.left - (mBinding.tabLayout.width - tabView.width) / 2, 0)
@@ -406,7 +397,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                     isFileWriteFinish[FILE_WRITE_FINISH_AFTER] = true
                 }
             }else{
-                println(24551651)
                 isFileWriteFinish[FILE_WRITE_FINISH_AFTER] = true
             }
             // 去年データを含む場合
@@ -421,14 +411,12 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
                 isFileWriteFinish[FILE_WRITE_FINISH_BEFORE] = true
             }
 
-            println("isFileWriteFinish1  $isFileWriteFinish")
             while(true){
                 Thread.sleep(100L)
                 if(isFileWriteFinish[0] && isFileWriteFinish[1] && isFileWriteFinish[2]){
                     break
                 }
             }
-            println("isFileWriteFinish2  $isFileWriteFinish")
 
             /* 潮汐データ作成処理 */
             // dateのリストをまとめる。
@@ -439,11 +427,6 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
             // 潮汐データがない場合はリターンする。
             if(mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap.isEmpty()){
                 return
-            }
-
-            /*TODO*/
-            for(map in mTideFlowDataList[mTabSelectedPosition].tideFlowDataMap){
-                println("map $map")
             }
 
             mHandler.post{

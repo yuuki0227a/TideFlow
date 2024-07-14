@@ -5,14 +5,40 @@
     <color name="colorAccent">#FF4081</color>
     <color name="purple">#FFDA00FF</color>
 
+    <color name="primary">#6200EE</color>
+    <color name="primary_variant">#3700B3</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <color name="secondary">#03DAC6</color>
+    <color name="secondary_variant">#018786</color>
+    <color name="on_secondary">#000000</color>
+
     <!-- 日付タブの本日の色 -->
-    <color name="tab_date_center">#00C3FF</color>
+    <color name="tab_date_center">#8700A5</color>
 
     <!-- 潮状態の色 -->
     <color name="tide_spring">#FF3636</color>
     <color name="tide_middle">#FF6F00</color>
     <color name="tide_neap">#0040FF</color>
     <color name="tide_long">#FFDA00FF</color>
-    <color name="tide_young">#00CC51</color>
+    <color name="tide_young">#00A642</color>
     <color name="tide_def">#000000</color>
+
+    <!-- 折線グラフのテーマカラー -->
+    <color name="line_chart_data_point_text_color">#000000</color>
+    <color name="line_chart_graph_color">#CCD8FF</color>
+
+    <!-- bottomメニュー -->
+    <color name="bottom_nav_item_checked_color">#1900FF</color> <!-- チェック済みカラー -->
+    <color name="bottom_nav_item_unchecked_color">#4A4A4A</color> <!-- 未チェックカラー -->
+    <color name="bottom_nav_item_background_color">#E4E4E4</color> <!-- バックグラウンド -->
+
+    <!-- カレンダー -->
+    <color name="calender_border_color">#55515151</color> <!-- 枠線 -->
+    <color name="calender_sunday_text_color">@color/tide_spring</color> <!-- 日曜日のテキストカラー -->
+    <color name="calender_holiday_text_color">@color/calender_sunday_text_color</color> <!-- 祝日のテキストカラー -->
+    <color name="calender_saturday_text_color">#0040FF</color> <!-- 土曜日のテキストカラー -->
+    <color name="calender_moon_name_text_color">#5E5E5E</color> <!-- 月名のテキストカラー -->
+    <color name="calender_disable_color">#C5C5C5</color> <!-- 無効カラー -->
+
 </resources>

@@ -171,9 +171,9 @@ class NavigationCalender : Fragment() {
     //主にFragmentに渡すDateの管理
     class CalendarManager() {
         companion object {
-            const val MAX_COUNT: Int = 36
+            private const val MAX_COUNT: Int = 36
             var maxCount = MAX_COUNT
-            const val TODAY_COUNT: Int = 18
+            private const val TODAY_COUNT: Int = 18
             var todayCount = TODAY_COUNT
             const val DATE_PATTERN: String = "yyyy年MM月"
         }

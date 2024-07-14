@@ -1,6 +1,7 @@
 package com.tako.tideflow
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.AxisBase
 import com.tako.tideflow.databinding.FragmentDayPagerBinding
@@ -183,6 +185,18 @@ class DayPagerFragment(
      * １時間毎の潮汐データの折線グラフを作成する。
      * */
     private fun createLineChart(){
+        /* テーマに基づいてカラーを取得 */
+        // テキストカラー
+        val themeTextColor: Int = ContextCompat.getColor(
+            mContext,
+            R.color.line_chart_data_point_text_color
+        )
+        // グラフカラー
+        val themeGraphColor: Int = ContextCompat.getColor(
+            mContext,
+            R.color.line_chart_graph_color
+        )
+        // １時間ごとの潮位
         val hourlyTideLevelList: ArrayList<Float> = arrayListOf()
         for(hourlyTideLevel in tideFlowData.hourlyTideLevels){
             hourlyTideLevelList.add(hourlyTideLevel.toFloat())
@@ -237,7 +251,8 @@ class DayPagerFragment(
         // グラフモード(曲線)
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         // グラフの色
-        lineDataSet.colors = listOf(Color.BLUE)
+        lineDataSet.colors = listOf(themeGraphColor)
+//        lineDataSet.colors = listOf(Color.BLUE)
         // 点の色
         lineDataSet.circleColors = listOf(Color.CYAN)
         // 点の大きさ
@@ -249,7 +264,7 @@ class DayPagerFragment(
         // ポインタ非表示
         lineDataSet.setDrawCircles(true)
         // 値のテキストカラー
-        lineDataSet.valueTextColor = Color.WHITE
+        lineDataSet.valueTextColor = themeTextColor
         // 値のテキストサイズ
         lineDataSet.valueTextSize = 8f
 
@@ -301,7 +316,7 @@ class DayPagerFragment(
         /* x軸関連 */
         mBinding.dayPagerLineChart.xAxis.apply {
             // ラベルカラー
-            textColor = Color.WHITE
+            textColor = themeTextColor
             // ラベル表示の数
             labelCount = quarterList.size - 1
             // ラベル挿入
@@ -319,7 +334,7 @@ class DayPagerFragment(
         /* Y軸関連(左側) */
         mBinding.dayPagerLineChart.axisLeft.apply {
             // ラベルカラー
-            textColor = Color.WHITE
+            textColor = themeTextColor
             // グリッド表示
             setDrawGridLines(false)
             // ラベル表示

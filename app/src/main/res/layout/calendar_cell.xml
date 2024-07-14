@@ -20,10 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="日付" />
+        tools:text="日付"/>
 
     <FrameLayout
-        android:id="@+id/calender_day_linearLayout"
+        android:id="@+id/calender_day_frameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal|center_vertical"
@@ -74,7 +74,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="満月"
-                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </LinearLayout>
             </FrameLayout>
@@ -90,14 +89,6 @@
 
         </LinearLayout>
 
-        <!--        <ProgressBar-->
-        <!--            android:id="@+id/calenderProgressBar"-->
-        <!--            style="?android:attr/progressBarStyleHorizontal"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="5dp"-->
-        <!--            android:layout_marginStart="5dp"-->
-        <!--            android:layout_marginEnd="5dp"-->
-        <!--            android:progressDrawable="@drawable/progressbar" />-->
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,7 +20,8 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="scrollable">
+            android:layout_gravity="center_horizontal|center_vertical"
+            app:tabMode="auto">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -47,30 +48,30 @@
                 android:layout_height="wrap_content"
                 android:text="TAB３" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TAB１" />
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="TAB１" />-->
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TAB２" />
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="TAB２" />-->
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TAB３" />
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="TAB３" />-->
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TAB３" />
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="TAB３" />-->
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TAB３" />
+            <!--            <com.google.android.material.tabs.TabItem-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:text="TAB３" />-->
         </com.google.android.material.tabs.TabLayout>
 
         <LinearLayout
@@ -84,7 +85,8 @@
                 android:id="@+id/tab_layout_pager_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+                app:tabMode="scrollable"
+                tools:ignore="SpeakableTextPresentCheck" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_0"
@@ -173,105 +175,105 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linear_5"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_5"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="bottom|center_horizontal"-->
+<!--            android:orientation="vertical">-->
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_pager_5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab_layout_pager_5"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:tabMode="scrollable" />-->
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_view_pager2_5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/home_view_pager2_5"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/linear_6"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_6"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="bottom|center_horizontal"-->
+<!--            android:orientation="vertical">-->
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_pager_6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab_layout_pager_6"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:tabMode="scrollable" />-->
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_view_pager2_6"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/home_view_pager2_6"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/linear_7"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_7"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="bottom|center_horizontal"-->
+<!--            android:orientation="vertical">-->
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_pager_7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab_layout_pager_7"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:tabMode="scrollable" />-->
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_view_pager2_7"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/home_view_pager2_7"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/linear_8"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_8"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="bottom|center_horizontal"-->
+<!--            android:orientation="vertical">-->
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_pager_8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab_layout_pager_8"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:tabMode="scrollable" />-->
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_view_pager2_8"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/home_view_pager2_8"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/linear_9"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linear_9"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="bottom|center_horizontal"-->
+<!--            android:orientation="vertical">-->
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout_pager_9"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable" />
+<!--            <com.google.android.material.tabs.TabLayout-->
+<!--                android:id="@+id/tab_layout_pager_9"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:tabMode="scrollable" />-->
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_view_pager2_9"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+<!--            <androidx.viewpager2.widget.ViewPager2-->
+<!--                android:id="@+id/home_view_pager2_9"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </LinearLayout>
 
@@ -329,10 +331,28 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/system_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="system" />
+
+        <Button
+            android:id="@+id/light_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="light" />
+
+        <Button
+            android:id="@+id/dark_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dark" />
+
+        <Button
             android:id="@+id/sio_mieyell_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="月齢カレンダー" />
+            android:text="ライブカメラ大阪" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

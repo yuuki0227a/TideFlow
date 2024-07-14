@@ -1,13 +1,18 @@
 package com.tako.tideflow
 
+import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -23,9 +28,37 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(mBinding.root)
 
-        /*TODO. */
-        // ThreeTenBPの初期化
-//        AndroidThreeTen.init(this)
+        /* バージョン情報の取得と設定 */
+        SettingSharedPref(mBinding.root.context).mAppVersionName = getVersionName()
+        SettingSharedPref(mBinding.root.context).mAppVersionCode = getVersionCode()
+
+        // システムのテーマ
+        when(SettingSharedPref(mBinding.root.context).mThemesSpinnerItem){
+            SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            SettingSharedPref.THEMES_SPINNER_POSITION_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+    }
+
+    // アクティビティの再起動メソッド
+    private fun restartActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        finish()
+        startActivity(intent)
+    }
+    fun changeToLightMode() {
+        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT
+        restartActivity()
+    }
+
+    fun changeToDarkMode() {
+        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_DARK
+        restartActivity()
+    }
+
+    fun changeToSystemDefaultMode() {
+        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM
+        restartActivity()
     }
 
     override fun onResume() {
@@ -80,5 +113,35 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return true
+    }
+
+    /**
+     * バージョン情報の取得
+     * */
+    private fun getVersionName(): String {
+        return try {
+            val packageInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
+            packageInfo.versionName
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            "N/A"
+        }
+    }
+    /**
+     * バージョンコードの取得
+     * */
+    private fun getVersionCode(): Long {
+        return try {
+            val packageInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                packageInfo.longVersionCode
+            } else {
+                @Suppress("DEPRECATION")
+                packageInfo.versionCode.toLong()
+            }
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+            -1L
+        }
     }
 }

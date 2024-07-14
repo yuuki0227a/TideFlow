@@ -2,15 +2,12 @@ package com.tako.tideflow
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.graphics.ColorUtils
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -94,7 +91,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
     }
 
     class DateAdapterHolder(val view: View) : RecyclerView.ViewHolder(view) {
-//        val calenderDayLinearLayout: LinearLayout = view.findViewById(R.id.calender_day_linearLayout)
+//        val calenderDayFrameLayout: FrameLayout = view.findViewById(R.id.calender_day_frameLayout)
         // 日付
         val dateText: TextView = view.findViewById(R.id.dateText)
         // 月齢
@@ -141,7 +138,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         // 月齢の取得
         val moonAge = Util.getMoonAge(bpLocalDate)
         // 少数第一位以下を切り捨てる。
-        val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
+//        val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
         // 月齢から潮情報を取得する。
         val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
 
@@ -207,38 +204,47 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         val colorId: Int =
             when (dateManager.getDayOfWeek(date)) {
                 1 -> {
-                    Color.RED
+                    ContextCompat.getColor(context, R.color.calender_sunday_text_color)
+//                    R.color.calender_sunday_text_color
                 }
                 7 -> {
-                    Color.BLUE
+                    ContextCompat.getColor(context, R.color.calender_saturday_text_color)
                 }
                 else -> {
                     // 祝日の場合は赤にする。
                     if(!holidays[holder.date.toString()].isNullOrEmpty()){
-                        Color.RED
+                        ContextCompat.getColor(context, R.color.calender_holiday_text_color)
                     }else{
-                        Color.BLACK
+                        -1
                     }
                 }
             }
         // 日付の色の設定
-        holder.dateText.setTextColor(colorId)
+        if(colorId != -1){
+            holder.dateText.setTextColor(colorId)
+        }
         // 月齢、潮状態の色の設定
-        holder.calenderDayMoonAgeTextview.setTextColor(Color.BLACK)
-        holder.calenderDayTideConditionTextview.setTextColor(Color.BLACK)
+//        holder.calenderDayMoonAgeTextview.setTextColor(Color.BLACK)
+//        holder.calenderDayTideConditionTextview.setTextColor(Color.BLACK)
+        /*TODO. 非表示*/
+        holder.calenderDayMoonNameTextView.isVisible = false
 
         // 潮状態ごとに色分けする。
         if(tideCondition != null){
             Util.setColorForTideType(context, holder.calenderDayTideConditionTextview, tideCondition)
         }
 
+        // 月名の色
+        holder.calenderDayMoonNameTextView.setTextColor(ContextCompat.getColor(context, R.color.calender_moon_name_text_color))
+
         //当月以外の場合の処理
         if (!dateManager.isCurrentMonth(date)) {
             /* テキストカラーを灰色にする。 */
-            holder.dateText.setTextColor(Color.LTGRAY)
-            holder.calenderDayMoonAgeTextview.setTextColor(Color.LTGRAY)
-            holder.calenderDayTideConditionTextview.setTextColor(Color.LTGRAY)
-//            holder.calenderDayConstraintLayout.isEnabled = false
+            holder.dateText.setTextColor(ContextCompat.getColor(context, R.color.calender_disable_color))
+            holder.calenderDayMoonAgeTextview.setTextColor(ContextCompat.getColor(context, R.color.calender_disable_color))
+            holder.calenderDayTideConditionTextview.setTextColor(ContextCompat.getColor(context, R.color.calender_disable_color))
+            holder.calenderDayMoonNameTextView.setTextColor(ContextCompat.getColor(context, R.color.calender_disable_color))
+            holder.calenderDayImageView.setColorFilter(ContextCompat.getColor(context, R.color.calender_disable_color))
         }
 
         //タップしたときの処理を追加
@@ -247,8 +253,6 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
                 listener.invoke(position, holder)
             }
         }
-
-
 
     }
 

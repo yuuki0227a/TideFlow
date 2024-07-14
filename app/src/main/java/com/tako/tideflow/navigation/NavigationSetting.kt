@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.tako.tideflow.SettingSharedPref
 import com.tako.tideflow.databinding.NavigationSettingBinding
@@ -19,6 +20,8 @@ class NavigationSetting : Fragment() {
 
     private lateinit var mBinding: NavigationSettingBinding
     private lateinit var mContext: Context
+    // テーマカラー変更前
+    private var mThemesSpinnerItemBefore = 0
 
 
     override fun onCreateView(
@@ -29,23 +32,38 @@ class NavigationSetting : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = NavigationSettingBinding.inflate(inflater, container, false)
         mContext = mBinding.root.context
+        mThemesSpinnerItemBefore = SettingSharedPref(mContext).mThemesSpinnerItem
          return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* アプリ情報 */
+        // バージョン名
+        mBinding.versionTextview.text = SettingSharedPref(mContext).mAppVersionName
+
         /* スピナーの初期値(position) */
+        mBinding.themesSpinner.setSelection(SettingSharedPref(mContext).mThemesSpinnerItem)
         mBinding.location0Spinner.setSelection(SettingSharedPref(mContext).mLocation0SpinnerPosition)
         mBinding.location1Spinner.setSelection(SettingSharedPref(mContext).mLocation1SpinnerPosition)
         mBinding.location2Spinner.setSelection(SettingSharedPref(mContext).mLocation2SpinnerPosition)
         mBinding.location3Spinner.setSelection(SettingSharedPref(mContext).mLocation3SpinnerPosition)
         mBinding.location4Spinner.setSelection(SettingSharedPref(mContext).mLocation4SpinnerPosition)
-        mBinding.location5Spinner.setSelection(SettingSharedPref(mContext).mLocation5SpinnerPosition)
-        mBinding.location6Spinner.setSelection(SettingSharedPref(mContext).mLocation6SpinnerPosition)
-        mBinding.location7Spinner.setSelection(SettingSharedPref(mContext).mLocation7SpinnerPosition)
-        mBinding.location8Spinner.setSelection(SettingSharedPref(mContext).mLocation8SpinnerPosition)
-        mBinding.location9Spinner.setSelection(SettingSharedPref(mContext).mLocation9SpinnerPosition)
+
+        /* テーマカラーのスピナー選択後のイベント */
+        mBinding.themesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                // position: 0 システム　1 ライト　2 ダーク
+                SettingSharedPref(mContext).mThemesSpinnerItem = position
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         /* 観測地点のスピナー選択後のイベント */
         mBinding.location0Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -119,82 +137,20 @@ class NavigationSetting : Fragment() {
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        mBinding.location5Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val spinner = parent as? Spinner
-                SettingSharedPref(mContext).mLocation5SpinnerPosition = position
-                SettingSharedPref(mContext).mLocation5SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-        mBinding.location6Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val spinner = parent as? Spinner
-                SettingSharedPref(mContext).mLocation6SpinnerPosition = position
-                SettingSharedPref(mContext).mLocation6SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-        mBinding.location7Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val spinner = parent as? Spinner
-                SettingSharedPref(mContext).mLocation7SpinnerPosition = position
-                SettingSharedPref(mContext).mLocation7SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-        mBinding.location8Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val spinner = parent as? Spinner
-                SettingSharedPref(mContext).mLocation8SpinnerPosition = position
-                SettingSharedPref(mContext).mLocation8SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-        mBinding.location9Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val spinner = parent as? Spinner
-                SettingSharedPref(mContext).mLocation9SpinnerPosition = position
-                SettingSharedPref(mContext).mLocation9SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
 
     }
 
     override fun onStart() {
         super.onStart()
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // テーマが変更されていればメッセージを表示する。
+        if(mThemesSpinnerItemBefore != SettingSharedPref(mContext).mThemesSpinnerItem){
+            Toast.makeText(mContext, "テーマは再起動後に反映されます", Toast.LENGTH_LONG).show()
+        }
     }
 
 }

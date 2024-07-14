@@ -175,7 +175,7 @@ class TideFlowManager {
                 if (diff <= READ_DATA_RANGE) {
                     val tideFlowData = getTideFlowData(dataRecord)
                     tideFlowDataMap[tideFlowData.tideDate] = tideFlowData
-                    println("tideFlowData.tideDate ${tideFlowData.tideDate}")
+//                    println("tideFlowData.tideDate ${tideFlowData.tideDate}")
                 }
             }
 

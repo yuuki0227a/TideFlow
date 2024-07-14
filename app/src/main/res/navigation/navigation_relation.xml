@@ -8,7 +8,14 @@
     <fragment
         android:id="@+id/navi_home"
         android:name="com.tako.tideflow.navigation.NavigationHome"
-        android:label="Fragment1" />
+        android:label="Fragment1" >
+        <action
+            android:id="@+id/action_navi_home_to_navi_setting"
+            app:destination="@id/navi_setting" />
+        <action
+            android:id="@+id/action_navi_home_to_navi_calendar"
+            app:destination="@id/navi_calendar" />
+    </fragment>
 
     <fragment android:id="@+id/navi_calendar"
         android:name="com.tako.tideflow.navigation.NavigationCalender"

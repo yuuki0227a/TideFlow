@@ -20,83 +20,64 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_sunday"
-            android:textColor="#DD2C00"
+            android:textColor="@color/calender_sunday_text_color"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_monday"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_tuesday"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_wednesday"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_thursday"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_friday"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
-            android:background="@color/white"
             android:gravity="center"
             android:text="@string/calender_day_of_week_saturday"
-            android:textColor="#0004FF"
+            android:textColor="@color/calender_saturday_text_color"
             android:textStyle="bold" />
     </LinearLayout>
 
