@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tako.tideflow.databinding.ActivityMainBinding
+import com.tako.tideflow.mynotification.AlarmReceiver
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -47,6 +48,9 @@ class MainActivity : AppCompatActivity() {
 
         // 下部メニュー
         initBottomNavigationView()
+
+        //TODO. アラームのセット ※別アプリに移行予定
+        AlarmReceiver.setDailyAlarm(this)
     }
 
     // アクティビティの再起動メソッド
