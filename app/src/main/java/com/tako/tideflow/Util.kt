@@ -1,10 +1,14 @@
 package com.tako.tideflow
 
 import android.app.Activity
+import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
+import android.os.Build
+import android.util.TypedValue
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -197,6 +201,14 @@ object Util {
                 activity.let { enableUserInteraction(it) }
             }
         }
+    }
+
+    /**
+     * 現在のシステムのテーマを返す。
+     * */
+    fun isDarkThemeOn(context: Context): Boolean {
+        val uiModeManager = context.getSystemService(Context.UI_MODE_SERVICE) as UiModeManager
+        return uiModeManager.nightMode == UiModeManager.MODE_NIGHT_YES
     }
 
 }

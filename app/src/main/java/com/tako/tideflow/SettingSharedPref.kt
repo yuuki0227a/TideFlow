@@ -8,6 +8,8 @@ class SettingSharedPref(context: Context){
         // ファイル名
         private const val FILE_NAME = "setting"
         // キー
+        private const val KEY_IS_RESTART = "key_is_restart"
+        private const val KEY_BOTTOM_NAV_ITEM_POSITION = "key_bottom_nav_item_position"
         private const val KEY_THEMES_SPINNER_ITEM = "key_themes_Spinner_item"
         private const val KEY_LOCATION_0_SPINNER_ITEM = "key_location_0_Spinner_item"
         private const val KEY_LOCATION_0_SPINNER_POSITION = "key_location_0_spinner_position"
@@ -23,6 +25,8 @@ class SettingSharedPref(context: Context){
         private const val KEY_APP_VERSION_NAME = "key_app_version_name"
         private const val KEY_APP_VERSION_CODE = "key_app_version_code"
         // デフォルト値
+        const val DEFAULT_IS_RESTART = false
+        const val DEFAULT_BOTTOM_NAV_VIEW_ID = -9999999
         private const val DEFAULT_THEMES_SPINNER_ITEM = 0
         private const val DEFAULT_LOCATION_SPINNER_ITEM_0 = "東京"
         private const val DEFAULT_LOCATION_SPINNER_ITEM_1 = "横浜"
@@ -40,6 +44,22 @@ class SettingSharedPref(context: Context){
 
     private val mSharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME , Context.MODE_PRIVATE)
 
+    // 再起動フラグ
+    var mIsReStart: Boolean = mSharedPreferences.getBoolean(KEY_IS_RESTART, DEFAULT_IS_RESTART)
+        set(value) {
+            mSharedPreferences.edit()
+                .putBoolean(KEY_IS_RESTART, value)
+                .apply()
+            field = value
+        }
+    // テーマカラーのアイテム
+    var mBottomNavViewId: Int = mSharedPreferences.getInt(KEY_BOTTOM_NAV_ITEM_POSITION, DEFAULT_BOTTOM_NAV_VIEW_ID)
+        set(value) {
+            mSharedPreferences.edit()
+                .putInt(KEY_BOTTOM_NAV_ITEM_POSITION, value)
+                .apply()
+            field = value
+        }
     // テーマカラーのアイテム
     var mThemesSpinnerItem: Int = mSharedPreferences.getInt(KEY_THEMES_SPINNER_ITEM, DEFAULT_THEMES_SPINNER_ITEM)!!
         set(value) {

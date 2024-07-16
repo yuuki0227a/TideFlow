@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import com.tako.tideflow.MainActivity
+import com.tako.tideflow.R
 import com.tako.tideflow.SettingSharedPref
 import com.tako.tideflow.databinding.NavigationSettingBinding
 
@@ -59,8 +60,13 @@ class NavigationSetting : Fragment() {
                 position: Int,
                 id: Long
             ) {
-                // position: 0 システム　1 ライト　2 ダーク
-                SettingSharedPref(mContext).mThemesSpinnerItem = position
+                if(SettingSharedPref(mContext).mThemesSpinnerItem != position){
+                    // position: 0 システム　1 ライト　2 ダーク
+                    SettingSharedPref(mContext).mThemesSpinnerItem = position
+                    // viewIdの保存
+                    SettingSharedPref(mContext).mBottomNavViewId = R.id.navi_setting
+                    (activity as MainActivity).restartActivity()
+                }
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -147,10 +153,6 @@ class NavigationSetting : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // テーマが変更されていればメッセージを表示する。
-        if(mThemesSpinnerItemBefore != SettingSharedPref(mContext).mThemesSpinnerItem){
-            Toast.makeText(mContext, "テーマは再起動後に反映されます", Toast.LENGTH_LONG).show()
-        }
     }
 
 }

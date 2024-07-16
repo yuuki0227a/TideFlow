@@ -1,6 +1,7 @@
 package com.tako.tideflow.navigation
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -76,12 +77,37 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 
     /** ナビゲーションメニューアイコン押下時など、画面作成時のみ通る
      * 更新処理では通らない */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        println("onCreate")
-        super.onCreate(savedInstanceState)
-        // フラグ初期化
-        isFileWriteFinish = arrayListOf(false, false, false)
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        println("onCreate")
+//        println("onCreate  $savedInstanceState")
+//        super.onCreate(savedInstanceState)
+//        // フラグ初期化
+//        isFileWriteFinish = arrayListOf(false, false, false)
+//    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // テーマが変更されたかどうかをチェック
+        if ((newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES) {
+            // ダークテーマが有効になった場合の処理
+            onThemeChanged(true)
+        } else {
+            // ライトテーマが有効になった場合の処理
+            onThemeChanged(false)
+        }
     }
+
+    private fun onThemeChanged(isDarkTheme: Boolean) {
+        println("onThemeChanged $isDarkTheme")
+        // テーマが変更された時の処理をここに書く
+//        if (isDarkTheme) {
+//            // ダークテーマになったときの処理
+//        } else {
+//            // ライトテーマになったときの処理
+//        }
+        (activity as MainActivity).restartActivity()
+    }
+
 
     /**
      * onCreate()の後に通る
@@ -91,6 +117,9 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = NavigationHomeBinding.inflate(inflater, container, false)
         mContext = mBinding.root.context
+
+        // フラグ初期化
+        isFileWriteFinish = arrayListOf(false, false, false)
 
         /* メンバ初期化 */
         mTideFlowDataList.add(
@@ -132,6 +161,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         // タブテキストの設定
         setLocationTabText()
 
+        /*TODO. デバッグボタン*/
         mBinding.lightButton.setOnClickListener {
             (activity as MainActivity).changeToLightMode()
         }

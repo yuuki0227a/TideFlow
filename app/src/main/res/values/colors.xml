@@ -36,7 +36,10 @@
     <!-- bottomメニュー -->
     <color name="bottom_nav_item_checked_color">#1900FF</color> <!-- チェック済みカラー -->
     <color name="bottom_nav_item_unchecked_color">#4A4A4A</color> <!-- 未チェックカラー -->
-    <color name="bottom_nav_item_background_color">#E4E4E4</color> <!-- バックグラウンド -->
+    <color name="bottom_nav_background_color">#E4E4E4</color> <!-- バックグラウンド -->
+
+    <!-- nav home -->
+    <color name="day_pager_background_color">#FEFEFE</color>
 
     <!-- カレンダー -->
     <color name="calender_border_color">#55515151</color> <!-- 枠線 -->

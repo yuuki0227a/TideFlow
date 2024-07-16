@@ -3,21 +3,18 @@ package com.tako.tideflow
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jakewharton.threetenabp.AndroidThreeTen
 import com.tako.tideflow.databinding.ActivityMainBinding
-import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -26,6 +23,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+//        if(SettingSharedPref(applicationContext).mIsReStart){
+//            SettingSharedPref(applicationContext).mIsReStart = false
+//            restartActivity()
+//        }
+
         setContentView(mBinding.root)
 
         /* バージョン情報の取得と設定 */
@@ -37,11 +40,17 @@ class MainActivity : AppCompatActivity() {
             SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
             SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             SettingSharedPref.THEMES_SPINNER_POSITION_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
         }
+
+        // 下部メニュー
+        initBottomNavigationView()
     }
 
     // アクティビティの再起動メソッド
-    private fun restartActivity() {
+    fun restartActivity() {
         val intent = Intent(this, MainActivity::class.java)
         finish()
         startActivity(intent)
@@ -61,10 +70,14 @@ class MainActivity : AppCompatActivity() {
         restartActivity()
     }
 
+    override fun onStart() {
+        super.onStart()
+        /*TODO. テーマ対応*/
+//        println("theme: ${Util.isDarkThemeOn(mBinding.root.context)}")
+    }
+
     override fun onResume() {
         super.onResume()
-        // 下部メニュー
-        initBottomNavigationView()
     }
 
     /**
@@ -77,6 +90,13 @@ class MainActivity : AppCompatActivity() {
         mNavController = findNavController(R.id.nav_host_fragment)
         // 下部メニューとナビゲーションを関連付け
         NavigationUI.setupWithNavController(bottomNavView, mNavController)
+
+        /* 設定画面のテーマ変更後の再起動後処理 */
+        // 再起動後の遷移先
+        if(SettingSharedPref(mBinding.root.context).mBottomNavViewId != SettingSharedPref.DEFAULT_BOTTOM_NAV_VIEW_ID){
+            bottomNavView.selectedItemId = SettingSharedPref(mBinding.root.context).mBottomNavViewId
+            SettingSharedPref(mBinding.root.context).mBottomNavViewId = SettingSharedPref.DEFAULT_BOTTOM_NAV_VIEW_ID
+        }
     }
 
     /**

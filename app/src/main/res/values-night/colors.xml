@@ -34,9 +34,12 @@
     <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
 
     <!-- bottomメニュー -->
-    <color name="bottom_nav_item_checked_color">#A1AAFF</color> <!-- チェック済みカラー -->
+    <color name="bottom_nav_item_checked_color">#C4BDFF</color> <!-- チェック済みカラー -->
     <color name="bottom_nav_item_unchecked_color">#808080</color> <!-- 未チェックカラー -->
-    <color name="bottom_nav_item_background_color">#222222</color> <!-- バックグラウンド -->
+    <color name="bottom_nav_background_color">#222222</color> <!-- バックグラウンド -->
+
+    <!-- nav home -->
+    <color name="day_pager_background_color">#0B0B0B</color>
 
     <!-- カレンダー -->
     <color name="calender_border_color">#55808080</color> <!-- 枠線 -->
