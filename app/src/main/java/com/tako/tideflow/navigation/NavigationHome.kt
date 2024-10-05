@@ -162,15 +162,15 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         setLocationTabText()
 
         /*TODO. デバッグボタン*/
-        mBinding.lightButton.setOnClickListener {
-            (activity as MainActivity).changeToLightMode()
-        }
-        mBinding.darkButton.setOnClickListener {
-            (activity as MainActivity).changeToDarkMode()
-        }
-        mBinding.systemButton.setOnClickListener {
-            (activity as MainActivity).changeToSystemDefaultMode()
-        }
+//        mBinding.lightButton.setOnClickListener {
+//            (activity as MainActivity).changeToLightMode()
+//        }
+//        mBinding.darkButton.setOnClickListener {
+//            (activity as MainActivity).changeToDarkMode()
+//        }
+//        mBinding.systemButton.setOnClickListener {
+//            (activity as MainActivity).changeToSystemDefaultMode()
+//        }
 
 
         return  mBinding.root
@@ -238,13 +238,13 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         })
 
         //TODO. 潮見表(大阪)ボタン
-//        mBinding.sioMieyellButton.isVisible = false
-        mBinding.sioMieyellButton.setOnClickListener {
-            val url = "https://www.youtube.com/live/sbSKv5U0tAc?si=4kJFYH0EGy1_7agH"
-//            val url = "https://koyomi8.com/moonage.html"
-//            val url = "https://sio.mieyell.jp/select?po=52706"
-            openBrowser(mContext, url)
-        }
+////        mBinding.sioMieyellButton.isVisible = false
+//        mBinding.sioMieyellButton.setOnClickListener {
+//            val url = "https://www.youtube.com/live/sbSKv5U0tAc?si=4kJFYH0EGy1_7agH"
+////            val url = "https://koyomi8.com/moonage.html"
+////            val url = "https://sio.mieyell.jp/select?po=52706"
+//            openBrowser(mContext, url)
+//        }
     }
 
     /**

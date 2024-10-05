@@ -163,106 +163,6 @@
 
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_5"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="bottom|center_horizontal"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:id="@+id/tab_layout_pager_5"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:tabMode="scrollable" />-->
-
-<!--            <androidx.viewpager2.widget.ViewPager2-->
-<!--                android:id="@+id/home_view_pager2_5"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_6"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="bottom|center_horizontal"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:id="@+id/tab_layout_pager_6"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:tabMode="scrollable" />-->
-
-<!--            <androidx.viewpager2.widget.ViewPager2-->
-<!--                android:id="@+id/home_view_pager2_6"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_7"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="bottom|center_horizontal"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:id="@+id/tab_layout_pager_7"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:tabMode="scrollable" />-->
-
-<!--            <androidx.viewpager2.widget.ViewPager2-->
-<!--                android:id="@+id/home_view_pager2_7"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_8"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="bottom|center_horizontal"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:id="@+id/tab_layout_pager_8"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:tabMode="scrollable" />-->
-
-<!--            <androidx.viewpager2.widget.ViewPager2-->
-<!--                android:id="@+id/home_view_pager2_8"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_9"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="bottom|center_horizontal"-->
-<!--            android:orientation="vertical">-->
-
-<!--            <com.google.android.material.tabs.TabLayout-->
-<!--                android:id="@+id/tab_layout_pager_9"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                app:tabMode="scrollable" />-->
-
-<!--            <androidx.viewpager2.widget.ViewPager2-->
-<!--                android:id="@+id/home_view_pager2_9"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-<!--        </LinearLayout>-->
-
     </LinearLayout>
 
     <FrameLayout
@@ -307,40 +207,40 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:gravity="bottom|end"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_margin="20dp"-->
+<!--        android:gravity="bottom|end"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
 
-        <Button
-            android:id="@+id/system_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="system" />
+<!--        <Button-->
+<!--            android:id="@+id/system_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="system" />-->
 
-        <Button
-            android:id="@+id/light_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="light" />
+<!--        <Button-->
+<!--            android:id="@+id/light_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="light" />-->
 
-        <Button
-            android:id="@+id/dark_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dark" />
+<!--        <Button-->
+<!--            android:id="@+id/dark_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="dark" />-->
 
-        <Button
-            android:id="@+id/sio_mieyell_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ライブカメラ大阪" />
-    </LinearLayout>
+<!--        <Button-->
+<!--            android:id="@+id/sio_mieyell_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="ライブカメラ大阪" />-->
+<!--    </LinearLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

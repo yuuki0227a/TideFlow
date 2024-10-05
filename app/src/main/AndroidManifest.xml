@@ -5,8 +5,8 @@
     <!-- インターネットアクセス -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 通知 -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!--    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />-->
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
 
     <application
         android:name=".App"
@@ -22,6 +22,8 @@
         <!--　MainActivityは縦画面固定: android:screenOrientation="portrait"　-->
         <activity
             android:name=".MainActivity"
+            android:resizeableActivity="false"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|screenLayout|screenSize|screenLayout"
             android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTask"
@@ -33,13 +35,13 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".mynotification.AlarmReceiver" />
-        <receiver android:name=".mynotification.BootReceiver"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".mynotification.AlarmReceiver" />-->
+<!--        <receiver android:name=".mynotification.BootReceiver"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
 
     </application>
