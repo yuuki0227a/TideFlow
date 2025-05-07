@@ -23,16 +23,37 @@ import com.github.mikephil.charting.utils.MPPointF
 import java.time.LocalDateTime
 import java.util.Calendar
 
-class DayPagerFragment(
-    private val tideFlowData: TideFlowManager.TideFlowData,
-    private val locationMap: MutableMap<String, String>,
-) : Fragment() {
+class DayPagerFragment : Fragment() {
     private lateinit var mBinding: FragmentDayPagerBinding
     private lateinit var mContext: Context
+
+    private lateinit var tideFlowData: TideFlowManager.TideFlowData
+    private lateinit var locationMap: MutableMap<String, String>
 
     companion object{
         const val DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT = "%2d:%02d"
         const val DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT = "%3d\tcm"
+
+        private const val ARG_TIDE_DATA = "arg_tide_data"
+        private const val ARG_LOCATION_MAP = "arg_location_map"
+
+        fun newInstance(data: TideFlowManager.TideFlowData, locationMap: HashMap<String, String>): DayPagerFragment {
+            return DayPagerFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("tideFlowData", data)
+                    putSerializable("locationMap", locationMap)
+                }
+            }
+        }
+
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            tideFlowData = (arguments?.getSerializable("tideFlowData") as? TideFlowManager.TideFlowData)!!
+            locationMap = (arguments?.getSerializable("locationMap") as? HashMap<String, String>)!!
+        }
     }
 
     override fun onCreateView(

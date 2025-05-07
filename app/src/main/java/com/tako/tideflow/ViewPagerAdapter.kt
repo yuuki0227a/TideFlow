@@ -6,9 +6,9 @@ import com.tako.tideflow.navigation.NavigationHome
 
 class ViewPagerAdapter(
     fa: NavigationHome,
-    tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData>,
-    tideDatePosition: MutableMap<Triple<Int, Int, Int>, Int>,
-    locationMap: MutableMap<String, String>,
+    tideFlowDataMap: HashMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData>,
+    tideDatePosition: HashMap<Triple<Int, Int, Int>, Int>,
+    locationMap: HashMap<String, String>,
 ) : FragmentStateAdapter(fa) {
 
     // ページリスト first::ポジション  second:fragment
@@ -18,7 +18,8 @@ class ViewPagerAdapter(
         var position = 0
         for ((tideDate, tideFlowData) in tideFlowDataMap) {
             // ポジションとfragmentを紐づける。
-            mFragments.add(Pair(position, DayPagerFragment(tideFlowData, locationMap)))
+            val fragment = DayPagerFragment.newInstance(tideFlowData, locationMap)
+            mFragments.add(Pair(position, fragment))
             // NavHomeでポジションを使用するために日付とポジションを紐づける。(日付はMapのキーと紐づいている)
             tideDatePosition[tideDate] = position
             position++

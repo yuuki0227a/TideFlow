@@ -246,8 +246,8 @@ object LocationList {
     /**
      * 観測地点の記号と名前を紐づけたMapを作成し、返す。
      * */
-    fun getLocationNameMap(): MutableMap<String, String> {
-        val locationNameMap: MutableMap<String, String> = mutableMapOf()
+    fun getLocationNameMap(): HashMap<String, String> {
+        val locationNameMap: HashMap<String, String> = hashMapOf()
         for (location in locationList) {
             locationNameMap[location.first] = location.second
         }

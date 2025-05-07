@@ -53,7 +53,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
     private val mHandler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private val mTideFlowManager: TideFlowManager by lazy { TideFlowManager() }
     // 観測地点の記号と名前を紐づけたMap
-    private val mLocationMap: MutableMap<String, String> by lazy { LocationList.getLocationNameMap() }
+    private val mLocationMap: HashMap<String, String> by lazy { LocationList.getLocationNameMap() }
     // 潮汐データのロケーション毎のデータ群
     private val mTideFlowDataList: ArrayList<TideFlowData> = arrayListOf()
     // 選択中のタブポジション
@@ -64,11 +64,11 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         val linearLayout: LinearLayout,
         val tabLayoutPager: TabLayout,
         // 潮汐データをレコードごとのマップ
-        var tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData> = mutableMapOf(),
+        var tideFlowDataMap: HashMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData> = hashMapOf(),
         // 潮汐データのレコードごとのリスト
         var tideFlowDataList: List<String> = listOf(),
         // 潮汐データの日付とページャーのポジション
-        var tideDatePosition: MutableMap<Triple<Int, Int, Int>, Int> = mutableMapOf(),
+        var tideDatePosition: HashMap<Triple<Int, Int, Int>, Int> = hashMapOf(),
         // 本日日付のポジション
         var todayPosition: Int = 0,
         // スクロール後のポジションを記憶

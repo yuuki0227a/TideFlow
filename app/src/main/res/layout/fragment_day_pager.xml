@@ -50,7 +50,9 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="TextView"
-                    android:textSize="24sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="20sp"
+                    android:autoSizeMaxTextSize="22sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -60,7 +62,9 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="TextView"
-                    android:textSize="48sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMinTextSize="40sp"
+                    android:autoSizeMaxTextSize="50sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -74,7 +78,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:orientation="vertical">
 
@@ -91,11 +95,14 @@
                     <TextView
                         android:id="@+id/day_pager_high_tide_times"
                         android:layout_width="50dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="満潮"
+                        android:maxLines="1"
                         android:textColor="#FF6161"
-                        android:textSize="24sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeMaxTextSize="24sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -112,18 +119,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_time_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_tide_level_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -136,18 +153,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_time_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_tide_level_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -160,18 +187,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_time_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_tide_level_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -184,18 +221,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_time_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_high_tide_times_tide_level_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -216,11 +263,14 @@
                     <TextView
                         android:id="@+id/day_pager_low_tide_times"
                         android:layout_width="50dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dp"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="干潮"
+                        android:maxLines="1"
                         android:textColor="#667DFF"
-                        android:textSize="24sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeMaxTextSize="24sp"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -237,18 +287,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_time_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_tide_level_1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -261,18 +321,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_time_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_tide_level_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -285,18 +355,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_time_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_tide_level_3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -309,18 +389,28 @@
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_time_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="20sp"
+                                android:maxLines="1"
+                                android:gravity="center"
+                                android:autoSizeTextType="uniform"
+                                android:autoSizeMinTextSize="20sp"
+                                android:autoSizeMaxTextSize="32sp"
                                 android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/day_pager_low_tide_times_tide_level_4"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:autoSizeMinTextSize="12sp"
+                                android:autoSizeMaxTextSize="20sp"
+                                android:autoSizeTextType="uniform"
+                                android:gravity="center"
                                 android:text="@string/day_pager_def_str"
-                                android:textSize="16sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
 

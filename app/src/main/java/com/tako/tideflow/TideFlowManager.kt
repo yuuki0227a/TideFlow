@@ -8,6 +8,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import kotlin.concurrent.thread
@@ -121,7 +122,7 @@ class TideFlowManager {
         val highTideTimes: ArrayList<Triple<Int, Int, Int>> = arrayListOf(),
         // 干潮時間と潮位(4要素)  first:時 second:分 third:潮位
         val lowTideTimes: ArrayList<Triple<Int, Int, Int>> = arrayListOf(),
-    )
+    ) : Serializable
 
     /**
      * 潮汐データのテキストファイルの取得。内部にファイルをコピーする。
@@ -322,9 +323,9 @@ class TideFlowManager {
      * @param locationName 潮汐データのファイルネームの年。(yyyy_xx.txt) xx: ロケーション
      * @return 潮汐の生データ。※ファイルがなければnull
      * */
-    fun readFromTideFileTxt(context: Context, dateList: ArrayList<LocalDate>, locationName: String): MutableMap<Triple<Int, Int, Int>, TideFlowData> {
+    fun readFromTideFileTxt(context: Context, dateList: ArrayList<LocalDate>, locationName: String): HashMap<Triple<Int, Int, Int>, TideFlowData> {
         var fileInputStream: FileInputStream? = null
-        val tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowData> = mutableMapOf()
+        val tideFlowDataMap: HashMap<Triple<Int, Int, Int>, TideFlowData> = hashMapOf()
         // 起点となる日付
         val currentDate = dateList[DATA_LIST_CURRENT]
         // ファイル読み込みの重複を避けるための変数

@@ -23,7 +23,6 @@
         <activity
             android:name=".MainActivity"
             android:resizeableActivity="false"
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|screenLayout|screenSize|screenLayout"
             android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTask"
