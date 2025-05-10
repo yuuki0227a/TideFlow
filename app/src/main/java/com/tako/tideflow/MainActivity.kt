@@ -37,16 +37,16 @@ class MainActivity : AppCompatActivity() {
         SettingSharedPref(mBinding.root.context).mAppVersionCode = getVersionCode()
 
         // システムのテーマ
-//        when(SettingSharedPref(mBinding.root.context).mThemesSpinnerItem){
-//            SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-//            SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-//            SettingSharedPref.THEMES_SPINNER_POSITION_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-//            else -> {
-//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-//            }
-//        }
+        when(SettingSharedPref(mBinding.root.context).mThemesSpinnerItem){
+            SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            SettingSharedPref.THEMES_SPINNER_POSITION_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            else -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
+        }
         // ダークモード固定
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
         // 下部メニュー
         initBottomNavigationView()

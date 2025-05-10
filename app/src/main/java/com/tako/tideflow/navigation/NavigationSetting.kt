@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import com.tako.tideflow.MainActivity
 import com.tako.tideflow.R
@@ -45,7 +46,7 @@ class NavigationSetting : Fragment() {
         mBinding.versionTextview.text = SettingSharedPref(mContext).mAppVersionName
 
         /* スピナーの初期値(position) */
-//        mBinding.themesSpinner.setSelection(SettingSharedPref(mContext).mThemesSpinnerItem)
+        mBinding.themesSpinner.setSelection(SettingSharedPref(mContext).mThemesSpinnerItem)
         mBinding.location0Spinner.setSelection(SettingSharedPref(mContext).mLocation0SpinnerPosition)
         mBinding.location1Spinner.setSelection(SettingSharedPref(mContext).mLocation1SpinnerPosition)
         mBinding.location2Spinner.setSelection(SettingSharedPref(mContext).mLocation2SpinnerPosition)
@@ -53,23 +54,23 @@ class NavigationSetting : Fragment() {
         mBinding.location4Spinner.setSelection(SettingSharedPref(mContext).mLocation4SpinnerPosition)
 
         /* テーマカラーのスピナー選択後のイベント */
-//        mBinding.themesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-//            override fun onItemSelected(
-//                parent: AdapterView<*>?,
-//                view: View?,
-//                position: Int,
-//                id: Long
-//            ) {
-//                if(SettingSharedPref(mContext).mThemesSpinnerItem != position){
-//                    // position: 0 システム　1 ライト　2 ダーク
-//                    SettingSharedPref(mContext).mThemesSpinnerItem = position
-//                    // viewIdの保存
-//                    SettingSharedPref(mContext).mBottomNavViewId = R.id.navi_setting
-//                    (activity as MainActivity).restartActivity()
-//                }
-//            }
-//            override fun onNothingSelected(parent: AdapterView<*>?) {}
-//        }
+        mBinding.themesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if(SettingSharedPref(mContext).mThemesSpinnerItem != position){
+                    // position: 0 システム　1 ライト　2 ダーク
+                    SettingSharedPref(mContext).mThemesSpinnerItem = position
+                    // viewIdの保存
+                    SettingSharedPref(mContext).mBottomNavViewId = R.id.navi_setting
+                    (activity as MainActivity).restartActivity()
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
 
         /* 観測地点のスピナー選択後のイベント */
         mBinding.location0Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
