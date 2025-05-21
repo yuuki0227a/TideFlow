@@ -109,7 +109,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginStart="130dp"
-                        android:entries="@array/location_name_list" />
+                        android:entries="@array/location_name_list_tab0" />
                 </LinearLayout>
 
             </LinearLayout>

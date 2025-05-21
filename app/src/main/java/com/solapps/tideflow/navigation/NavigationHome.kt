@@ -350,16 +350,30 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
      *　LocationNameTabのテキストの設定
      * */
     private fun setLocationTabText(){
-        /* 観測地点 */
-        // 各タブのインスタンスを取得してテキストを変更
-        mBinding.tabLayout.getTabAt(0)?.text = SettingSharedPref(mContext).mLocation0SpinnerItem
-        mBinding.tabLayout.getTabAt(1)?.text = SettingSharedPref(mContext).mLocation1SpinnerItem
-        mBinding.tabLayout.getTabAt(2)?.text = SettingSharedPref(mContext).mLocation2SpinnerItem
-        mBinding.tabLayout.getTabAt(3)?.text = SettingSharedPref(mContext).mLocation3SpinnerItem
-        mBinding.tabLayout.getTabAt(4)?.text = SettingSharedPref(mContext).mLocation4SpinnerItem
+        // 設定ファイル
+        val settings = SettingSharedPref(mContext)
+        // タブのリスト
+        val locationItems = listOf(
+            settings.mLocation0SpinnerItem,
+            settings.mLocation1SpinnerItem,
+            settings.mLocation2SpinnerItem,
+            settings.mLocation3SpinnerItem,
+            settings.mLocation4SpinnerItem
+        )
+        // "-"の場合は非表示
+        locationItems.forEachIndexed { index, item ->
+            mBinding.tabLayout.getTabAt(index)?.apply {
+                text = item
+                view.isVisible = item != "-"
+                // タブポジションのテキストが"-"だった場合はデフォルトポジションに更新する。
+                if(index == settings.mLocationNameTabSelected && !view.isVisible){
+                    settings.mLocationNameTabSelected = 0
+                }
+            }
+        }
 
-        // tabLayoutの初期ポジション(0～9)
-        val initialPosition = SettingSharedPref(mContext).mLocationNameTabSelected
+        // tabLayoutの初期ポジション(0～4)
+        val initialPosition = settings.mLocationNameTabSelected
         val initialTab = mBinding.tabLayout.getTabAt(initialPosition)
         if (initialTab != null) {
 //            mBinding.tabLayout.setScrollPosition(initialPosition, 0f, false)
@@ -404,6 +418,10 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         )
         // 観測地点
         val locationName = locationNameStr ?: ""
+        // 指定なしの場合は観測地点①に遷移させる
+        if(locationName != "-"){
+
+        }
         if(locationName.isNotEmpty()){
             /* ファイル取得処理 */
             // ファイルの存在確認
