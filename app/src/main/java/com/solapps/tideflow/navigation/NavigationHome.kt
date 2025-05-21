@@ -60,7 +60,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         val linearLayout: LinearLayout,
         val tabLayoutPager: TabLayout,
         // 潮汐データをレコードごとのマップ
-        var tideFlowDataMap: HashMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData> = hashMapOf(),
+        var tideFlowDataMap: LinkedHashMap<Triple<Int, Int, Int>, TideFlowManager.TideFlowData> = linkedMapOf(),
         // 潮汐データのレコードごとのリスト
         var tideFlowDataList: List<String> = listOf(),
         // 潮汐データの日付とページャーのポジション

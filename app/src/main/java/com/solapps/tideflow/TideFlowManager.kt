@@ -158,7 +158,8 @@ class TideFlowManager {
      * @param data 潮汐データ(すべて)
      * @return TideFlowDataのMapを返す。
      * */
-    private fun makeTideFlowDataMap(data: String, currentDate: LocalDate, tideFlowDataMap: MutableMap<Triple<Int, Int, Int>, TideFlowData>): MutableMap<Triple<Int, Int, Int>, TideFlowData>{
+    private fun makeTideFlowDataMap(data: String, currentDate: LocalDate, tideFlowDataMap: LinkedHashMap<Triple<Int, Int, Int>, TideFlowData>):
+            LinkedHashMap<Triple<Int, Int, Int>, TideFlowData>{
         // レコードをマップに分割する。
         for (dataRecord in data.lines()) {
             if (RECORD_LENGTH_MAX == dataRecord.length) {
@@ -181,7 +182,12 @@ class TideFlowManager {
             }
 
         }
-        return tideFlowDataMap
+        // tideFlowDataMapを日付でソートする
+        val sortedMap = tideFlowDataMap.toSortedMap(compareBy { (year, month, day) ->
+            LocalDate.of(year, month, day)
+        })
+
+        return LinkedHashMap(sortedMap)
     }
     /**
      * １行分の潮汐データを取得する。
@@ -323,9 +329,9 @@ class TideFlowManager {
      * @param locationName 潮汐データのファイルネームの年。(yyyy_xx.txt) xx: ロケーション
      * @return 潮汐の生データ。※ファイルがなければnull
      * */
-    fun readFromTideFileTxt(context: Context, dateList: ArrayList<LocalDate>, locationName: String): HashMap<Triple<Int, Int, Int>, TideFlowData> {
+    fun readFromTideFileTxt(context: Context, dateList: ArrayList<LocalDate>, locationName: String): LinkedHashMap<Triple<Int, Int, Int>, TideFlowData> {
         var fileInputStream: FileInputStream? = null
-        val tideFlowDataMap: HashMap<Triple<Int, Int, Int>, TideFlowData> = hashMapOf()
+        val tideFlowDataMap: LinkedHashMap<Triple<Int, Int, Int>, TideFlowData> = linkedMapOf()
         // 起点となる日付
         val currentDate = dateList[DATA_LIST_CURRENT]
         // ファイル読み込みの重複を避けるための変数
