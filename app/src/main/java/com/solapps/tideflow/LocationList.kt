@@ -1,4 +1,4 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 object LocationList {
     private val locationList: List<Pair<String, String>> = listOf(

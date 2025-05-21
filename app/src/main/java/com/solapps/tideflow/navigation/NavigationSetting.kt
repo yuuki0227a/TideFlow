@@ -1,4 +1,4 @@
-package com.tako.tideflow.navigation
+package com.solapps.tideflow.navigation
 
 import android.content.Context
 import android.os.Bundle
@@ -6,12 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
-import com.tako.tideflow.MainActivity
-import com.tako.tideflow.R
-import com.tako.tideflow.SettingSharedPref
-import com.tako.tideflow.databinding.NavigationSettingBinding
+import com.solapps.tideflow.MainActivity
+import com.solapps.tideflow.R
+import com.solapps.tideflow.SettingSharedPref
+import com.solapps.tideflow.databinding.NavigationSettingBinding
 
 class NavigationSetting : Fragment() {
     private val ACTION_BAR_TITLE = "設定"

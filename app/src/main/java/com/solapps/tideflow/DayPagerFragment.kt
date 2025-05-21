@@ -1,7 +1,6 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.AxisBase
-import com.tako.tideflow.databinding.FragmentDayPagerBinding
+import com.solapps.tideflow.databinding.FragmentDayPagerBinding
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -198,6 +197,12 @@ class DayPagerFragment : Fragment() {
             )
         }
 
+//        /* １時間毎の潮汐データの折線グラフ */
+//        createLineChart()
+    }
+
+    override fun onStart() {
+        super.onStart()
         /* １時間毎の潮汐データの折線グラフ */
         createLineChart()
     }

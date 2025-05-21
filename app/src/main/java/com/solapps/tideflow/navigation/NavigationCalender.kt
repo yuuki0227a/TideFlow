@@ -1,4 +1,4 @@
-package com.tako.tideflow.navigation
+package com.solapps.tideflow.navigation
 
 import android.content.Context
 import android.os.Bundle
@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.tako.tideflow.CalendarFragment
-import com.tako.tideflow.HolidayManager
-import com.tako.tideflow.Util
-import com.tako.tideflow.databinding.NavigationCalenderBinding
+import com.solapps.tideflow.CalendarFragment
+import com.solapps.tideflow.HolidayManager
+import com.solapps.tideflow.Util
+import com.solapps.tideflow.databinding.NavigationCalenderBinding
 import java.net.HttpURLConnection
 import java.net.URL
 import java.text.SimpleDateFormat

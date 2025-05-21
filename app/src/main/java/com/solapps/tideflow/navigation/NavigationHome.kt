@@ -1,4 +1,4 @@
-package com.tako.tideflow.navigation
+package com.solapps.tideflow.navigation
 
 import android.content.Context
 import android.content.res.Configuration
@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -20,22 +19,19 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.tako.tideflow.CalendarFragment
-import com.tako.tideflow.LocationList
-import com.tako.tideflow.MainActivity
-import com.tako.tideflow.R
-import com.tako.tideflow.SettingSharedPref
-import com.tako.tideflow.TideFlowManager
-import com.tako.tideflow.Util
-import com.tako.tideflow.Util.openBrowser
-import com.tako.tideflow.ViewPagerAdapter
-import com.tako.tideflow.databinding.NavigationHomeBinding
-import kotlinx.coroutines.delay
+import com.solapps.tideflow.CalendarFragment
+import com.solapps.tideflow.LocationList
+import com.solapps.tideflow.MainActivity
+import com.solapps.tideflow.R
+import com.solapps.tideflow.SettingSharedPref
+import com.solapps.tideflow.TideFlowManager
+import com.solapps.tideflow.Util
+import com.solapps.tideflow.ViewPagerAdapter
+import com.solapps.tideflow.databinding.NavigationHomeBinding
 import java.io.File
 import java.io.IOException
 import java.lang.Exception
 import java.time.LocalDate
-import kotlin.concurrent.thread
 
 class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
 

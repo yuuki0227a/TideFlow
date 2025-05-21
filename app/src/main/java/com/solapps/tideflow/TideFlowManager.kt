@@ -1,4 +1,4 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.content.Context
 import okhttp3.OkHttpClient

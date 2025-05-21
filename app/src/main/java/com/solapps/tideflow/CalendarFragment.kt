@@ -1,7 +1,6 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.tako.tideflow.navigation.NavigationCalender
-import com.tako.tideflow.databinding.CalendarFragmentBinding
+import com.solapps.tideflow.navigation.NavigationCalender
+import com.solapps.tideflow.databinding.CalendarFragmentBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*

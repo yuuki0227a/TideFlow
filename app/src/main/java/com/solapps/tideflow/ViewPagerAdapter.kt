@@ -1,8 +1,8 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.tako.tideflow.navigation.NavigationHome
+import com.solapps.tideflow.navigation.NavigationHome
 
 class ViewPagerAdapter(
     fa: NavigationHome,

@@ -1,10 +1,10 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.tako.tideflow.databinding.FragmentBlankBinding
+import com.solapps.tideflow.databinding.FragmentBlankBinding
 
 class MainAdapter(
     private val tideFlowDataList: List<String>,

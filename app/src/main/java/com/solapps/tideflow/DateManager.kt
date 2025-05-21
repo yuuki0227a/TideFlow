@@ -1,4 +1,4 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.annotation.SuppressLint
 import android.content.Context

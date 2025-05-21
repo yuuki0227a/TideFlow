@@ -1,14 +1,11 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.app.Activity
 import android.app.UiModeManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
 import android.net.Uri
-import android.os.Build
-import android.util.TypedValue
 import android.view.WindowManager
 import android.widget.FrameLayout
 import android.widget.LinearLayout

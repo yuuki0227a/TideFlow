@@ -1,9 +1,8 @@
-package com.tako.tideflow
+package com.solapps.tideflow
 
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -14,8 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.tako.tideflow.databinding.ActivityMainBinding
-import com.tako.tideflow.mynotification.AlarmReceiver
+import com.solapps.tideflow.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }

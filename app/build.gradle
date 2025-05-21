@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.tako.tideflow'
+    namespace 'com.solapps.tideflow'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.tako.tideflow"
+        applicationId "com.solapps.tideflow"
         minSdk 30
         targetSdk 33
         versionCode 1
