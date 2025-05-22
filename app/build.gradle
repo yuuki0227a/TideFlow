@@ -1,11 +1,15 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    // Firebase
+    id("com.google.gms.google-services")
+    // Add the Crashlytics Gradle plugin
+    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace 'com.lazyapps.tideflow'
-    compileSdk 33
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.lazyapps.tideflow"
@@ -18,7 +22,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            // デバッグビルドでは Crashlytics のマッピングファイルをアップロードしない
+            firebaseCrashlytics {
+//                mappingFileUploadEnabled true
+                mappingFileUploadEnabled false
+            }
+        }
         release {
+            // リリースビルドでは有効（デフォルトでも true なのでこの行は省略可）
+            firebaseCrashlytics {
+                mappingFileUploadEnabled true
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -65,4 +80,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1"
     // OSのthemeの取得
 //    implementation("com.github.Dansoftowner:jSystemThemeDetector:3.6")
+
+    // Import the BoM for the Firebase platform
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+
+    // Add the dependencies for the Crashlytics and Analytics libraries
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 }

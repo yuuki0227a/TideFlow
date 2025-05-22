@@ -40,6 +40,9 @@ class NavigationSetting : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Crashlytics テスト用クラッシュ
+//        throw RuntimeException("Test Crash: わざとクラッシュさせています")
+
         /* アプリ情報 */
         // バージョン名
         mBinding.versionTextview.text = SettingSharedPref(mContext).mAppVersionName

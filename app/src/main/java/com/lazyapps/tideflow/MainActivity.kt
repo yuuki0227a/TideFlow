@@ -3,6 +3,7 @@ package com.lazyapps.tideflow
 import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -144,8 +145,13 @@ class MainActivity : AppCompatActivity() {
      * */
     private fun getVersionName(): String {
         return try {
-            val packageInfo: PackageInfo = packageManager.getPackageInfo(packageName, 0)
-            packageInfo.versionName
+            val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                packageManager.getPackageInfo(packageName, PackageManager.PackageInfoFlags.of(0))
+            } else {
+                @Suppress("DEPRECATION")
+                packageManager.getPackageInfo(packageName, 0)
+            }
+            packageInfo.versionName ?: "N/A"
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             "N/A"
