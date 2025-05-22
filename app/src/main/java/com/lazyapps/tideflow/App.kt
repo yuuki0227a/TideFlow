@@ -1,4 +1,4 @@
-package com.solapps.tideflow
+package com.lazyapps.tideflow
 
 import android.app.Application
 import android.content.res.Configuration

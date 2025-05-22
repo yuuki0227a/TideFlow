@@ -1,4 +1,4 @@
-package com.solapps.tideflow
+package com.lazyapps.tideflow
 
 import kotlinx.serialization.json.Json
 import android.content.Context

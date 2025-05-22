@@ -1,4 +1,4 @@
-package com.solapps.tideflow
+package com.lazyapps.tideflow
 
 import android.content.Intent
 import android.content.pm.PackageInfo
@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.solapps.tideflow.databinding.ActivityMainBinding
+import com.lazyapps.tideflow.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }

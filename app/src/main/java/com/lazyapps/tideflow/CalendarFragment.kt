@@ -1,4 +1,4 @@
-package com.solapps.tideflow
+package com.lazyapps.tideflow
 
 import android.content.Context
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.solapps.tideflow.navigation.NavigationCalender
-import com.solapps.tideflow.databinding.CalendarFragmentBinding
+import com.lazyapps.tideflow.navigation.NavigationCalender
+import com.lazyapps.tideflow.databinding.CalendarFragmentBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.util.*

@@ -1,4 +1,4 @@
-package com.solapps.tideflow
+package com.lazyapps.tideflow
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

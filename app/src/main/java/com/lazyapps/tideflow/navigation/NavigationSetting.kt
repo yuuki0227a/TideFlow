@@ -1,4 +1,4 @@
-package com.solapps.tideflow.navigation
+package com.lazyapps.tideflow.navigation
 
 import android.content.Context
 import android.os.Bundle
@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import com.solapps.tideflow.MainActivity
-import com.solapps.tideflow.R
-import com.solapps.tideflow.SettingSharedPref
-import com.solapps.tideflow.databinding.NavigationSettingBinding
+import com.lazyapps.tideflow.MainActivity
+import com.lazyapps.tideflow.R
+import com.lazyapps.tideflow.SettingSharedPref
+import com.lazyapps.tideflow.databinding.NavigationSettingBinding
 
 class NavigationSetting : Fragment() {
     private val ACTION_BAR_TITLE = "設定"

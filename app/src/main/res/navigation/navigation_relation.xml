@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navi_home"
-        android:name="com.solapps.tideflow.navigation.NavigationHome"
+        android:name="com.lazyapps.tideflow.navigation.NavigationHome"
         android:label="Fragment1" >
         <action
             android:id="@+id/action_navi_home_to_navi_setting"
@@ -18,7 +18,7 @@
     </fragment>
 
     <fragment android:id="@+id/navi_calendar"
-        android:name="com.solapps.tideflow.navigation.NavigationCalender"
+        android:name="com.lazyapps.tideflow.navigation.NavigationCalender"
         android:label="Fragment2">
         <action
             android:id="@+id/action_navi_calendar_to_navi_home"
@@ -30,7 +30,7 @@
     </fragment>
 
     <fragment android:id="@+id/navi_setting"
-        android:name="com.solapps.tideflow.navigation.NavigationSetting"
+        android:name="com.lazyapps.tideflow.navigation.NavigationSetting"
         android:label="Fragment4">
         <action
             android:id="@+id/action_navi_setting_to_navi_steps"

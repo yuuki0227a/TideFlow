@@ -1,4 +1,4 @@
-package com.solapps.tideflow.mynotification
+package com.lazyapps.tideflow.mynotification
 
 import android.content.BroadcastReceiver
 import android.content.Context

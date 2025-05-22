@@ -1,4 +1,4 @@
-package com.solapps.tideflow.navigation
+package com.lazyapps.tideflow.navigation
 
 import android.content.Context
 import android.content.res.Configuration
@@ -19,15 +19,15 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jakewharton.threetenabp.AndroidThreeTen
-import com.solapps.tideflow.CalendarFragment
-import com.solapps.tideflow.LocationList
-import com.solapps.tideflow.MainActivity
-import com.solapps.tideflow.R
-import com.solapps.tideflow.SettingSharedPref
-import com.solapps.tideflow.TideFlowManager
-import com.solapps.tideflow.Util
-import com.solapps.tideflow.ViewPagerAdapter
-import com.solapps.tideflow.databinding.NavigationHomeBinding
+import com.lazyapps.tideflow.CalendarFragment
+import com.lazyapps.tideflow.LocationList
+import com.lazyapps.tideflow.MainActivity
+import com.lazyapps.tideflow.R
+import com.lazyapps.tideflow.SettingSharedPref
+import com.lazyapps.tideflow.TideFlowManager
+import com.lazyapps.tideflow.Util
+import com.lazyapps.tideflow.ViewPagerAdapter
+import com.lazyapps.tideflow.databinding.NavigationHomeBinding
 import java.io.File
 import java.io.IOException
 import java.lang.Exception

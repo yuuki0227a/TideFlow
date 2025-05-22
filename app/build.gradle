@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.solapps.tideflow'
+    namespace 'com.lazyapps.tideflow'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.solapps.tideflow"
+        applicationId "com.lazyapps.tideflow"
         minSdk 30
         targetSdk 33
         versionCode 1
