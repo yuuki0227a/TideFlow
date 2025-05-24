@@ -17,13 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/tabLayout"
+            style="@style/CustomTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            app:tabIndicatorColor="@color/tab_location_center"
-            app:tabMode="auto"
-            app:tabSelectedTextColor="@color/tab_location_center">
+            app:tabGravity="fill"
+            app:tabMode="scrollable">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -61,12 +60,11 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_pager_0"
+                style="@style/CustomTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/tab_date_center"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/tab_date_center"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_0"
@@ -84,11 +82,11 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_pager_1"
+                style="@style/CustomTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/tab_date_center"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/tab_date_center" />
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_1"
@@ -106,11 +104,11 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_pager_2"
+                style="@style/CustomTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/tab_date_center"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/tab_date_center" />
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_2"
@@ -128,11 +126,11 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_pager_3"
+                style="@style/CustomTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/tab_date_center"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/tab_date_center" />
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_3"
@@ -150,11 +148,11 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout_pager_4"
+                style="@style/CustomTabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:tabIndicatorColor="@color/tab_date_center"
-                app:tabMode="scrollable"
-                app:tabSelectedTextColor="@color/tab_date_center" />
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/home_view_pager2_4"
