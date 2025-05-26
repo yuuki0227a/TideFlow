@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.lazyapps.tideflow.databinding.ActivityMainBinding
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -36,14 +37,14 @@ class MainActivity : AppCompatActivity() {
         SettingSharedPref(mBinding.root.context).mAppVersionCode = getVersionCode()
 
         // システムのテーマ
-        when(SettingSharedPref(mBinding.root.context).mThemesSpinnerItem){
-            SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            SettingSharedPref.THEMES_SPINNER_POSITION_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else -> {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            }
-        }
+//        when(SettingSharedPref(mBinding.root.context).mThemesSpinnerItem){
+//            SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+//            SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//            SettingSharedPref.THEMES_SPINNER_POSITION_DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//            else -> {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+//            }
+//        }
         // ダークモード固定
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
@@ -52,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
         //TODO. アラームのセット ※別アプリに移行予定
         //AlarmReceiver.setDailyAlarm(this)
+
+
     }
 
     // アクティビティの再起動メソッド
@@ -60,20 +63,20 @@ class MainActivity : AppCompatActivity() {
         finish()
         startActivity(intent)
     }
-    fun changeToLightMode() {
-        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT
-        restartActivity()
-    }
-
-    fun changeToDarkMode() {
-        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_DARK
-        restartActivity()
-    }
-
-    fun changeToSystemDefaultMode() {
-        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM
-        restartActivity()
-    }
+//    fun changeToLightMode() {
+//        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_LIGHT
+//        restartActivity()
+//    }
+//
+//    fun changeToDarkMode() {
+//        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_DARK
+//        restartActivity()
+//    }
+//
+//    fun changeToSystemDefaultMode() {
+//        SettingSharedPref(mBinding.root.context).mThemesSpinnerItem = SettingSharedPref.THEMES_SPINNER_POSITION_SYSTEM
+//        restartActivity()
+//    }
 
     override fun onStart() {
         super.onStart()
@@ -83,6 +86,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        // バックグラウンドカラー
+        val backgroundResId = getBackgroundResIdByTime()
+        mBinding.root.setBackgroundResource(backgroundResId)
+//        mBinding.linearlayoutBgColor.setBackgroundResource(backgroundResId)
     }
 
     /**
@@ -172,6 +179,38 @@ class MainActivity : AppCompatActivity() {
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             -1L
+        }
+    }
+
+    /**
+    * 時間帯別でバックグランドリソースを返す。
+     * @return リソースファイルID
+    * */
+    private fun getBackgroundResIdByTime(): Int {
+        val now = Calendar.getInstance()
+        val hour = now.get(Calendar.HOUR_OF_DAY)
+        val month = now.get(Calendar.MONTH) + 1
+
+        val (sunrise, sunset) = when (month) {
+            1 -> 7 to 17
+            2 -> 6 to 17
+            3 -> 6 to 18
+            4 -> 5 to 18
+            5 -> 5 to 18
+            6 -> 5 to 19
+            7 -> 5 to 19
+            8 -> 5 to 18
+            9 -> 5 to 18
+            10 -> 6 to 17
+            11 -> 6 to 17
+            else -> 7 to 17
+        }
+        return when (hour) {
+            in (sunrise - 2) until sunrise -> R.drawable.bg_morning
+            in sunrise until (sunrise + 4) -> R.drawable.bg_day
+            in (sunrise + 4) until (sunset - 3) -> R.drawable.bg_noon
+            in (sunset - 3) until sunset -> R.drawable.bg_evening
+            else -> R.drawable.bg_night
         }
     }
 }

@@ -5,48 +5,67 @@
     <color name="colorAccent">#FF4081</color>
     <color name="purple">#FFDA00FF</color>
 
-    <color name="primary">#6200EE</color>
-    <color name="primary_variant">#3700B3</color>
+    <color name="primary">#1976D2</color>
+    <color name="primary_variant">#333333</color>
     <color name="on_primary">#FFFFFF</color>
 
     <color name="secondary">#03DAC6</color>
     <color name="secondary_variant">#018786</color>
     <color name="on_secondary">#000000</color>
 
+    <!-- メインの背景色 -->
+    <color name="main_bk_color">#232323</color>
+    <!-- メインの背景色 -->
+    <!--    <color name="main_bk_color">#000000</color>-->
+
     <!-- 観測地点タブの本日の色 -->
     <color name="tab_location_center">#0048FF</color>
     <!-- 日付タブの本日の色 -->
     <color name="tab_date_center">@color/tab_location_center</color>
+    <!-- タブの下線の色 -->
+    <color name="tab_indicator">#0048FF</color>
+    <!-- タブのテキストの色 -->
+    <color name="tab_text">#CCCCCC</color>
+    <!-- タブの選択中テキストの色 -->
+    <color name="tab_selected_text">#0048FF</color>
+
+
 
     <!-- 潮状態の色 -->
-    <color name="tide_spring">#FF3636</color>
+    <color name="tide_spring">#FF5050</color>
     <color name="tide_middle">#FF6F00</color>
-    <color name="tide_neap">#0040FF</color>
-    <color name="tide_long">#FFDA00FF</color>
-    <color name="tide_young">#00A642</color>
-    <color name="tide_def">#000000</color>
+    <color name="tide_neap">#4170FF</color>
+    <color name="tide_long">#E651FF</color>
+    <color name="tide_young">#00CC51</color>
+    <color name="tide_def">#FFFFFF</color>
 
     <!-- 折線グラフ -->
-    <color name="line_chart_data_point_text_color">#000000</color>
-    <color name="line_chart_graph_color">#CCD8FF</color><!-- グラフ -->
-    <color name="line_chart_other_circle_color">#838383</color><!-- データポイントの色 -->
-    <color name="line_chart_current_hour_circle_color">#0073FF</color><!-- データポイントの色(現時刻) -->
-    <color name="line_chart_fill_color">#0090FF</color><!-- 塗りつぶしカラー -->
+    <color name="line_chart_data_point_text_color">#FFFFFF</color>
+    <color name="line_chart_bk_color">#737373</color>
+    <color name="line_chart_graph_color">#003DFB</color><!-- グラフ -->
+    <color name="line_chart_other_circle_color">#C8C8C8</color><!-- データポイントの色 -->
+    <color name="line_chart_current_hour_circle_color">#00FFE2</color><!-- データポイントの色(現時刻) -->
+    <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
+
+    <!-- 潮汐データ枠 -->
+    <color name="tideflow_data_bk_color">#737373</color>
 
     <!-- bottomメニュー -->
-    <color name="bottom_nav_item_checked_color">#1900FF</color> <!-- チェック済みカラー -->
-    <color name="bottom_nav_item_unchecked_color">#4A4A4A</color> <!-- 未チェックカラー -->
-    <color name="bottom_nav_background_color">#E4E4E4</color> <!-- バックグラウンド -->
+    <color name="bottom_nav_item_checked_color">#C4BDFF</color> <!-- チェック済みカラー -->
+    <color name="bottom_nav_item_unchecked_color">#808080</color> <!-- 未チェックカラー -->
+    <color name="bottom_nav_background_color">#222222</color> <!-- バックグラウンド -->
 
     <!-- nav home -->
-    <color name="day_pager_background_color">#FEFEFE</color>
+    <color name="day_pager_background_color">#0B0B0B</color>
 
     <!-- カレンダー -->
-    <color name="calender_border_color">#55515151</color> <!-- 枠線 -->
+    <color name="calender_border_color">#55808080</color> <!-- 枠線 -->
     <color name="calender_sunday_text_color">@color/tide_spring</color> <!-- 日曜日のテキストカラー -->
     <color name="calender_holiday_text_color">@color/calender_sunday_text_color</color> <!-- 祝日のテキストカラー -->
     <color name="calender_saturday_text_color">#0040FF</color> <!-- 土曜日のテキストカラー -->
-    <color name="calender_moon_name_text_color">#5E5E5E</color> <!-- 月名のテキストカラー -->
-    <color name="calender_disable_color">#C5C5C5</color> <!-- 無効カラー -->
+    <color name="calender_moon_name_text_color">#C5C5C5</color> <!-- 月名のテキストカラー -->
+    <color name="calender_disable_color">#5E5E5E</color> <!-- 無効カラー -->
 
 </resources>
+
+

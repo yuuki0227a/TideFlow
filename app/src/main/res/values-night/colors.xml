@@ -5,18 +5,31 @@
     <color name="colorAccent">#FF4081</color>
     <color name="purple">#FFDA00FF</color>
 
-    <color name="primary">#6200EE</color>
-    <color name="primary_variant">#3700B3</color>
+    <color name="primary">#1976D2</color>
+    <color name="primary_variant">#333333</color>
     <color name="on_primary">#FFFFFF</color>
 
     <color name="secondary">#03DAC6</color>
     <color name="secondary_variant">#018786</color>
     <color name="on_secondary">#000000</color>
 
+    <!-- メインの背景色 -->
+    <color name="main_bk_color">#232323</color>
+    <!-- メインの背景色 -->
+<!--    <color name="main_bk_color">#000000</color>-->
+
     <!-- 観測地点タブの本日の色 -->
-    <color name="tab_location_center">#00C3FF</color>
+    <color name="tab_location_center">#0048FF</color>
     <!-- 日付タブの本日の色 -->
     <color name="tab_date_center">@color/tab_location_center</color>
+    <!-- タブの下線の色 -->
+    <color name="tab_indicator">#0048FF</color>
+    <!-- タブのテキストの色 -->
+    <color name="tab_text">#CCCCCC</color>
+    <!-- タブの選択中テキストの色 -->
+    <color name="tab_selected_text">#0048FF</color>
+
+
 
     <!-- 潮状態の色 -->
     <color name="tide_spring">#FF5050</color>
@@ -28,10 +41,14 @@
 
     <!-- 折線グラフ -->
     <color name="line_chart_data_point_text_color">#FFFFFF</color>
+    <color name="line_chart_bk_color">#737373</color>
     <color name="line_chart_graph_color">#003DFB</color><!-- グラフ -->
     <color name="line_chart_other_circle_color">#C8C8C8</color><!-- データポイントの色 -->
     <color name="line_chart_current_hour_circle_color">#00FFE2</color><!-- データポイントの色(現時刻) -->
     <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
+
+    <!-- 潮汐データ枠 -->
+    <color name="tideflow_data_bk_color">#737373</color>
 
     <!-- bottomメニュー -->
     <color name="bottom_nav_item_checked_color">#C4BDFF</color> <!-- チェック済みカラー -->

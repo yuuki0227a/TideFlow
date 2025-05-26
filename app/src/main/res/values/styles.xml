@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
-        <item name="tabIndicatorColor">#66CCFF</item>
-        <item name="tabSelectedTextColor">#66CCFF</item>
-        <item name="tabTextColor">#CCCCCC</item>
+        <item name="tabIndicatorColor">@color/tab_indicator</item>
+        <item name="tabSelectedTextColor">@color/tab_selected_text</item>
+        <item name="tabTextColor">@color/tab_text</item>
         <item name="tabIndicatorHeight">3dp</item>
         <item name="tabTextAppearance">@style/TabTextStyle</item>
         <item name="android:lineHeight">20sp</item> <!-- 明示的に設定も効果あり -->
+<!--        <item name="tabIndicator">@drawable/custom_tab_indicator</item>-->
     </style>
 
     <style name="TabTextStyle" parent="TextAppearance.Design.Tab">

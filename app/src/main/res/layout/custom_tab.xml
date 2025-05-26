@@ -9,6 +9,8 @@
         android:id="@+id/tabTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="14sp"
-        android:padding="8dp"/>
+        android:textAppearance="@style/TabTextStyle"
+        android:textColor="#CCCCCC"
+    />
+
 </LinearLayout>

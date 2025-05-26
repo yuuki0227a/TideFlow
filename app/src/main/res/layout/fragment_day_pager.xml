@@ -1,442 +1,367 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/day_pager_background_color"
+    android:orientation="vertical"
     android:padding="0dp">
 
+    <!-- 月画像＆月齢エリア -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="20dp"
+            android:autoSizeMinTextSize="10dp"
+            android:gravity="start"
+            android:text="＜"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:autoSizeMaxTextSize="20dp"
+            android:autoSizeMinTextSize="10dp"
+            android:gravity="center"
+            android:text="2025年05月24日 (土)"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:autoSizeMaxTextSize="20dp"
+            android:autoSizeMinTextSize="10dp"
+            android:gravity="end"
+            android:text="＞"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="18dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="15dp"
-            android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/day_pager_moon_imageView"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:src="@drawable/moon_debug"
+            android:background="@android:color/transparent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            android:gravity="center_vertical">-->
 
-                <ImageView
-                    android:id="@+id/day_pager_moon_imageView"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    app:srcCompat="@android:drawable/ic_menu_gallery" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/day_pager_moon_age_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="月齢 28.9"
+                android:textSize="20sp"
+                android:textColor="#222"
+                android:textStyle="bold"
+                android:gravity="center"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal|center_vertical"
-                android:orientation="vertical">
+<!--&lt;!&ndash;            <TextView&ndash;&gt;-->
+<!--&lt;!&ndash;                android:id="@+id/day_pager_tide_condition_textView"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:text="中潮"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textSize="22sp"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textColor="#1976D2"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:textStyle="bold"&ndash;&gt;-->
+<!--&lt;!&ndash;                android:gravity="center"/>&ndash;&gt;-->
+<!--        </LinearLayout>-->
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/day_pager_moon_age_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="TextView"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="20sp"
-                    android:autoSizeMaxTextSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/day_pager_tide_condition_textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal|center_vertical"
-                    android:text="TextView"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMinTextSize="40sp"
-                    android:autoSizeMaxTextSize="50sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="13dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/day_pager_high_tide_times"
-                        android:layout_width="50dp"
-                        android:layout_height="60dp"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="満潮"
-                        android:maxLines="1"
-                        android:textColor="#FF6161"
-                        android:autoSizeTextType="uniform"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeMaxTextSize="24sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_time_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_tide_level_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_time_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_tide_level_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_time_3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_tide_level_3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_time_4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_high_tide_times_tide_level_4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="13dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/day_pager_low_tide_times"
-                        android:layout_width="50dp"
-                        android:layout_height="60dp"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:text="干潮"
-                        android:maxLines="1"
-                        android:textColor="#667DFF"
-                        android:autoSizeTextType="uniform"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeMaxTextSize="24sp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_time_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_tide_level_1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_time_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_tide_level_2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_time_3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_tide_level_3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_time_4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:text="@string/day_pager_def_str"
-                                android:maxLines="1"
-                                android:gravity="center"
-                                android:autoSizeTextType="uniform"
-                                android:autoSizeMinTextSize="20sp"
-                                android:autoSizeMaxTextSize="32sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/day_pager_low_tide_times_tide_level_4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:maxLines="1"
-                                android:autoSizeMinTextSize="12sp"
-                                android:autoSizeMaxTextSize="20sp"
-                                android:autoSizeTextType="uniform"
-                                android:gravity="center"
-                                android:text="@string/day_pager_def_str"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="">
+        <!-- グラフ -->
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/day_pager_lineChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="bottom|center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@android:color/transparent"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:clipToPadding="false" />
+<!--        <TextView-->
+<!--            android:id="@+id/current_time_label"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="9:00"-->
+<!--            android:textSize="18sp"-->
+<!--            android:visibility="gone"/>-->
+    </FrameLayout>
 
-            <!-- ①折れ線グラフ -->
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/day_pager_lineChart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="5dp" />
+    <!-- 潮汐データパネル -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_panel_bg"
+        android:padding="16dp"
+        android:layout_margin="18dp"
+        android:orientation="vertical"
+        android:elevation="8dp">
+
+        <!-- 満潮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="6dp">
+
+            <TextView
+                android:id="@+id/day_pager_high_tide_times"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:text="満潮"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginEnd="12dp"/>
+
+            <!-- 1 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_time_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="03:30"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_tide_level_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="150cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!-- 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_time_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--:--"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_tide_level_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <!-- 3・4も同じ要領で追加可 -->
+            <!-- 3 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_time_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--:--"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_tide_level_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!-- 4 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_time_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--:--"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_high_tide_times_tide_level_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- 干潮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingTop="6dp">
+
+            <TextView
+                android:id="@+id/day_pager_low_tide_times"
+                android:layout_width="50dp"
+                android:layout_height="60dp"
+                android:text="干潮"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginEnd="12dp"/>
+
+            <!-- 1 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_time_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:36"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_tide_level_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="6cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <!-- 2 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_time_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--:--"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_tide_level_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <!-- 3 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_time_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--:--"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_tide_level_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <!-- 4 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_time_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--:--"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+                <TextView
+                    android:id="@+id/day_pager_low_tide_times_tide_level_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="--cm"
+                    android:textSize="16sp"
+                    android:textColor="#444"
+                    android:gravity="center"/>
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
-
-</FrameLayout>
+</LinearLayout>

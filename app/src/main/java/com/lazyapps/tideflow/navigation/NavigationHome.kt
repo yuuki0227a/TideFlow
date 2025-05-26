@@ -158,15 +158,14 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         setLocationTabText()
 
         /*TODO. デバッグボタン*/
-//        mBinding.lightButton.setOnClickListener {
-//            (activity as MainActivity).changeToLightMode()
-//        }
-//        mBinding.darkButton.setOnClickListener {
-//            (activity as MainActivity).changeToDarkMode()
-//        }
-//        mBinding.systemButton.setOnClickListener {
-//            (activity as MainActivity).changeToSystemDefaultMode()
-//        }
+        mBinding.tabLayoutPager0.isVisible = false
+        mBinding.tabLayoutPager1.isVisible = false
+        mBinding.tabLayoutPager2.isVisible = false
+        mBinding.tabLayoutPager3.isVisible = false
+        mBinding.tabLayoutPager4.isVisible = false
+
+        // バックグラウンドカラー
+
 
 
         return  mBinding.root
@@ -193,8 +192,8 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
             }
 
             override fun onPageScrollStateChanged(state: Int) {
-                // ページのスクロール状態が変化したときの処理
-//                Log.i("viewPager", "ページのスクロール状態が変化")
+                // ページのスクロール状態が変化したときの処理 state:1 スクロール開始 state:2 指を離した state:0 スクロール停止
+                Log.i("viewPager", "state $state ページのスクロール状態が変化")
             }
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {

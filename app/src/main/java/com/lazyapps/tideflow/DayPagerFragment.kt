@@ -1,6 +1,7 @@
 package com.lazyapps.tideflow
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,11 +11,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.LimitLine
 import com.lazyapps.tideflow.databinding.FragmentDayPagerBinding
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.IFillFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartGestureListener
@@ -28,6 +32,8 @@ class DayPagerFragment : Fragment() {
 
     private lateinit var tideFlowData: TideFlowManager.TideFlowData
     private lateinit var locationMap: MutableMap<String, String>
+
+    private var mTideCondition: String? = ""
 
     companion object{
         const val DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT = "%2d:%02d"
@@ -76,50 +82,52 @@ class DayPagerFragment : Fragment() {
         // 少数第一位以下を切り捨てる。
         val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
         // 月齢から潮情報を取得する。
-        val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
+        mTideCondition = Util.getTideInfoFromLunarPhase(moonAge)
+//        val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
         // 月齢表示
         mBinding.dayPagerMoonAgeTextView.text = String.format("月齢 %.1f", roundedMoonAge)
 //        mBinding.dayPagerMoonAgeTextView.text = String.format("%.1f", roundedMoonAge)
         // 潮状態表示
-        mBinding.dayPagerTideConditionTextView.text = tideCondition
+//        mBinding.dayPagerTideConditionTextView.text = tideCondition
         // 潮状態ごとに色分けする。
-        if(tideCondition != null){
-            Util.setColorForTideType(mContext, mBinding.dayPagerTideConditionTextView, tideCondition)
-        }
-        // 月画像
-        when(moonAge.toInt()){
-            0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
-            1 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_01)
-            2 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_02)
-            3 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_03)
-            4 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_04)
-            5 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_05)
-            6 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_06)
-            7 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_07)
-            8 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_08)
-            9 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_09)
-            10 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_10)
-            11 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_11)
-            12 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_12)
-            13 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_13)
-            14 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_14)
-            15 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_15)
-            16 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_16)
-            17 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_17)
-            18 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_18)
-            19 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_19)
-            20 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_20)
-            21 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_21)
-            22 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_22)
-            23 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_23)
-            24 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_24)
-            25 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_25)
-            26 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_26)
-            27 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_27)
-            28 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_28)
-            29 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_29)
-            else -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
-        }
+//        if(tideCondition != null){
+//            Util.setColorForTideType(mContext, mBinding.dayPagerTideConditionTextView, tideCondition)
+//        }
+        // 月画像 TODO. 月画像を作成して実装する
+        mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_debug)
+//        when(moonAge.toInt()){
+//            0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
+//            1 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_01)
+//            2 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_02)
+//            3 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_03)
+//            4 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_04)
+//            5 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_05)
+//            6 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_06)
+//            7 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_07)
+//            8 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_08)
+//            9 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_09)
+//            10 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_10)
+//            11 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_11)
+//            12 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_12)
+//            13 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_13)
+//            14 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_14)
+//            15 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_15)
+//            16 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_16)
+//            17 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_17)
+//            18 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_18)
+//            19 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_19)
+//            20 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_20)
+//            21 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_21)
+//            22 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_22)
+//            23 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_23)
+//            24 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_24)
+//            25 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_25)
+//            26 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_26)
+//            27 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_27)
+//            28 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_28)
+//            29 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_29)
+//            else -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
+//        }
 
         /* 満潮 */
         // 1
@@ -199,12 +207,30 @@ class DayPagerFragment : Fragment() {
 
 //        /* １時間毎の潮汐データの折線グラフ */
 //        createLineChart()
+
+        // TODO. test
+        mBinding.dayPagerMoonImageView.setOnClickListener {
+            createLineChart()
+        }
+        // グラフ作成前に表示される文字列
+        mBinding.dayPagerLineChart.setNoDataText("")
     }
 
     override fun onStart() {
         super.onStart()
         /* １時間毎の潮汐データの折線グラフ */
+//        createLineChart()
+    }
+
+    override fun onResume() {
+        super.onResume()
         createLineChart()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mBinding.dayPagerLineChart.setNoDataText("")   // NoDataTextを空に
+        mBinding.dayPagerLineChart.clear()             // データも全部クリア
     }
 
     /**
@@ -212,16 +238,6 @@ class DayPagerFragment : Fragment() {
      * */
     private fun createLineChart(){
         /* テーマに基づいてカラーを取得 */
-        // テキストカラー
-        val themeTextColor: Int = ContextCompat.getColor(
-            mContext,
-            R.color.line_chart_data_point_text_color
-        )
-        // グラフカラー
-        val themeGraphColor: Int = ContextCompat.getColor(
-            mContext,
-            R.color.line_chart_graph_color
-        )
         // １時間ごとの潮位
         val hourlyTideLevelList: ArrayList<Float> = arrayListOf()
         for(hourlyTideLevel in tideFlowData.hourlyTideLevels){
@@ -232,45 +248,17 @@ class DayPagerFragment : Fragment() {
         hourlyTideLevelList.forEachIndexed { index, value ->
             // X軸は配列のインデックス番号
             val dataEntry = Entry(index.toFloat(), value)
-            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
         // ④グラフ線やポインタなどの機能、デザインなどを設定
         val lineDataSet = LineDataSet(dataEntries, "グラフ名")
-
         // ⑤ラベルやグラフなどの機能、デザインなどを設定
         // x軸のラベルをbottomに表示
         mBinding.dayPagerLineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
 
         // ⑥グラフのデータに格納
         mBinding.dayPagerLineChart.data = LineData(lineDataSet)
-
-        /* x軸ラベルの作成 */
-        // x軸のラベル
-        val quarterList: ArrayList<String> = arrayListOf()
-        // 0～23を追加する。
-        val xTimeMax = 24
-        for((xTime, _) in (0 until xTimeMax).withIndex()){
-            quarterList.add("$xTime")
-        }
-        // x軸の項目名を設定
-        val formatter: ValueFormatter = object : ValueFormatter() {
-            override fun getAxisLabel(value: Float, axis: AxisBase): String {
-                /*
-                *   データ削除後の再描画でラベルが要素外まで参照されてしまう
-                *   要素外を参照しないように対応。原因は不明。 */
-                if (quarterList.size <= value.toInt()) {
-                    return "e"
-                }
-                return quarterList[value.toInt()]
-            }
-        }
-        lineDataSet.valueFormatter = object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                // 小数点以下は消す。
-                return "%.0f".format(value)
-            }
-        }
 
         // 現在の日時
         val currentDateTime = LocalDateTime.now()
@@ -281,7 +269,7 @@ class DayPagerFragment : Fragment() {
         // グラフモード(曲線)
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         // グラフの色
-        lineDataSet.colors = listOf(themeGraphColor)
+//        lineDataSet.colors = listOf(themeGraphColor)
         // 点の色
 //        lineDataSet.circleColors = listOf(Color.CYAN)
         // 点の大きさ
@@ -292,17 +280,24 @@ class DayPagerFragment : Fragment() {
             R.color.line_chart_fill_color
         )
         // 塗りつぶし
-        lineDataSet.setDrawFilled(true)
+        lineDataSet.setDrawFilled(false)
         // 値非表示
-        lineDataSet.setDrawValues(true)
+        lineDataSet.setDrawValues(false)
         // ポインタ非表示
         lineDataSet.setDrawCircles(false)
-        // 値のテキストカラー
-        lineDataSet.valueTextColor = themeTextColor
         // 値のテキストサイズ
         lineDataSet.valueTextSize = 10f
         // アイコンのオフセット
-        lineDataSet.iconsOffset = MPPointF(0f,2f)
+//        lineDataSet.iconsOffset = MPPointF(0f,2f)
+        // 塗りつぶしの下限値を強制
+//        lineDataSet.fillFormatter = IFillFormatter { _, _ ->
+//            // 画面下端まで塗りつぶしたいので十分小さい値を指定
+//            -200f   // 例: 潮位データの最小値-50程度
+//        }
+        // 必要ならY軸も合わせて調整
+//        val minTide = hourlyTideLevelList.minOrNull() ?: 0f
+//        val axisMin = if (minTide < 0) minTide - 10 else 0f
+//        mBinding.dayPagerLineChart.axisLeft.axisMinimum = axisMin
 
         /* グラフ設定 */
         // データがない場合のテキスト
@@ -317,6 +312,9 @@ class DayPagerFragment : Fragment() {
 //        mBinding.dayPagerLineChart.setVisibleXRangeMinimum(5f) // ※
         // データの表示位置を指定したX軸の値にする(インデックスではなくX軸の値を指定)
         mBinding.dayPagerLineChart.moveViewToX((hourlyTideLevelList.size - 1).toFloat()) // ※
+
+        mBinding.dayPagerLineChart.renderer =
+            CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
 
         /* 現日時の処理 */
         // 日付が本日の場合のみ表示する。
@@ -342,15 +340,21 @@ class DayPagerFragment : Fragment() {
         // ダブルタップでのズームを無効
         mBinding.dayPagerLineChart.isDoubleTapToZoomEnabled = false
         // グラフアニメーション
-        mBinding.dayPagerLineChart.animateXY(1, 1)
+        mBinding.dayPagerLineChart.animateXY(500, 1000)
         // グラフ拡大許可
         mBinding.dayPagerLineChart.setScaleEnabled(false)
         // タッチイベントを無効にする
         mBinding.dayPagerLineChart.setTouchEnabled(false)
+//        // グラフ作成前に表示される文字列
+//        mBinding.dayPagerLineChart.setNoDataText("")
 
         /* ラベルのカスタマイズ */
         // 右下のDescription Labelを非表示
-        mBinding.dayPagerLineChart.description.isEnabled = false
+        mBinding.dayPagerLineChart.description.isEnabled = true
+        // 右下のDescription Labelのテキスト
+        mBinding.dayPagerLineChart.description.text = mTideCondition
+        // 右下のDescription Labelのテキストサイズ
+        mBinding.dayPagerLineChart.description.textSize = 30f
         // グラフ名ラベルを非表示
         mBinding.dayPagerLineChart.legend.isEnabled = false
         // Y軸右側ラベルを非表示
@@ -358,28 +362,26 @@ class DayPagerFragment : Fragment() {
         // 上からのオフセット
         mBinding.dayPagerLineChart.extraTopOffset = 30f
 
+        mBinding.dayPagerLineChart.setViewPortOffsets(0f, 0f, 0f, 0f)
+        mBinding.dayPagerLineChart.setExtraOffsets(0f, 0f, 0f, 0f)
+        mBinding.dayPagerLineChart.setPadding(0, 0, 0, 0)
+
+
         /* x軸関連 */
         mBinding.dayPagerLineChart.xAxis.apply {
-            // ラベルカラー
-            textColor = themeTextColor
-            // ラベル表示の数
-            labelCount = quarterList.size - 1
-            // ラベル挿入
-            valueFormatter = formatter
-            // ラベルを1.0ずつ増加させる　※これをしないと0.5のときなどに余計なラベルが追加される
-            granularity = 1f
             // グリッド表示
             setDrawGridLines(false)
             // ラベル表示
-            setDrawLabels(true)
+            setDrawLabels(false)
             // 枠線表示
-            setDrawAxisLine(true)
+            setDrawAxisLine(false)
+            axisMinimum = dataEntries.first().x
+            axisMaximum = dataEntries.last().x
+            setAvoidFirstLastClipping(false)
         }
 
         /* Y軸関連(左側) */
         mBinding.dayPagerLineChart.axisLeft.apply {
-            // ラベルカラー
-            textColor = themeTextColor
             // グリッド表示
             setDrawGridLines(false)
             // ラベル表示
@@ -389,16 +391,16 @@ class DayPagerFragment : Fragment() {
             // y軸ラベルの表示個数
             labelCount = 10
             // y左軸最大値
-//            axisMaximum = 300f
+            axisMaximum = 300f
             // y左軸最小値
-//            axisMinimum = 0f
+            axisMinimum = -100f
         }
 
         /* データのポインタを画像(Image)にする */
 //        var icon: Drawable? = ResourcesCompat.getDrawable(getResources(), R.drawable.android, null)
 //        val dataEntry = Entry(key.toFloat(), value.toFloat(), icon)
-        // アイコンを非表示にする
-//        lineDataSet.setDrawIcons(false)
+        // アイコンを表示する
+        lineDataSet.setDrawIcons(true)
         // 表示するデータ値数を指定
 //        lineChart.setMaxVisibleValueCount(200)
 
@@ -454,6 +456,10 @@ class DayPagerFragment : Fragment() {
 //        lineChart.data?.clearValues()
 //        lineChart.clear()
 //        lineChart.notifyDataSetChanged()
-//        lineChart.invalidate()
+//        mBinding.dayPagerLineChart.invalidate()
+
+
+
+
     }
 }
