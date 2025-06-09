@@ -2,7 +2,10 @@ package com.lazyapps.tideflow
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -19,6 +22,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IFillFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartGestureListener
@@ -83,12 +87,12 @@ class DayPagerFragment : Fragment() {
         val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
         // 月齢から潮情報を取得する。
         mTideCondition = Util.getTideInfoFromLunarPhase(moonAge)
-//        val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
+        val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
         // 月齢表示
         mBinding.dayPagerMoonAgeTextView.text = String.format("月齢 %.1f", roundedMoonAge)
 //        mBinding.dayPagerMoonAgeTextView.text = String.format("%.1f", roundedMoonAge)
         // 潮状態表示
-//        mBinding.dayPagerTideConditionTextView.text = tideCondition
+        mBinding.dayPagerTideConditionTextView.text = tideCondition
         // 潮状態ごとに色分けする。
 //        if(tideCondition != null){
 //            Util.setColorForTideType(mContext, mBinding.dayPagerTideConditionTextView, tideCondition)
@@ -231,6 +235,10 @@ class DayPagerFragment : Fragment() {
         super.onPause()
         mBinding.dayPagerLineChart.setNoDataText("")   // NoDataTextを空に
         mBinding.dayPagerLineChart.clear()             // データも全部クリア
+        // ふきだしを非表示にする
+        val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
+        customLineChartRenderer.showBubble = false
+        mBinding.dayPagerLineChart.renderer = customLineChartRenderer
     }
 
     /**
@@ -245,14 +253,20 @@ class DayPagerFragment : Fragment() {
         }
         // ③元データをEntry型に変換したリストを準備
         val dataEntries = mutableListOf<Entry>()
-        hourlyTideLevelList.forEachIndexed { index, value ->
-            // X軸は配列のインデックス番号
-            val dataEntry = Entry(index.toFloat(), value)
-//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+        hourlyTideLevelList.forEachIndexed { hour, value ->
+            val dataEntry = Entry(hour.toFloat(), value)
+            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
+        // 24時データを追加したい場合
+        if (hourlyTideLevelList.size == 24) {
+            val valueAt0 = hourlyTideLevelList[0]
+            val dataEntry24 = Entry(24f, valueAt0)
+            dataEntries.add(dataEntry24)
+        }
+
         // ④グラフ線やポインタなどの機能、デザインなどを設定
-        val lineDataSet = LineDataSet(dataEntries, "グラフ名")
+        val lineDataSet = LineDataSet(dataEntries, "潮汐表")
         // ⑤ラベルやグラフなどの機能、デザインなどを設定
         // x軸のラベルをbottomに表示
         mBinding.dayPagerLineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
@@ -313,24 +327,35 @@ class DayPagerFragment : Fragment() {
         // データの表示位置を指定したX軸の値にする(インデックスではなくX軸の値を指定)
         mBinding.dayPagerLineChart.moveViewToX((hourlyTideLevelList.size - 1).toFloat()) // ※
 
-        mBinding.dayPagerLineChart.renderer =
-            CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
-
         /* 現日時の処理 */
         // 日付が本日の場合のみ表示する。
+        val durationMillisX = 500
+        val durationMillisY = 0
+        val durationMillis = if(durationMillisX < durationMillisY){
+            durationMillisY
+        }else{
+            durationMillisX
+        }
+        mBinding.dayPagerLineChart.animateXY(durationMillisX, durationMillisY)
         if(currentDateTime.dayOfMonth == tideFlowData.tideDate.third){
-            // 選択したX軸の位置をハイライト表示(currentHour: 現時刻にフォーカスさせる)
-            val calendar = Calendar.getInstance()
-            val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
-            // 縦横のターゲットライン
-//            mBinding.dayPagerLineChart.highlightValue(currentHour.toFloat(),0) // ※
-            /* データポイントの点の変更 */
-            // 現時刻の場合
-            if(currentDateTime.hour == currentHour){
-                // アイコン
-                val currentEntry = dataEntries[currentHour]
-                currentEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_current)
-            }
+            Handler(Looper.getMainLooper()).postDelayed({
+                // 選択したX軸の位置をハイライト表示(currentHour: 現時刻にフォーカスさせる)
+                val calendar = Calendar.getInstance()
+                val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
+                /* データポイントの点の変更 */
+                // 現時刻の場合
+//                if(currentDateTime.hour == currentHour){
+//                    // アイコン
+//                    val currentEntry = dataEntries[currentHour]
+//                    currentEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_current)
+//                }
+                // 吹き出しを表示して作成する
+                val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
+                customLineChartRenderer.showBubble = true
+                mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+                mBinding.dayPagerLineChart.invalidate()
+            }, durationMillis.toLong())
+
         }
 
         // 表示されているデータの一番低い値を取得
@@ -339,8 +364,6 @@ class DayPagerFragment : Fragment() {
         mBinding.dayPagerLineChart.highestVisibleX
         // ダブルタップでのズームを無効
         mBinding.dayPagerLineChart.isDoubleTapToZoomEnabled = false
-        // グラフアニメーション
-        mBinding.dayPagerLineChart.animateXY(500, 1000)
         // グラフ拡大許可
         mBinding.dayPagerLineChart.setScaleEnabled(false)
         // タッチイベントを無効にする
@@ -349,12 +372,12 @@ class DayPagerFragment : Fragment() {
 //        mBinding.dayPagerLineChart.setNoDataText("")
 
         /* ラベルのカスタマイズ */
-        // 右下のDescription Labelを非表示
-        mBinding.dayPagerLineChart.description.isEnabled = true
+        // 右下のDescription Labelを表示
+        mBinding.dayPagerLineChart.description.isEnabled = false
         // 右下のDescription Labelのテキスト
-        mBinding.dayPagerLineChart.description.text = mTideCondition
+//        mBinding.dayPagerLineChart.description.text = mTideCondition
         // 右下のDescription Labelのテキストサイズ
-        mBinding.dayPagerLineChart.description.textSize = 30f
+//        mBinding.dayPagerLineChart.description.textSize = 30f
         // グラフ名ラベルを非表示
         mBinding.dayPagerLineChart.legend.isEnabled = false
         // Y軸右側ラベルを非表示
@@ -362,23 +385,44 @@ class DayPagerFragment : Fragment() {
         // 上からのオフセット
         mBinding.dayPagerLineChart.extraTopOffset = 30f
 
-        mBinding.dayPagerLineChart.setViewPortOffsets(0f, 0f, 0f, 0f)
-        mBinding.dayPagerLineChart.setExtraOffsets(0f, 0f, 0f, 0f)
-        mBinding.dayPagerLineChart.setPadding(0, 0, 0, 0)
+//        mBinding.dayPagerLineChart.setViewPortOffsets(0f, 0f, 0f, 0f)
+//        mBinding.dayPagerLineChart.setExtraOffsets(0f, 0f, 0f, 0f)
+//        mBinding.dayPagerLineChart.setPadding(0, 0, 0, 0)
 
 
         /* x軸関連 */
         mBinding.dayPagerLineChart.xAxis.apply {
-            // グリッド表示
-            setDrawGridLines(false)
-            // ラベル表示
-            setDrawLabels(false)
-            // 枠線表示
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawGridLines(true)
+            setDrawLabels(true)
             setDrawAxisLine(false)
-            axisMinimum = dataEntries.first().x
-            axisMaximum = dataEntries.last().x
             setAvoidFirstLastClipping(false)
+
+            axisMinimum = 0f
+            axisMaximum = 24f
+
+            // 0,6,12,18,24 以外はラベル空白
+            valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return when (value.toInt()) {
+                        0, 6, 12, 18, 24 -> value.toInt().toString()
+                        else -> ""
+                    }
+                }
+            }
+            granularity = 6f
+            setLabelCount(5, true)
+            // ラベルのフォントサイズを大きくする（例：16fに）
+            textSize = 12f
+            // ラベルのカラーを白に（ダークテーマなら推奨）
+            textColor = Color.LTGRAY
+            // 太字を設定
+            typeface = Typeface.DEFAULT_BOLD
+            enableGridDashedLine(10f, 10f, 0f) // 点線
+            gridColor = Color.DKGRAY            // 線の色
+            gridLineWidth = 1f                  // 線の太さ
         }
+
 
         /* Y軸関連(左側) */
         mBinding.dayPagerLineChart.axisLeft.apply {
@@ -391,9 +435,11 @@ class DayPagerFragment : Fragment() {
             // y軸ラベルの表示個数
             labelCount = 10
             // y左軸最大値
-            axisMaximum = 300f
+            axisMaximum = 200f
+//            axisMaximum = 300f
             // y左軸最小値
-            axisMinimum = -100f
+            axisMinimum = -20f
+//            axisMinimum = -100f
         }
 
         /* データのポインタを画像(Image)にする */
@@ -451,15 +497,6 @@ class DayPagerFragment : Fragment() {
                 // 移動された際の処理
             }
         })
-
-        /* グラフをリセットする */
-//        lineChart.data?.clearValues()
-//        lineChart.clear()
-//        lineChart.notifyDataSetChanged()
-//        mBinding.dayPagerLineChart.invalidate()
-
-
-
 
     }
 }

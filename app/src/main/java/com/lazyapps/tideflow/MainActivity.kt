@@ -205,6 +205,8 @@ class MainActivity : AppCompatActivity() {
             11 -> 6 to 17
             else -> 7 to 17
         }
+        // TODO. Debug
+//        return R.drawable.bg_debug
         return when (hour) {
             in (sunrise - 2) until sunrise -> R.drawable.bg_morning
             in sunrise until (sunrise + 4) -> R.drawable.bg_day
