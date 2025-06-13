@@ -258,7 +258,8 @@ class DayPagerFragment : Fragment() {
                 mBinding.dayPagerLineChart.viewPortHandler,
                 tideFlowData.highTideTimes,
                 tideFlowData.lowTideTimes,
-                afterTideFlowData
+                afterTideFlowData,
+                mContext
             )
         }
         mCustomLineChartRenderer!!.mIsShowBubble = false
@@ -282,13 +283,6 @@ class DayPagerFragment : Fragment() {
     }
 
     private fun startRepeatingAtMinuteZero(isShowBubble: Boolean, isShowDrawTideTimeLabels: Boolean) {
-//        mCustomLineChartRenderer = CustomLineChartRenderer(
-//            mBinding.dayPagerLineChart,
-//            mBinding.dayPagerLineChart.animator,
-//            mBinding.dayPagerLineChart.viewPortHandler,
-//            tideFlowData.highTideTimes,
-//            tideFlowData.lowTideTimes,
-//        )
         mCustomLineChartRenderer!!.mIsShowBubble = isShowBubble
         mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = isShowDrawTideTimeLabels
         mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
@@ -312,28 +306,28 @@ class DayPagerFragment : Fragment() {
         var hour = -1
         if(beforeTideFlowData != null){
             val dataEntry = Entry(hour.toFloat(), beforeTideFlowData!!.hourlyTideLevels.last().toFloat())
-            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
         hour++
         tideFlowData.hourlyTideLevels.forEach {
             val dataEntry = Entry(hour.toFloat(), it.toFloat())
-            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
             hour++
         }
         if(afterTideFlowData != null){
             val dataEntry = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[0].toFloat())
-            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
             hour++
             val dataEntry2 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[1].toFloat())
-            dataEntry2.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntry2.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry2)
             hour++
             if(beforeTideFlowData == null){
                 val dataEntry3 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[3].toFloat())
-                dataEntry3.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//                dataEntry3.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
                 dataEntries.add(dataEntry3)
                 hour++
             }
@@ -357,7 +351,7 @@ class DayPagerFragment : Fragment() {
         // グラフモード(曲線)
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         // グラフの色
-//        lineDataSet.colors = listOf(themeGraphColor)
+        lineDataSet.colors = listOf(Color.BLUE)
         // 点の色
 //        lineDataSet.circleColors = listOf(Color.CYAN)
         // 点の大きさ
@@ -408,7 +402,8 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerLineChart.viewPortHandler,
             tideFlowData.highTideTimes,
             tideFlowData.lowTideTimes,
-            afterTideFlowData
+            afterTideFlowData,
+            mContext
         )
 
         // グラフアニメーションの描画時間

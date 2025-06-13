@@ -1,15 +1,20 @@
 package com.lazyapps.tideflow
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
+import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.renderer.LineChartRenderer
 import com.github.mikephil.charting.animation.ChartAnimator
 import com.github.mikephil.charting.data.DataSet
 import com.github.mikephil.charting.utils.ViewPortHandler
+import kotlin.coroutines.coroutineContext
 
 /**
  * LineChartに現在時刻の位置を「吹き出し（バブル）」＋時刻文字列で可視化するカスタムレンダラー
@@ -21,6 +26,7 @@ class CustomLineChartRenderer(
     private val highTideTimes: ArrayList<Triple<Int, Int, Int>>,
     private val lowTideTimes: ArrayList<Triple<Int, Int, Int>>,
     private val afterTideFlowData: TideFlowManager.TideFlowData?,
+    private val mContext: Context
 ) : LineChartRenderer(chart, animator, viewPortHandler) {
 
     var mIsShowBubble: Boolean = false // 吹き出しの表示非表示フラグ
@@ -73,13 +79,15 @@ class CustomLineChartRenderer(
         super.drawExtras(c)
         // X軸ラベルと縦線
         drawCustomXAxisLabelsAndLines(c)
-        // 満潮干潮の時刻表示
-        if(mIsShowDrawTideTimeLabels){
-            drawTideTimeLabels(c)
-        }
         // 吹き出し
         if (mIsShowBubble) {
             drawCurrentTimeBubble(c)
+        }
+        // 満潮干潮の時刻表示
+        if(mIsShowDrawTideTimeLabels){
+            drawTideTimeLabels(c)
+            // 満潮干潮時刻にアイコン表示
+            drawTideIcons(c)
         }
     }
 
@@ -245,5 +253,52 @@ class CustomLineChartRenderer(
             c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() + 58f, tideLabelPaint)
         }
     }
+
+    private val highTideIcon: Bitmap by lazy {
+        drawableToBitmap(mContext, R.drawable.high_tide_dot, 32)
+    }
+
+    private val lowTideIcon: Bitmap by lazy {
+        drawableToBitmap(mContext, R.drawable.low_tide_triangle, 32)
+    }
+    private fun drawTideIcons(c: Canvas) {
+        val dataSet = mChart.lineData?.getDataSetByIndex(0) ?: return
+
+        // 満潮アイコン描画
+        for (time in highTideTimes) {
+            if (time.third == 999) continue
+            val x = time.first + time.second / 60f
+            val y = time.third.toFloat()
+            val pos = mChart.getTransformer(dataSet.axisDependency).getPixelForValues(x, y)
+            val iconWidth = highTideIcon.width
+            val iconHeight = highTideIcon.height
+            val left = pos.x.toFloat() - iconWidth / 2f
+            val top = pos.y.toFloat() - iconHeight /2f
+            c.drawBitmap(highTideIcon, left, top, null)
+        }
+
+        // 干潮アイコン描画
+        for (time in lowTideTimes) {
+            if (time.third == 999) continue
+            val x = time.first + time.second / 60f
+            val y = time.third.toFloat()
+            val pos = mChart.getTransformer(dataSet.axisDependency).getPixelForValues(x, y)
+            val iconWidth = lowTideIcon.width
+            val iconHeight = lowTideIcon.height
+            val left = pos.x.toFloat() - iconWidth / 2f
+            val top = pos.y.toFloat() - iconHeight /2f
+            c.drawBitmap(lowTideIcon, left, top, null)
+        }
+    }
+    private fun drawableToBitmap(context: Context, drawableId: Int, sizePx: Int): Bitmap {
+        val drawable = ContextCompat.getDrawable(context, drawableId)!!
+        val bmp = Bitmap.createBitmap(sizePx, sizePx, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bmp)
+        drawable.setBounds(0, 0, sizePx, sizePx)
+        drawable.draw(canvas)
+        return bmp
+    }
+
+
 
 }
