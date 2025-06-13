@@ -66,7 +66,6 @@ class TideFlowManager {
         private const val RECORD_DATE_DAY_START = 76
 
         // メモリに取り込むデータの前後範囲
-//        const val READ_DATA_RANGE = 1
         const val READ_DATA_RANGE = 90
 
         /* dataList要素の定数 */
@@ -177,7 +176,6 @@ class TideFlowManager {
                 if (diff <= READ_DATA_RANGE) {
                     val tideFlowData = getTideFlowData(dataRecord)
                     tideFlowDataMap[tideFlowData.tideDate] = tideFlowData
-//                    println("tideFlowData.tideDate ${tideFlowData.tideDate}")
                 }
             }
 

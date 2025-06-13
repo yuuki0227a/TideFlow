@@ -67,8 +67,8 @@ class DayPagerFragment : Fragment() {
         arguments?.let {
             tideFlowData = (arguments?.getSerializable("tideFlowData") as? TideFlowManager.TideFlowData)!!
             locationMap = (arguments?.getSerializable("locationMap") as? HashMap<String, String>)!!
-            beforeTideFlowData = (arguments?.getSerializable("beforeTideFlowData") as? TideFlowManager.TideFlowData)!!
-            afterTideFlowData = (arguments?.getSerializable("afterTideFlowData") as? TideFlowManager.TideFlowData)!!
+            beforeTideFlowData = arguments?.getSerializable("beforeTideFlowData") as? TideFlowManager.TideFlowData
+            afterTideFlowData = arguments?.getSerializable("afterTideFlowData") as? TideFlowManager.TideFlowData
         }
     }
 
@@ -258,6 +258,7 @@ class DayPagerFragment : Fragment() {
                 mBinding.dayPagerLineChart.viewPortHandler,
                 tideFlowData.highTideTimes,
                 tideFlowData.lowTideTimes,
+                afterTideFlowData
             )
         }
         mCustomLineChartRenderer!!.mIsShowBubble = false
@@ -330,6 +331,12 @@ class DayPagerFragment : Fragment() {
             dataEntry2.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry2)
             hour++
+            if(beforeTideFlowData == null){
+                val dataEntry3 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[3].toFloat())
+                dataEntry3.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+                dataEntries.add(dataEntry3)
+                hour++
+            }
         }
 
         // ④グラフ線やポインタなどの機能、デザインなどを設定
@@ -401,6 +408,7 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerLineChart.viewPortHandler,
             tideFlowData.highTideTimes,
             tideFlowData.lowTideTimes,
+            afterTideFlowData
         )
 
         // グラフアニメーションの描画時間

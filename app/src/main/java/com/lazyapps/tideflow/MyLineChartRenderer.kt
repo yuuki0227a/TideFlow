@@ -19,7 +19,8 @@ class CustomLineChartRenderer(
     animator: ChartAnimator,
     viewPortHandler: ViewPortHandler,
     private val highTideTimes: ArrayList<Triple<Int, Int, Int>>,
-    private val lowTideTimes: ArrayList<Triple<Int, Int, Int>>
+    private val lowTideTimes: ArrayList<Triple<Int, Int, Int>>,
+    private val afterTideFlowData: TideFlowManager.TideFlowData?,
 ) : LineChartRenderer(chart, animator, viewPortHandler) {
 
     var mIsShowBubble: Boolean = false // 吹き出しの表示非表示フラグ
@@ -140,7 +141,11 @@ class CustomLineChartRenderer(
     /** X軸のカスタムラベル＆縦線（点線）を描画 */
     private fun drawCustomXAxisLabelsAndLines(c: Canvas) {
         // X軸のラベルを表示したい時刻
-        val xValues = listOf(0f, 6f, 12f, 18f, 24f)
+        val xValues = when(afterTideFlowData){
+            null -> listOf(0f, 6f, 12f, 18f, 23f)
+            else -> listOf(0f, 6f, 12f, 18f, 24f)
+        }
+//        val xValues = listOf(0f, 6f, 12f, 18f, 24f)
         // データセットがない場合は左軸で座標変換
         val dataSet = mChart.lineData?.getDataSetByIndex(0)
         val transformer = if (dataSet != null) mChart.getTransformer(dataSet.axisDependency)
@@ -184,7 +189,7 @@ class CustomLineChartRenderer(
             if(highTideTime.third == 999) continue
             highTideTimeList.add(
                 String.format(
-                    "%2d:%2d",
+                    "%2d:%02d",
                     highTideTime.first,
                     highTideTime.second
                 )
@@ -196,7 +201,7 @@ class CustomLineChartRenderer(
             if(lowTideTime.third == 999) continue
             lowTideTimeList.add(
                 String.format(
-                    "%2d:%2d",
+                    "%2d:%02d",
                     lowTideTime.first,
                     lowTideTime.second
                 )
