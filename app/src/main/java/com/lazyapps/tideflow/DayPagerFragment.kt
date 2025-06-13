@@ -27,8 +27,11 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartGestureListener
 import com.github.mikephil.charting.utils.MPPointF
+import com.lazyapps.tideflow.Util.dayOfWeekENtoJP
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.Calendar
+import kotlin.text.*
 
 class DayPagerFragment : Fragment() {
     private lateinit var mBinding: FragmentDayPagerBinding
@@ -36,6 +39,8 @@ class DayPagerFragment : Fragment() {
 
     private lateinit var tideFlowData: TideFlowManager.TideFlowData
     private lateinit var locationMap: MutableMap<String, String>
+    private var beforeTideFlowData: TideFlowManager.TideFlowData? = null
+    private var afterTideFlowData: TideFlowManager.TideFlowData? = null
 
     private var mTideCondition: String? = ""
 
@@ -46,11 +51,17 @@ class DayPagerFragment : Fragment() {
         private const val ARG_TIDE_DATA = "arg_tide_data"
         private const val ARG_LOCATION_MAP = "arg_location_map"
 
-        fun newInstance(data: TideFlowManager.TideFlowData, locationMap: HashMap<String, String>): DayPagerFragment {
+        fun newInstance(data: TideFlowManager.TideFlowData,
+                        locationMap: HashMap<String, String>,
+                        beforeData: TideFlowManager.TideFlowData?,
+                        afterData: TideFlowManager.TideFlowData?
+                        ): DayPagerFragment {
             return DayPagerFragment().apply {
                 arguments = Bundle().apply {
                     putSerializable("tideFlowData", data)
                     putSerializable("locationMap", locationMap)
+                    putSerializable("beforeTideFlowData", beforeData)
+                    putSerializable("afterTideFlowData", afterData)
                 }
             }
         }
@@ -62,6 +73,8 @@ class DayPagerFragment : Fragment() {
         arguments?.let {
             tideFlowData = (arguments?.getSerializable("tideFlowData") as? TideFlowManager.TideFlowData)!!
             locationMap = (arguments?.getSerializable("locationMap") as? HashMap<String, String>)!!
+            beforeTideFlowData = (arguments?.getSerializable("beforeTideFlowData") as? TideFlowManager.TideFlowData)!!
+            afterTideFlowData = (arguments?.getSerializable("afterTideFlowData") as? TideFlowManager.TideFlowData)!!
         }
     }
 
@@ -79,6 +92,12 @@ class DayPagerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         /* 月画像、月齢、潮状態の表示 */
+        // 日付
+        val localDate = LocalDate.of(tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third)
+        // 曜日
+        val dayOfWeek = dayOfWeekENtoJP(localDate.dayOfWeek.toString())
+        // 日付表示
+        mBinding.dayPagerDateTextView.text = String.format("%4d年%2d月%2d日（%s）", localDate.year, localDate.monthValue, localDate.dayOfMonth, dayOfWeek)
         // threeten.bpのLocalDateの取得
         val bpLocalDate = org.threeten.bp.LocalDate.of(tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third)
         // 月齢の取得
@@ -245,25 +264,58 @@ class DayPagerFragment : Fragment() {
      * １時間毎の潮汐データの折線グラフを作成する。
      * */
     private fun createLineChart(){
-        /* テーマに基づいてカラーを取得 */
         // １時間ごとの潮位
         val hourlyTideLevelList: ArrayList<Float> = arrayListOf()
-        for(hourlyTideLevel in tideFlowData.hourlyTideLevels){
-            hourlyTideLevelList.add(hourlyTideLevel.toFloat())
-        }
-        // ③元データをEntry型に変換したリストを準備
         val dataEntries = mutableListOf<Entry>()
-        hourlyTideLevelList.forEachIndexed { hour, value ->
-            val dataEntry = Entry(hour.toFloat(), value)
+        // 前日分はEntry.x=-1、当日0〜23時はEntry.x=0〜23、翌日分は24,25
+        var hour = -1
+        if(beforeTideFlowData != null){
+            val dataEntry = Entry(hour.toFloat(), beforeTideFlowData!!.hourlyTideLevels.last().toFloat())
             dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
-        // 24時データを追加したい場合
-        if (hourlyTideLevelList.size == 24) {
-            val valueAt0 = hourlyTideLevelList[0]
-            val dataEntry24 = Entry(24f, valueAt0)
-            dataEntries.add(dataEntry24)
+        hour++
+        tideFlowData.hourlyTideLevels.forEach {
+            val dataEntry = Entry(hour.toFloat(), it.toFloat())
+            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+            dataEntries.add(dataEntry)
+            hour++
         }
+        if(afterTideFlowData != null){
+            val dataEntry = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[0].toFloat())
+            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+            dataEntries.add(dataEntry)
+            hour++
+            val dataEntry2 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[1].toFloat())
+            dataEntry2.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+            dataEntries.add(dataEntry2)
+            hour++
+//            val dataEntry3 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[2].toFloat())
+//            dataEntry3.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntries.add(dataEntry3)
+        }
+        println("dataEntries.size ${dataEntries.size}")
+
+//        // 表示日付の前日分のデータ（1個）
+//        if(beforeTideFlowData != null){
+//            hourlyTideLevelList.add(beforeTideFlowData!!.hourlyTideLevels[beforeTideFlowData!!.hourlyTideLevels.size-1].toFloat())
+//        }
+//        // 表示日付分のデータ（23個）
+//        for(hourlyTideLevel in tideFlowData.hourlyTideLevels){
+//            hourlyTideLevelList.add(hourlyTideLevel.toFloat())
+//        }
+//        // 表示日付の翌日分のデータ（2個）
+//        if(afterTideFlowData != null){
+//            hourlyTideLevelList.add(afterTideFlowData!!.hourlyTideLevels[0].toFloat())
+//            hourlyTideLevelList.add(afterTideFlowData!!.hourlyTideLevels[1].toFloat())
+//        }
+//        // ③元データをEntry型に変換したリストを準備
+//
+//        hourlyTideLevelList.forEachIndexed { hour, value ->
+//            val dataEntry = Entry(hour.toFloat(), value)
+//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
+//            dataEntries.add(dataEntry)
+//        }
 
         // ④グラフ線やポインタなどの機能、デザインなどを設定
         val lineDataSet = LineDataSet(dataEntries, "潮汐表")
@@ -279,7 +331,7 @@ class DayPagerFragment : Fragment() {
 
         /* グラフデザイン */
         // グラフの線の太さ
-        lineDataSet.lineWidth = 5.0f
+        lineDataSet.lineWidth = 3.0f
         // グラフモード(曲線)
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         // グラフの色
@@ -325,7 +377,7 @@ class DayPagerFragment : Fragment() {
         // データの最小表示範囲を制限 (データ数が多い場合横にスクロールで表示エリアを移動可能)
 //        mBinding.dayPagerLineChart.setVisibleXRangeMinimum(5f) // ※
         // データの表示位置を指定したX軸の値にする(インデックスではなくX軸の値を指定)
-        mBinding.dayPagerLineChart.moveViewToX((hourlyTideLevelList.size - 1).toFloat()) // ※
+        mBinding.dayPagerLineChart.moveViewToX((dataEntries.size - 1).toFloat()) // ※
 
         /* 現日時の処理 */
         // 日付が本日の場合のみ表示する。
@@ -398,20 +450,19 @@ class DayPagerFragment : Fragment() {
             setDrawAxisLine(false)
             setAvoidFirstLastClipping(false)
 
-            axisMinimum = 0f
-            axisMaximum = 24f
+            axisMinimum = if(beforeTideFlowData!=null){-1f}else{0f}
+            axisMaximum = (dataEntries.size-2).toFloat()
 
             // 0,6,12,18,24 以外はラベル空白
             valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
-                    return when (value.toInt()) {
-                        0, 6, 12, 18, 24 -> value.toInt().toString()
-                        else -> ""
-                    }
+                    return value.toInt().toString()
                 }
+
             }
-            granularity = 6f
-            setLabelCount(5, true)
+            granularity = 2f
+//            setLabelCount(5, false)
+            labelCount = 6
             // ラベルのフォントサイズを大きくする（例：16fに）
             textSize = 12f
             // ラベルのカラーを白に（ダークテーマなら推奨）
