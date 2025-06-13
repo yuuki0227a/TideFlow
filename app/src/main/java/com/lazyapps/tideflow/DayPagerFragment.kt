@@ -13,20 +13,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.github.mikephil.charting.components.AxisBase
-import com.github.mikephil.charting.components.LimitLine
 import com.lazyapps.tideflow.databinding.FragmentDayPagerBinding
 import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IFillFormatter
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.listener.ChartTouchListener
 import com.github.mikephil.charting.listener.OnChartGestureListener
-import com.github.mikephil.charting.utils.MPPointF
 import com.lazyapps.tideflow.Util.dayOfWeekENtoJP
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -254,10 +248,50 @@ class DayPagerFragment : Fragment() {
         super.onPause()
         mBinding.dayPagerLineChart.setNoDataText("")   // NoDataTextを空に
         mBinding.dayPagerLineChart.clear()             // データも全部クリア
+        // 吹き出し更新スレッド破棄
+        stopRepeatingTask()
         // ふきだしを非表示にする
         val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
-        customLineChartRenderer.showBubble = false
+        customLineChartRenderer.mIsShowBubble = false
         mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+    }
+
+
+    private val mHandler = Handler(Looper.getMainLooper())
+    private val intervalShowCustomLineChartRenderer: Long = 60_000 // 1分
+
+    private val runnable = object : Runnable {
+        override fun run() {
+            // 吹き出しを表示して作成する処理を毎分実行
+            val customLineChartRenderer = CustomLineChartRenderer(
+                mBinding.dayPagerLineChart,
+                mBinding.dayPagerLineChart.animator,
+                mBinding.dayPagerLineChart.viewPortHandler
+            )
+            customLineChartRenderer.mIsShowBubble = true
+            mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+            mBinding.dayPagerLineChart.invalidate()
+
+            mHandler.postDelayed(this, intervalShowCustomLineChartRenderer)
+        }
+    }
+
+    fun startRepeatingAtMinuteZero() {
+        val customLineChartRenderer = CustomLineChartRenderer(
+            mBinding.dayPagerLineChart,
+            mBinding.dayPagerLineChart.animator,
+            mBinding.dayPagerLineChart.viewPortHandler
+        )
+        customLineChartRenderer.mIsShowBubble = true
+        mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+        mBinding.dayPagerLineChart.invalidate()
+        val currentTime = System.currentTimeMillis()
+        val delayToNextMinute = intervalShowCustomLineChartRenderer - (currentTime % intervalShowCustomLineChartRenderer)
+        mHandler.postDelayed(runnable, delayToNextMinute)
+    }
+
+    fun stopRepeatingTask() {
+        mHandler.removeCallbacks(runnable)
     }
 
     /**
@@ -265,7 +299,6 @@ class DayPagerFragment : Fragment() {
      * */
     private fun createLineChart(){
         // １時間ごとの潮位
-        val hourlyTideLevelList: ArrayList<Float> = arrayListOf()
         val dataEntries = mutableListOf<Entry>()
         // 前日分はEntry.x=-1、当日0〜23時はEntry.x=0〜23、翌日分は24,25
         var hour = -1
@@ -290,32 +323,7 @@ class DayPagerFragment : Fragment() {
             dataEntry2.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry2)
             hour++
-//            val dataEntry3 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[2].toFloat())
-//            dataEntry3.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
-//            dataEntries.add(dataEntry3)
         }
-        println("dataEntries.size ${dataEntries.size}")
-
-//        // 表示日付の前日分のデータ（1個）
-//        if(beforeTideFlowData != null){
-//            hourlyTideLevelList.add(beforeTideFlowData!!.hourlyTideLevels[beforeTideFlowData!!.hourlyTideLevels.size-1].toFloat())
-//        }
-//        // 表示日付分のデータ（23個）
-//        for(hourlyTideLevel in tideFlowData.hourlyTideLevels){
-//            hourlyTideLevelList.add(hourlyTideLevel.toFloat())
-//        }
-//        // 表示日付の翌日分のデータ（2個）
-//        if(afterTideFlowData != null){
-//            hourlyTideLevelList.add(afterTideFlowData!!.hourlyTideLevels[0].toFloat())
-//            hourlyTideLevelList.add(afterTideFlowData!!.hourlyTideLevels[1].toFloat())
-//        }
-//        // ③元データをEntry型に変換したリストを準備
-//
-//        hourlyTideLevelList.forEachIndexed { hour, value ->
-//            val dataEntry = Entry(hour.toFloat(), value)
-//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
-//            dataEntries.add(dataEntry)
-//        }
 
         // ④グラフ線やポインタなどの機能、デザインなどを設定
         val lineDataSet = LineDataSet(dataEntries, "潮汐表")
@@ -402,10 +410,12 @@ class DayPagerFragment : Fragment() {
 //                    currentEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_current)
 //                }
                 // 吹き出しを表示して作成する
-                val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
-                customLineChartRenderer.showBubble = true
-                mBinding.dayPagerLineChart.renderer = customLineChartRenderer
-                mBinding.dayPagerLineChart.invalidate()
+//                val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
+//                customLineChartRenderer.mIsShowBubble = true
+//                mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+//                mBinding.dayPagerLineChart.invalidate()
+                // 吹き出しとグリッドを表示して作成する
+                startRepeatingAtMinuteZero()
             }, durationMillis.toLong())
 
         }
@@ -445,8 +455,8 @@ class DayPagerFragment : Fragment() {
         /* x軸関連 */
         mBinding.dayPagerLineChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
-            setDrawGridLines(true)
-            setDrawLabels(true)
+            setDrawGridLines(false)
+            setDrawLabels(false)
             setDrawAxisLine(false)
             setAvoidFirstLastClipping(false)
 

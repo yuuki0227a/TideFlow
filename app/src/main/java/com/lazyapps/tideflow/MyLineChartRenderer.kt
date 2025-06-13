@@ -19,7 +19,7 @@ class CustomLineChartRenderer(
     viewPortHandler: ViewPortHandler
 ) : LineChartRenderer(chart, animator, viewPortHandler) {
 
-    var showBubble: Boolean = false // 吹き出しの表示非表示フラグ
+    var mIsShowBubble: Boolean = false // 吹き出しの表示非表示フラグ
 
     // 吹き出し（バブル）の描画用ペイント（白＋シャドウ）
     private val bubblePaint = Paint().apply {
@@ -49,85 +49,107 @@ class CustomLineChartRenderer(
     /**
      * グラフの追加要素（現在時刻バブル）の描画
      */
-    override fun drawExtras(c: Canvas) {
-        // 既存の追加描画処理も実施
-        super.drawExtras(c)
-        // 吹き出しの表示非表示
-        if (!showBubble) return
+    // 縦線＆ラベル描画用ペイント
+    private val verticalLinePaint = Paint().apply {
+        color = Color.GRAY
+        strokeWidth = 2f
+        style = Paint.Style.STROKE
+        pathEffect = DashPathEffect(floatArrayOf(10f, 10f), 0f)
+        isAntiAlias = true
+    }
+    private val labelPaint = Paint().apply {
+        color = Color.LTGRAY
+        textSize = 32f
+        textAlign = Paint.Align.CENTER
+        isAntiAlias = true
+    }
 
-        // LineChartのデータが取得できない場合は何もしない
+    override fun drawExtras(c: Canvas) {
+        super.drawExtras(c)
+        // X軸ラベルと縦線
+        drawCustomXAxisLabelsAndLines(c)
+        // 吹き出し
+        if (mIsShowBubble) {
+            drawCurrentTimeBubble(c)
+        }
+    }
+
+    /** 現在時刻の吹き出し＋バブルを描画 */
+    private fun drawCurrentTimeBubble(c: Canvas) {
         val data = mChart.lineData ?: return
 
-        // 現在時刻を取得（24h制の時・分）
         val now = java.util.Calendar.getInstance()
         val hour = now.get(java.util.Calendar.HOUR_OF_DAY)
         val minute = now.get(java.util.Calendar.MINUTE)
-        // 小数値（例: 14時35分→14.583）
         val currentX = hour + minute / 60f
-        // 表示用の文字列（例: "14:35"）
         val nowStr = "%02d:%02d".format(hour, minute)
 
-        // 1つめのデータセットを対象とする（通常は0番目）
         val dataSet = mChart.lineData.getDataSetByIndex(0)
-
-        // 現在時刻に最も近い「前後」のエントリを取得
         val lowerEntry = dataSet.getEntryForXValue(currentX, Float.NaN, DataSet.Rounding.DOWN)
         val upperEntry = dataSet.getEntryForXValue(currentX, Float.NaN, DataSet.Rounding.UP)
-
-        // Y座標の補間計算
-        // 2点間を線形補間で求める。どちらかしかなければその値。両方なければ0。
         val currentY = if (lowerEntry != null && upperEntry != null && lowerEntry.x != upperEntry.x) {
             val ratio = (currentX - lowerEntry.x) / (upperEntry.x - lowerEntry.x)
             lowerEntry.y + (upperEntry.y - lowerEntry.y) * ratio
         } else {
             lowerEntry?.y ?: upperEntry?.y ?: 0f
         }
-
-        // グラフ上のデータ値からピクセル座標へ変換
         val transformer = mChart.getTransformer(dataSet.axisDependency)
         val pos = transformer.getPixelForValues(currentX, currentY)
 
-        // バブル（吹き出し）の表示領域調整用
         val chartWidth = mViewPortHandler.chartWidth
         val bubbleWidth = 120f
         val bubbleHeight = 60f
-        // バブルの左上座標
         var bubbleX = pos.x.toFloat() - bubbleWidth / 2
-        val bubbleY = pos.y.toFloat() - bubbleHeight - 205f // バブルは点の少し上
+        val bubbleY = pos.y.toFloat() - bubbleHeight - 205f
 
-        // 左端にはみ出し防止
         if (bubbleX < 0) bubbleX = 0f
-        // 右端にはみ出し防止
         if (bubbleX + bubbleWidth > chartWidth) bubbleX = chartWidth - bubbleWidth
 
-        // バブル本体（角丸四角）の描画
         c.drawRoundRect(
             bubbleX, bubbleY,
             bubbleX + bubbleWidth, bubbleY + bubbleHeight,
             24f, 24f, bubblePaint
         )
-        // バブル内に現在時刻をテキスト表示
         c.drawText(
             nowStr,
             bubbleX + 20f,
-            bubbleY + bubbleHeight / 2 + 12f, // テキストの縦位置調整
+            bubbleY + bubbleHeight / 2 + 12f,
             textPaint
         )
 
-        // バブル下部からデータポイントへの「吹き出しポインタ」（点線）の描画
         val pointerX = pos.x.coerceIn(bubbleX.toDouble() + 10, bubbleX + bubbleWidth.toDouble() - 10)
-        // ポインタ（点線）の開始座標（バブルの下中央）
         val pointerStartX = pointerX.toFloat()
         val pointerStartY = bubbleY + bubbleHeight
-        // ポインタ（点線）の終点座標（グラフ点方向へ100px下）
         val pointerEndX = pos.x.toFloat()
         val pointerEndY = bubbleY + bubbleHeight + 200f
-
-        // まっすぐな直線の点線
         val straightPath = android.graphics.Path().apply {
             moveTo(pointerStartX, pointerStartY)
             lineTo(pointerEndX, pointerEndY)
         }
         c.drawPath(straightPath, dottedLinePaint)
+    }
+
+    /** X軸のカスタムラベル＆縦線（点線）を描画 */
+    private fun drawCustomXAxisLabelsAndLines(c: Canvas) {
+        // X軸のラベルを表示したい時刻
+        val xValues = listOf(0f, 6f, 12f, 18f, 24f)
+        // データセットがない場合は左軸で座標変換
+        val dataSet = mChart.lineData?.getDataSetByIndex(0)
+        val transformer = if (dataSet != null) mChart.getTransformer(dataSet.axisDependency)
+        else mChart.getTransformer(com.github.mikephil.charting.components.YAxis.AxisDependency.LEFT)
+        val contentRect = mViewPortHandler.contentRect
+        val yTop = contentRect.top
+        val yBottom = contentRect.bottom
+
+        for (x in xValues) {
+            val xPixel = transformer.getPixelForValues(x, 0f).x.toFloat()
+            c.drawLine(xPixel, yTop, xPixel, yBottom, verticalLinePaint)
+            c.drawText(
+                x.toInt().toString(),
+                xPixel,
+                yBottom + 40f,
+                labelPaint
+            )
+        }
     }
 }
