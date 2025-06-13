@@ -259,38 +259,33 @@ class DayPagerFragment : Fragment() {
 
     private val mHandler = Handler(Looper.getMainLooper())
     private val intervalShowCustomLineChartRenderer: Long = 60_000 // 1分
+    private lateinit var mCustomLineChartRenderer: CustomLineChartRenderer
 
     private val runnable = object : Runnable {
         override fun run() {
             // 吹き出しを表示して作成する処理を毎分実行
-            val customLineChartRenderer = CustomLineChartRenderer(
-                mBinding.dayPagerLineChart,
-                mBinding.dayPagerLineChart.animator,
-                mBinding.dayPagerLineChart.viewPortHandler
-            )
-            customLineChartRenderer.mIsShowBubble = true
-            mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+            mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
             mBinding.dayPagerLineChart.invalidate()
 
             mHandler.postDelayed(this, intervalShowCustomLineChartRenderer)
         }
     }
 
-    fun startRepeatingAtMinuteZero() {
-        val customLineChartRenderer = CustomLineChartRenderer(
+    private fun startRepeatingAtMinuteZero(isShowBubble: Boolean = false) {
+        mCustomLineChartRenderer = CustomLineChartRenderer(
             mBinding.dayPagerLineChart,
             mBinding.dayPagerLineChart.animator,
             mBinding.dayPagerLineChart.viewPortHandler
         )
-        customLineChartRenderer.mIsShowBubble = true
-        mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+        mCustomLineChartRenderer.mIsShowBubble = isShowBubble
+        mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
         mBinding.dayPagerLineChart.invalidate()
         val currentTime = System.currentTimeMillis()
         val delayToNextMinute = intervalShowCustomLineChartRenderer - (currentTime % intervalShowCustomLineChartRenderer)
         mHandler.postDelayed(runnable, delayToNextMinute)
     }
 
-    fun stopRepeatingTask() {
+    private fun stopRepeatingTask() {
         mHandler.removeCallbacks(runnable)
     }
 
@@ -415,9 +410,11 @@ class DayPagerFragment : Fragment() {
 //                mBinding.dayPagerLineChart.renderer = customLineChartRenderer
 //                mBinding.dayPagerLineChart.invalidate()
                 // 吹き出しとグリッドを表示して作成する
-                startRepeatingAtMinuteZero()
+                startRepeatingAtMinuteZero(true)
             }, durationMillis.toLong())
 
+        }else{
+            startRepeatingAtMinuteZero()
         }
 
         // 表示されているデータの一番低い値を取得
