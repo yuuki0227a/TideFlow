@@ -251,15 +251,24 @@ class DayPagerFragment : Fragment() {
         // 吹き出し更新スレッド破棄
         stopRepeatingTask()
         // ふきだしを非表示にする
-        val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
-        customLineChartRenderer.mIsShowBubble = false
-        mBinding.dayPagerLineChart.renderer = customLineChartRenderer
+        if(mCustomLineChartRenderer == null){
+            mCustomLineChartRenderer = CustomLineChartRenderer(
+                mBinding.dayPagerLineChart,
+                mBinding.dayPagerLineChart.animator,
+                mBinding.dayPagerLineChart.viewPortHandler,
+                tideFlowData.highTideTimes,
+                tideFlowData.lowTideTimes,
+            )
+        }
+        mCustomLineChartRenderer!!.mIsShowBubble = false
+        mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = false
+        mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
     }
 
 
     private val mHandler = Handler(Looper.getMainLooper())
     private val intervalShowCustomLineChartRenderer: Long = 60_000 // 1分
-    private lateinit var mCustomLineChartRenderer: CustomLineChartRenderer
+    private var mCustomLineChartRenderer: CustomLineChartRenderer? = null
 
     private val runnable = object : Runnable {
         override fun run() {
@@ -271,13 +280,16 @@ class DayPagerFragment : Fragment() {
         }
     }
 
-    private fun startRepeatingAtMinuteZero(isShowBubble: Boolean = false) {
-        mCustomLineChartRenderer = CustomLineChartRenderer(
-            mBinding.dayPagerLineChart,
-            mBinding.dayPagerLineChart.animator,
-            mBinding.dayPagerLineChart.viewPortHandler
-        )
-        mCustomLineChartRenderer.mIsShowBubble = isShowBubble
+    private fun startRepeatingAtMinuteZero(isShowBubble: Boolean, isShowDrawTideTimeLabels: Boolean) {
+//        mCustomLineChartRenderer = CustomLineChartRenderer(
+//            mBinding.dayPagerLineChart,
+//            mBinding.dayPagerLineChart.animator,
+//            mBinding.dayPagerLineChart.viewPortHandler,
+//            tideFlowData.highTideTimes,
+//            tideFlowData.lowTideTimes,
+//        )
+        mCustomLineChartRenderer!!.mIsShowBubble = isShowBubble
+        mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = isShowDrawTideTimeLabels
         mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
         mBinding.dayPagerLineChart.invalidate()
         val currentTime = System.currentTimeMillis()
@@ -382,8 +394,16 @@ class DayPagerFragment : Fragment() {
         // データの表示位置を指定したX軸の値にする(インデックスではなくX軸の値を指定)
         mBinding.dayPagerLineChart.moveViewToX((dataEntries.size - 1).toFloat()) // ※
 
-        /* 現日時の処理 */
-        // 日付が本日の場合のみ表示する。
+        // レンダラー作成
+        mCustomLineChartRenderer = CustomLineChartRenderer(
+            mBinding.dayPagerLineChart,
+            mBinding.dayPagerLineChart.animator,
+            mBinding.dayPagerLineChart.viewPortHandler,
+            tideFlowData.highTideTimes,
+            tideFlowData.lowTideTimes,
+        )
+
+        // グラフアニメーションの描画時間
         val durationMillisX = 500
         val durationMillisY = 0
         val durationMillis = if(durationMillisX < durationMillisY){
@@ -391,30 +411,24 @@ class DayPagerFragment : Fragment() {
         }else{
             durationMillisX
         }
+        // グラフアニメーションの描画時間設定
         mBinding.dayPagerLineChart.animateXY(durationMillisX, durationMillisY)
+        // 吹き出し時刻更新処理の呼び出し
+        startRepeatingAtMinuteZero(isShowBubble = false, isShowDrawTideTimeLabels = false)
+        /* 現日時の処理 */
         if(currentDateTime.dayOfMonth == tideFlowData.tideDate.third){
+            // アニメーション終了後に以下を表示
             Handler(Looper.getMainLooper()).postDelayed({
-                // 選択したX軸の位置をハイライト表示(currentHour: 現時刻にフォーカスさせる)
-                val calendar = Calendar.getInstance()
-                val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
-                /* データポイントの点の変更 */
-                // 現時刻の場合
-//                if(currentDateTime.hour == currentHour){
-//                    // アイコン
-//                    val currentEntry = dataEntries[currentHour]
-//                    currentEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_current)
-//                }
-                // 吹き出しを表示して作成する
-//                val customLineChartRenderer = CustomLineChartRenderer(mBinding.dayPagerLineChart, mBinding.dayPagerLineChart.animator, mBinding.dayPagerLineChart.viewPortHandler)
-//                customLineChartRenderer.mIsShowBubble = true
-//                mBinding.dayPagerLineChart.renderer = customLineChartRenderer
-//                mBinding.dayPagerLineChart.invalidate()
-                // 吹き出しとグリッドを表示して作成する
-                startRepeatingAtMinuteZero(true)
+                // 吹き出しとグリッドの表示
+                mCustomLineChartRenderer!!.mIsShowBubble = true
+                mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = true
             }, durationMillis.toLong())
-
         }else{
-            startRepeatingAtMinuteZero()
+            // アニメーション終了後に以下を表示
+            Handler(Looper.getMainLooper()).postDelayed({
+                // 満潮干潮時刻の表示
+                mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = true
+            }, durationMillis.toLong())
         }
 
         // 表示されているデータの一番低い値を取得
