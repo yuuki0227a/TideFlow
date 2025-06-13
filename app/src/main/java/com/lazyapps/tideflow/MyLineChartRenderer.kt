@@ -177,10 +177,11 @@ class CustomLineChartRenderer(
         // Paint
         val tideLabelPaint = Paint().apply {
             color = Color.WHITE
-            textSize = 32f
+            textSize = 40f
             textAlign = Paint.Align.CENTER
             isAntiAlias = true
             setShadowLayer(8f, 0f, 2f, Color.BLACK)
+            typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
 
         // 満潮時刻のリスト作成
@@ -224,7 +225,7 @@ class CustomLineChartRenderer(
             val pos = transformer.getPixelForValues(xValue, entry.y)
 
             // 上方向へオフセット（例：-24f）
-            c.drawText(time, pos.x.toFloat(), pos.y.toFloat() - 24f, tideLabelPaint)
+            c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() - 30f, tideLabelPaint)
         }
 
         // 干潮（下にオフセット）
@@ -241,7 +242,7 @@ class CustomLineChartRenderer(
             val pos = transformer.getPixelForValues(xValue, entry.y)
 
             // 下方向へオフセット（例：+44f）
-            c.drawText(time, pos.x.toFloat(), pos.y.toFloat() + 44f, tideLabelPaint)
+            c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() + 58f, tideLabelPaint)
         }
     }
 
