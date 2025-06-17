@@ -275,8 +275,9 @@ class DayPagerFragment : Fragment() {
     private val runnable = object : Runnable {
         override fun run() {
             // 吹き出しを表示して作成する処理を毎分実行
+            mCustomLineChartRenderer!!.mIsShowBubble = true
+            mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = true
             mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
-            mBinding.dayPagerLineChart.invalidate()
 
             mHandler.postDelayed(this, intervalShowCustomLineChartRenderer)
         }
@@ -286,7 +287,6 @@ class DayPagerFragment : Fragment() {
         mCustomLineChartRenderer!!.mIsShowBubble = isShowBubble
         mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = isShowDrawTideTimeLabels
         mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
-        mBinding.dayPagerLineChart.invalidate()
         val currentTime = System.currentTimeMillis()
         val delayToNextMinute = intervalShowCustomLineChartRenderer - (currentTime % intervalShowCustomLineChartRenderer)
         mHandler.postDelayed(runnable, delayToNextMinute)
@@ -347,11 +347,12 @@ class DayPagerFragment : Fragment() {
 
         /* グラフデザイン */
         // グラフの線の太さ
-        lineDataSet.lineWidth = 3.0f
+        lineDataSet.lineWidth = 5.0f
         // グラフモード(曲線)
         lineDataSet.mode = LineDataSet.Mode.CUBIC_BEZIER
         // グラフの色
-        lineDataSet.colors = listOf(Color.BLUE)
+        lineDataSet.colors = listOf(Color.rgb(0x00,0xBF,0xFF))
+//        lineDataSet.colors = listOf(Color.BLUE)
         // 点の色
 //        lineDataSet.circleColors = listOf(Color.CYAN)
         // 点の大きさ
@@ -407,7 +408,7 @@ class DayPagerFragment : Fragment() {
         )
 
         // グラフアニメーションの描画時間
-        val durationMillisX = 500
+        val durationMillisX = 100
         val durationMillisY = 0
         val durationMillis = if(durationMillisX < durationMillisY){
             durationMillisY
