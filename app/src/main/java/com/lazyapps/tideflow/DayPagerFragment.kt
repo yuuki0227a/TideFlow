@@ -36,8 +36,6 @@ class DayPagerFragment : Fragment() {
     private var beforeTideFlowData: TideFlowManager.TideFlowData? = null
     private var afterTideFlowData: TideFlowManager.TideFlowData? = null
 
-    private var mTideCondition: String? = ""
-
     companion object{
         const val DAY_PAGER_HIGH_TIDE_TIMES_TIME_FORMAT = "%2d:%02d"
         const val DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT = "%3d\tcm"
@@ -99,7 +97,6 @@ class DayPagerFragment : Fragment() {
         // 少数第一位以下を切り捨てる。
         val roundedMoonAge = String.format("%.1f", moonAge).toDouble()
         // 月齢から潮情報を取得する。
-        mTideCondition = Util.getTideInfoFromLunarPhase(moonAge)
         val tideCondition = Util.getTideInfoFromLunarPhase(moonAge)
         // 月齢表示
         mBinding.dayPagerMoonAgeTextView.text = String.format("月齢 %.1f", roundedMoonAge)
@@ -275,10 +272,8 @@ class DayPagerFragment : Fragment() {
     private val runnable = object : Runnable {
         override fun run() {
             // 吹き出しを表示して作成する処理を毎分実行
-            mCustomLineChartRenderer!!.mIsShowBubble = true
-            mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = true
             mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
-
+            mBinding.dayPagerLineChart.invalidate()
             mHandler.postDelayed(this, intervalShowCustomLineChartRenderer)
         }
     }
@@ -287,6 +282,7 @@ class DayPagerFragment : Fragment() {
         mCustomLineChartRenderer!!.mIsShowBubble = isShowBubble
         mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = isShowDrawTideTimeLabels
         mBinding.dayPagerLineChart.renderer = mCustomLineChartRenderer
+        mBinding.dayPagerLineChart.invalidate()
         val currentTime = System.currentTimeMillis()
         val delayToNextMinute = intervalShowCustomLineChartRenderer - (currentTime % intervalShowCustomLineChartRenderer)
         mHandler.postDelayed(runnable, delayToNextMinute)
@@ -417,8 +413,6 @@ class DayPagerFragment : Fragment() {
         }
         // グラフアニメーションの描画時間設定
         mBinding.dayPagerLineChart.animateXY(durationMillisX, durationMillisY)
-        // 吹き出し時刻更新処理の呼び出し
-        startRepeatingAtMinuteZero(isShowBubble = false, isShowDrawTideTimeLabels = false)
         /* 現日時の処理 */
         if(currentDateTime.dayOfMonth == tideFlowData.tideDate.third){
             // アニメーション終了後に以下を表示
@@ -426,12 +420,16 @@ class DayPagerFragment : Fragment() {
                 // 吹き出しとグリッドの表示
                 mCustomLineChartRenderer!!.mIsShowBubble = true
                 mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = true
+                // 吹き出し時刻更新処理の呼び出し
+                startRepeatingAtMinuteZero(isShowBubble = true, isShowDrawTideTimeLabels = true)
             }, durationMillis.toLong())
         }else{
             // アニメーション終了後に以下を表示
             Handler(Looper.getMainLooper()).postDelayed({
                 // 満潮干潮時刻の表示
                 mCustomLineChartRenderer!!.mIsShowDrawTideTimeLabels = true
+                // 吹き出し時刻更新処理の呼び出し
+                startRepeatingAtMinuteZero(isShowBubble = false, isShowDrawTideTimeLabels = true)
             }, durationMillis.toLong())
         }
 

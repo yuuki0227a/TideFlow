@@ -70,15 +70,22 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/day_pager_tide_condition_textView"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="中潮"
-                android:textColor="#979797"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/day_pager_tide_condition_textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="中潮"
+                    android:textColor="#979797"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 

@@ -93,40 +93,57 @@ class CustomLineChartRenderer(
 
     /** 現在時刻の吹き出し＋バブルを描画 */
     private fun drawCurrentTimeBubble(c: Canvas) {
-        val data = mChart.lineData ?: return
+        val data = mChart.lineData ?: return  // グラフデータがなければ描画せず終了
 
+        // 現在時刻を取得
         val now = java.util.Calendar.getInstance()
         val hour = now.get(java.util.Calendar.HOUR_OF_DAY)
         val minute = now.get(java.util.Calendar.MINUTE)
-        val currentX = hour + minute / 60f
-        val nowStr = "%02d:%02d".format(hour, minute)
+        val currentX = hour + minute / 60f  // 現在時刻をX軸の小数値に変換（例: 13.5）
+        val nowStr = "%02d:%02d".format(hour, minute)  // 表示用の時刻文字列（"HH:mm"）
 
+        // 現在時刻の前後のデータ点を取得
         val dataSet = mChart.lineData.getDataSetByIndex(0)
         val lowerEntry = dataSet.getEntryForXValue(currentX, Float.NaN, DataSet.Rounding.DOWN)
         val upperEntry = dataSet.getEntryForXValue(currentX, Float.NaN, DataSet.Rounding.UP)
+
+        // 現在時刻におけるY値を線形補間で計算
         val currentY = if (lowerEntry != null && upperEntry != null && lowerEntry.x != upperEntry.x) {
             val ratio = (currentX - lowerEntry.x) / (upperEntry.x - lowerEntry.x)
             lowerEntry.y + (upperEntry.y - lowerEntry.y) * ratio
         } else {
-            lowerEntry?.y ?: upperEntry?.y ?: 0f
+            lowerEntry?.y ?: upperEntry?.y ?: 0f  // 該当データがなければ0を使用
         }
+
+        // データ値をピクセル座標に変換
         val transformer = mChart.getTransformer(dataSet.axisDependency)
         val pos = transformer.getPixelForValues(currentX, currentY)
 
+        // バブルのサイズと位置を決定
         val chartWidth = mViewPortHandler.chartWidth
         val bubbleWidth = 120f
         val bubbleHeight = 60f
-        var bubbleX = pos.x.toFloat() - bubbleWidth / 2
-        val bubbleY = pos.y.toFloat() - bubbleHeight - 205f
+        var bubbleX = pos.x.toFloat() - bubbleWidth / 2  // バブルをX軸中央に合わせる
+        var bubbleY = pos.y.toFloat() - bubbleHeight - 205f  // Y軸位置を少し上にずらす
 
+        // バブルがグラフ外にはみ出さないように制限
         if (bubbleX < 0) bubbleX = 0f
         if (bubbleX + bubbleWidth > chartWidth) bubbleX = chartWidth - bubbleWidth
 
+        // グラフの上端を取得して、吹き出しがはみ出さないよう制限
+        val contentTop = mViewPortHandler.contentTop()
+        if (bubbleY < contentTop) {
+            bubbleY = contentTop
+        }
+
+        // 吹き出しの角丸四角形を描画
         c.drawRoundRect(
             bubbleX, bubbleY,
             bubbleX + bubbleWidth, bubbleY + bubbleHeight,
             24f, 24f, bubblePaint
         )
+
+        // 現在時刻の文字列を描画
         c.drawText(
             nowStr,
             bubbleX + 20f,
@@ -134,17 +151,36 @@ class CustomLineChartRenderer(
             textPaint
         )
 
+//        // 吹き出しからデータ点まで伸びる直線（ポインター）を描画
+//        val pointerX = pos.x.coerceIn(bubbleX.toDouble() + 10, bubbleX + bubbleWidth.toDouble() - 10)
+//        val pointerStartX = pointerX.toFloat()
+//        val pointerStartY = bubbleY + bubbleHeight
+//        val pointerEndX = pos.x.toFloat()
+//        val pointerEndY = bubbleY + bubbleHeight + 200f
+//        val straightPath = android.graphics.Path().apply {
+//            moveTo(pointerStartX, pointerStartY)
+//            lineTo(pointerEndX, pointerEndY)
+//        }
+//        c.drawPath(straightPath, dottedLinePaint)
         val pointerX = pos.x.coerceIn(bubbleX.toDouble() + 10, bubbleX + bubbleWidth.toDouble() - 10)
         val pointerStartX = pointerX.toFloat()
         val pointerStartY = bubbleY + bubbleHeight
+
+//        val contentTop = mViewPortHandler.contentTop()
+        val rawEndY = bubbleY + bubbleHeight + 200f
+        val pointerEndY = rawEndY.coerceAtMost(pos.y.toFloat())  // データ点のY座標より下にはしない
+        val pointerEndYClamped = pointerEndY.coerceAtLeast(contentTop)  // グラフの上端より上にはしない
+
         val pointerEndX = pos.x.toFloat()
-        val pointerEndY = bubbleY + bubbleHeight + 200f
+
         val straightPath = android.graphics.Path().apply {
             moveTo(pointerStartX, pointerStartY)
-            lineTo(pointerEndX, pointerEndY)
+            lineTo(pointerEndX, pointerEndYClamped)
         }
         c.drawPath(straightPath, dottedLinePaint)
+
     }
+
 
     /** X軸のカスタムラベル＆縦線（点線）を描画 */
     private fun drawCustomXAxisLabelsAndLines(c: Canvas) {
