@@ -83,6 +83,26 @@ class DayPagerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        /* 潮汐データ */
+        mBinding.dayPagerHighTideTimes.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_color))
+        mBinding.dayPagerHighTideTimesTime1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_time_color))
+        mBinding.dayPagerHighTideTimesTime2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_time_color))
+        mBinding.dayPagerHighTideTimesTime3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_time_color))
+        mBinding.dayPagerHighTideTimesTime4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_time_color))
+        mBinding.dayPagerHighTideTimesTideLevel1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_data_color))
+        mBinding.dayPagerHighTideTimesTideLevel2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_data_color))
+        mBinding.dayPagerHighTideTimesTideLevel3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_data_color))
+        mBinding.dayPagerHighTideTimesTideLevel4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_high_tide_data_color))
+        mBinding.dayPagerLowTideTimes.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_color))
+        mBinding.dayPagerLowTideTimesTime1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_time_color))
+        mBinding.dayPagerLowTideTimesTime2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_time_color))
+        mBinding.dayPagerLowTideTimesTime3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_time_color))
+        mBinding.dayPagerLowTideTimesTime4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_time_color))
+        mBinding.dayPagerLowTideTimesTideLevel1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_data_color))
+        mBinding.dayPagerLowTideTimesTideLevel2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_data_color))
+        mBinding.dayPagerLowTideTimesTideLevel3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_data_color))
+        mBinding.dayPagerLowTideTimesTideLevel4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_low_tide_data_color))
+
         /* 月画像、月齢、潮状態の表示 */
         // 日付
         val localDate = LocalDate.of(tideFlowData.tideDate.first, tideFlowData.tideDate.second, tideFlowData.tideDate.third)
@@ -104,9 +124,9 @@ class DayPagerFragment : Fragment() {
         // 潮状態表示
         mBinding.dayPagerTideConditionTextView.text = tideCondition
         // 潮状態ごとに色分けする。
-//        if(tideCondition != null){
-//            Util.setColorForTideType(mContext, mBinding.dayPagerTideConditionTextView, tideCondition)
-//        }
+        if(tideCondition != null){
+            Util.setColorForTideType(mContext, mBinding.dayPagerTideConditionTextView, tideCondition)
+        }
         // 月画像 TODO. 月画像を作成して実装する
         mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_debug)
 //        when(moonAge.toInt()){
@@ -152,6 +172,9 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerHighTideTimesTideLevel1.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[0].third,
             )
+        }else{
+            mBinding.dayPagerHighTideTimesTideLevel1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerHighTideTimesTime1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
         // 2
         if(tideFlowData.highTideTimes[1].third != 999){
@@ -162,6 +185,10 @@ class DayPagerFragment : Fragment() {
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[1].third,
             )
         }
+        else{
+            mBinding.dayPagerHighTideTimesTideLevel2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerHighTideTimesTime2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+        }
         // 3
         if(tideFlowData.highTideTimes[2].third != 999){
             mBinding.dayPagerHighTideTimesTime3.text = String.format(
@@ -170,6 +197,9 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerHighTideTimesTideLevel3.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[2].third,
             )
+        }else{
+            mBinding.dayPagerHighTideTimesTideLevel3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerHighTideTimesTime3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
         // 4
         if(tideFlowData.highTideTimes[3].third != 999){
@@ -179,6 +209,9 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerHighTideTimesTideLevel4.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.highTideTimes[3].third,
             )
+        }else{
+            mBinding.dayPagerHighTideTimesTideLevel4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerHighTideTimesTime4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
 
         /* 干潮 */
@@ -190,6 +223,9 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerLowTideTimesTideLevel1.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[0].third,
             )
+        }else{
+            mBinding.dayPagerLowTideTimesTime1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerLowTideTimesTideLevel1.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
         // 2
         if(tideFlowData.lowTideTimes[1].third != 999){
@@ -199,6 +235,9 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerLowTideTimesTideLevel2.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[1].third,
             )
+        }else{
+            mBinding.dayPagerLowTideTimesTime2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerLowTideTimesTideLevel2.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
         // 3
         if(tideFlowData.lowTideTimes[2].third != 999){
@@ -208,6 +247,9 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerLowTideTimesTideLevel3.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[2].third,
             )
+        }else{
+            mBinding.dayPagerLowTideTimesTime3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerLowTideTimesTideLevel3.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
         // 4
         if(tideFlowData.lowTideTimes[3].third != 999){
@@ -217,23 +259,18 @@ class DayPagerFragment : Fragment() {
             mBinding.dayPagerLowTideTimesTideLevel4.text = String.format(
                 DAY_PAGER_HIGH_TIDE_TIMES_TIDE_LEVEL_FORMAT, tideFlowData.lowTideTimes[3].third,
             )
+        }else{
+            mBinding.dayPagerLowTideTimesTime4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
+            mBinding.dayPagerLowTideTimesTideLevel4.setTextColor(ContextCompat.getColor(mContext, R.color.tideflow_data_no_data))
         }
 
-//        /* １時間毎の潮汐データの折線グラフ */
-//        createLineChart()
-
-        // TODO. test
-        mBinding.dayPagerMoonImageView.setOnClickListener {
-            createLineChart()
-        }
         // グラフ作成前に表示される文字列
         mBinding.dayPagerLineChart.setNoDataText("")
     }
 
     override fun onStart() {
         super.onStart()
-        /* １時間毎の潮汐データの折線グラフ */
-//        createLineChart()
+
     }
 
     override fun onResume() {
@@ -404,7 +441,7 @@ class DayPagerFragment : Fragment() {
         )
 
         // グラフアニメーションの描画時間
-        val durationMillisX = 100
+        val durationMillisX = 0
         val durationMillisY = 0
         val durationMillis = if(durationMillisX < durationMillisY){
             durationMillisY

@@ -48,7 +48,15 @@
     <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
 
     <!-- 潮汐データ枠 -->
-    <color name="tideflow_data_bk_color">#737373</color>
+    <color name="tideflow_data_bk_color">#F5F5F5</color>
+    <color name="tideflow_data_bk_stroke_color">#CCCCCC</color>
+    <color name="tideflow_data_high_tide_color">#CC6666</color>
+    <color name="tideflow_data_high_tide_time_color">#212121</color>
+    <color name="tideflow_data_high_tide_data_color">#212121</color>
+    <color name="tideflow_data_low_tide_color">#6666CC</color>
+    <color name="tideflow_data_low_tide_time_color">#212121</color>
+    <color name="tideflow_data_low_tide_data_color">#212121</color>
+    <color name="tideflow_data_no_data">#B0BEC5</color>
 
     <!-- bottomメニュー -->
     <color name="bottom_nav_item_checked_color">#C4BDFF</color> <!-- チェック済みカラー -->

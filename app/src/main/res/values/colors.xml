@@ -32,12 +32,12 @@
 
 
     <!-- 潮状態の色 -->
-    <color name="tide_spring">#FF5050</color>
-    <color name="tide_middle">#FF6F00</color>
-    <color name="tide_neap">#4170FF</color>
-    <color name="tide_long">#E651FF</color>
+    <color name="tide_spring">#CC5050</color>
+    <color name="tide_middle">#CC6F00</color>
+    <color name="tide_neap">#4170CC</color>
+    <color name="tide_long">#E651CC</color>
     <color name="tide_young">#00CC51</color>
-    <color name="tide_def">#FFFFFF</color>
+    <color name="tide_def">#CCCCCC</color>
 
     <!-- 折線グラフ -->
     <color name="line_chart_data_point_text_color">#FFFFFF</color>
@@ -48,7 +48,15 @@
     <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
 
     <!-- 潮汐データ枠 -->
-    <color name="tideflow_data_bk_color">#737373</color>
+    <color name="tideflow_data_bk_color">#F5F5F5</color>
+    <color name="tideflow_data_bk_stroke_color">#CCCCCC</color>
+    <color name="tideflow_data_high_tide_color">#CC6666</color>
+    <color name="tideflow_data_high_tide_time_color">#212121</color>
+    <color name="tideflow_data_high_tide_data_color">#212121</color>
+    <color name="tideflow_data_low_tide_color">#6666CC</color>
+    <color name="tideflow_data_low_tide_time_color">#212121</color>
+    <color name="tideflow_data_low_tide_data_color">#212121</color>
+    <color name="tideflow_data_no_data">#B0BEC5</color>
 
     <!-- bottomメニュー -->
     <color name="bottom_nav_item_checked_color">#C4BDFF</color> <!-- チェック済みカラー -->

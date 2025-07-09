@@ -8,6 +8,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.graphics.Paint
+import android.graphics.Typeface
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.renderer.LineChartRenderer
@@ -151,22 +152,24 @@ class CustomLineChartRenderer(
             textPaint
         )
 
-//        // 吹き出しからデータ点まで伸びる直線（ポインター）を描画
-//        val pointerX = pos.x.coerceIn(bubbleX.toDouble() + 10, bubbleX + bubbleWidth.toDouble() - 10)
-//        val pointerStartX = pointerX.toFloat()
-//        val pointerStartY = bubbleY + bubbleHeight
-//        val pointerEndX = pos.x.toFloat()
-//        val pointerEndY = bubbleY + bubbleHeight + 200f
-//        val straightPath = android.graphics.Path().apply {
-//            moveTo(pointerStartX, pointerStartY)
-//            lineTo(pointerEndX, pointerEndY)
-//        }
-//        c.drawPath(straightPath, dottedLinePaint)
+        // 文字を太字に
+        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+
+        // 枠線用 Paint を用意
+        val bubbleStrokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.STROKE
+            strokeWidth = 3f
+            color = Color.BLUE
+        }
+        // 吹き出し塗り
+//        c.drawRoundRect(bubbleX, bubbleY, bubbleX + bubbleWidth, bubbleY + bubbleHeight, 24f, 24f, bubblePaint)
+
+        // 吹き出し枠線
+        c.drawRoundRect(bubbleX, bubbleY, bubbleX + bubbleWidth, bubbleY + bubbleHeight, 24f, 24f, bubbleStrokePaint)
+
         val pointerX = pos.x.coerceIn(bubbleX.toDouble() + 10, bubbleX + bubbleWidth.toDouble() - 10)
         val pointerStartX = pointerX.toFloat()
         val pointerStartY = bubbleY + bubbleHeight
-
-//        val contentTop = mViewPortHandler.contentTop()
         val rawEndY = bubbleY + bubbleHeight + 200f
         val pointerEndY = rawEndY.coerceAtMost(pos.y.toFloat())  // データ点のY座標より下にはしない
         val pointerEndYClamped = pointerEndY.coerceAtLeast(contentTop)  // グラフの上端より上にはしない
