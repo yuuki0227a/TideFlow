@@ -48,7 +48,7 @@
     <color name="line_chart_fill_color">#3A44FF</color><!-- 塗りつぶしカラー -->
 
     <!-- 潮汐データ枠 -->
-    <color name="tideflow_data_bk_color">#F5F5F5</color>
+    <color name="tideflow_data_bk_color">#f0f0f0</color>
     <color name="tideflow_data_bk_stroke_color">#CCCCCC</color>
     <color name="tideflow_data_high_tide_color">#CC6666</color>
     <color name="tideflow_data_high_tide_time_color">#212121</color>

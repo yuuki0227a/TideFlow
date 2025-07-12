@@ -24,7 +24,6 @@ import com.github.mikephil.charting.listener.OnChartGestureListener
 import com.lazyapps.tideflow.Util.dayOfWeekENtoJP
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.util.Calendar
 import kotlin.text.*
 
 class DayPagerFragment : Fragment() {
@@ -333,18 +332,26 @@ class DayPagerFragment : Fragment() {
      * １時間毎の潮汐データの折線グラフを作成する。
      * */
     private fun createLineChart(){
+        // Y軸表示のマージン
+        val axisMaximumMargin = 110f
+        val axisMinimumMargin = -70f
+        // 潮位配列の最大値最小値
+        val hourlyTideLevelMax = beforeTideFlowData!!.hourlyTideLevels.maxOrNull()?.toFloat()
+        val hourlyTideLevelMin = beforeTideFlowData!!.hourlyTideLevels.minOrNull()?.toFloat()
         // １時間ごとの潮位
         val dataEntries = mutableListOf<Entry>()
         // 前日分はEntry.x=-1、当日0〜23時はEntry.x=0〜23、翌日分は24,25
         var hour = -1
         if(beforeTideFlowData != null){
-            val dataEntry = Entry(hour.toFloat(), beforeTideFlowData!!.hourlyTideLevels.last().toFloat())
+            val hourlyTideLevel = beforeTideFlowData!!.hourlyTideLevels.last().toFloat()
+            val dataEntry = Entry(hour.toFloat(), hourlyTideLevel)
 //            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
         hour++
         tideFlowData.hourlyTideLevels.forEach {
-            val dataEntry = Entry(hour.toFloat(), it.toFloat())
+            val hourlyTideLevel = it.toFloat()
+            val dataEntry = Entry(hour.toFloat(), hourlyTideLevel)
 //            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
             hour++
@@ -497,11 +504,6 @@ class DayPagerFragment : Fragment() {
         // 上からのオフセット
         mBinding.dayPagerLineChart.extraTopOffset = 30f
 
-//        mBinding.dayPagerLineChart.setViewPortOffsets(0f, 0f, 0f, 0f)
-//        mBinding.dayPagerLineChart.setExtraOffsets(0f, 0f, 0f, 0f)
-//        mBinding.dayPagerLineChart.setPadding(0, 0, 0, 0)
-
-
         /* x軸関連 */
         mBinding.dayPagerLineChart.xAxis.apply {
             position = XAxis.XAxisPosition.BOTTOM
@@ -546,11 +548,9 @@ class DayPagerFragment : Fragment() {
             // y軸ラベルの表示個数
             labelCount = 10
             // y左軸最大値
-            axisMaximum = 200f
-//            axisMaximum = 300f
+            axisMaximum = hourlyTideLevelMax!! + axisMaximumMargin
             // y左軸最小値
-            axisMinimum = -20f
-//            axisMinimum = -100f
+            axisMinimum = hourlyTideLevelMin!! + axisMinimumMargin
         }
 
         /* データのポインタを画像(Image)にする */
