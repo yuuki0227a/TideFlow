@@ -29,6 +29,8 @@
     <!-- タブの選択中テキストの色 -->
     <color name="tab_selected_text">#0048FF</color>
 
+    <!-- res/values/colors.xml -->
+    <color name="chart_orange">#FF9A00</color>
 
 
     <!-- 潮状態の色 -->

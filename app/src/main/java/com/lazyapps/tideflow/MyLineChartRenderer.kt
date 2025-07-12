@@ -35,14 +35,15 @@ class CustomLineChartRenderer(
 
     // 吹き出し（バブル）の描画用ペイント（白＋シャドウ）
     private val bubblePaint = Paint().apply {
-        color = Color.WHITE
+        color = Color.argb(255,57, 141, 222)
+//        color = Color.argb(255,77, 161, 242)
         style = Paint.Style.FILL
         setShadowLayer(8f, 0f, 2f, Color.LTGRAY)
     }
 
     // 吹き出し内のテキスト描画用ペイント（黒・アンチエイリアス）
     private val textPaint = Paint().apply {
-        color = Color.BLACK
+        color = Color.WHITE
         textSize = 32f
         isAntiAlias = true
     }
@@ -71,7 +72,7 @@ class CustomLineChartRenderer(
     }
     private val labelPaint = Paint().apply {
         color = Color.LTGRAY
-        textSize = 32f
+        textSize = 48f
         textAlign = Paint.Align.CENTER
         isAntiAlias = true
     }
@@ -80,15 +81,15 @@ class CustomLineChartRenderer(
         super.drawExtras(c)
         // X軸ラベルと縦線
         drawCustomXAxisLabelsAndLines(c)
-        // 吹き出し
-        if (mIsShowBubble) {
-            drawCurrentTimeBubble(c)
-        }
         // 満潮干潮の時刻表示
         if(mIsShowDrawTideTimeLabels){
             drawTideTimeLabels(c)
             // 満潮干潮時刻にアイコン表示
             drawTideIcons(c)
+        }
+        // 吹き出し
+        if (mIsShowBubble) {
+            drawCurrentTimeBubble(c)
         }
     }
 
@@ -102,6 +103,11 @@ class CustomLineChartRenderer(
         val minute = now.get(java.util.Calendar.MINUTE)
         val currentX = hour + minute / 60f  // 現在時刻をX軸の小数値に変換（例: 13.5）
         val nowStr = "%02d:%02d".format(hour, minute)  // 表示用の時刻文字列（"HH:mm"）
+
+        // 文字を太字に
+        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+        textPaint.textSize = 40f
+//        textPaint.textAlign = Paint.Align.LEFT
 
         // 現在時刻の前後のデータ点を取得
         val dataSet = mChart.lineData.getDataSetByIndex(0)
@@ -122,8 +128,8 @@ class CustomLineChartRenderer(
 
         // バブルのサイズと位置を決定
         val chartWidth = mViewPortHandler.chartWidth
-        val bubbleWidth = 120f
-        val bubbleHeight = 60f
+        val bubbleWidth = 130f
+        val bubbleHeight = 70f
         var bubbleX = pos.x.toFloat() - bubbleWidth / 2  // バブルをX軸中央に合わせる
         var bubbleY = pos.y.toFloat() - bubbleHeight - 205f  // Y軸位置を少し上にずらす
 
@@ -147,19 +153,16 @@ class CustomLineChartRenderer(
         // 現在時刻の文字列を描画
         c.drawText(
             nowStr,
-            bubbleX + 20f,
-            bubbleY + bubbleHeight / 2 + 12f,
+            bubbleX + 15f,
+            bubbleY + bubbleHeight / 2 + 14f,
             textPaint
         )
-
-        // 文字を太字に
-        textPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
 
         // 枠線用 Paint を用意
         val bubbleStrokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
             strokeWidth = 3f
-            color = Color.BLUE
+            color = Color.WHITE
         }
         // 吹き出し塗り
 //        c.drawRoundRect(bubbleX, bubbleY, bubbleX + bubbleWidth, bubbleY + bubbleHeight, 24f, 24f, bubblePaint)
@@ -181,7 +184,6 @@ class CustomLineChartRenderer(
             lineTo(pointerEndX, pointerEndYClamped)
         }
         c.drawPath(straightPath, dottedLinePaint)
-
     }
 
 
@@ -192,7 +194,6 @@ class CustomLineChartRenderer(
             null -> listOf(0f, 6f, 12f, 18f, 23f)
             else -> listOf(0f, 6f, 12f, 18f, 24f)
         }
-//        val xValues = listOf(0f, 6f, 12f, 18f, 24f)
         // データセットがない場合は左軸で座標変換
         val dataSet = mChart.lineData?.getDataSetByIndex(0)
         val transformer = if (dataSet != null) mChart.getTransformer(dataSet.axisDependency)
@@ -207,7 +208,7 @@ class CustomLineChartRenderer(
             c.drawText(
                 x.toInt().toString(),
                 xPixel,
-                yBottom + 40f,
+                yBottom + 50f,
                 labelPaint
             )
         }
@@ -224,7 +225,7 @@ class CustomLineChartRenderer(
         // Paint
         val tideLabelPaint = Paint().apply {
             color = Color.WHITE
-            textSize = 40f
+            textSize = 52f
             textAlign = Paint.Align.CENTER
             isAntiAlias = true
             setShadowLayer(8f, 0f, 2f, Color.BLACK)
@@ -272,7 +273,7 @@ class CustomLineChartRenderer(
             val pos = transformer.getPixelForValues(xValue, entry.y)
 
             // 上方向へオフセット（例：-24f）
-            c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() - 30f, tideLabelPaint)
+            c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() - 40f, tideLabelPaint)
         }
 
         // 干潮（下にオフセット）
@@ -289,16 +290,16 @@ class CustomLineChartRenderer(
             val pos = transformer.getPixelForValues(xValue, entry.y)
 
             // 下方向へオフセット（例：+44f）
-            c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() + 58f, tideLabelPaint)
+            c.drawText(time, pos.x.toFloat() - 5f, pos.y.toFloat() + 78f, tideLabelPaint)
         }
     }
 
     private val highTideIcon: Bitmap by lazy {
-        drawableToBitmap(mContext, R.drawable.high_tide_dot, 32)
+        drawableToBitmap(mContext, R.drawable.data_entry_icon_other, 40)
     }
 
     private val lowTideIcon: Bitmap by lazy {
-        drawableToBitmap(mContext, R.drawable.low_tide_triangle, 32)
+        drawableToBitmap(mContext, R.drawable.data_entry_icon_other, 40)
     }
     private fun drawTideIcons(c: Canvas) {
         val dataSet = mChart.lineData?.getDataSetByIndex(0) ?: return

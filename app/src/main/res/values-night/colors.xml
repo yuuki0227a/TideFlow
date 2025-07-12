@@ -16,7 +16,7 @@
     <!-- メインの背景色 -->
     <color name="main_bk_color">#232323</color>
     <!-- メインの背景色 -->
-<!--    <color name="main_bk_color">#000000</color>-->
+    <!--    <color name="main_bk_color">#000000</color>-->
 
     <!-- 観測地点タブの本日の色 -->
     <color name="tab_location_center">#0048FF</color>
@@ -29,15 +29,17 @@
     <!-- タブの選択中テキストの色 -->
     <color name="tab_selected_text">#0048FF</color>
 
+    <!-- res/values/colors.xml -->
+    <color name="chart_orange">#FF9A00</color>
 
 
     <!-- 潮状態の色 -->
-    <color name="tide_spring">#FF5050</color>
-    <color name="tide_middle">#FF6F00</color>
-    <color name="tide_neap">#4170FF</color>
-    <color name="tide_long">#E651FF</color>
+    <color name="tide_spring">#CC5050</color>
+    <color name="tide_middle">#CC6F00</color>
+    <color name="tide_neap">#4170CC</color>
+    <color name="tide_long">#E651CC</color>
     <color name="tide_young">#00CC51</color>
-    <color name="tide_def">#FFFFFF</color>
+    <color name="tide_def">#CCCCCC</color>
 
     <!-- 折線グラフ -->
     <color name="line_chart_data_point_text_color">#FFFFFF</color>

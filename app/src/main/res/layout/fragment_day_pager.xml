@@ -25,7 +25,7 @@
             android:autoSizeMinTextSize="10dp"
             android:gravity="center"
             android:text="2025年05月24日 (土)"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
     </LinearLayout>
@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:text="月齢 28.9"
                 android:textColor="#979797"
-                android:textSize="20sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -82,7 +82,7 @@
                     android:gravity="center"
                     android:text="中潮"
                     android:textColor="#979797"
-                    android:textSize="22sp"
+                    android:textSize="34sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
