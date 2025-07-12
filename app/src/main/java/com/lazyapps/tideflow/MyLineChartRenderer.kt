@@ -295,11 +295,11 @@ class CustomLineChartRenderer(
     }
 
     private val highTideIcon: Bitmap by lazy {
-        drawableToBitmap(mContext, R.drawable.data_entry_icon_other, 40)
+        drawableToBitmap(mContext, R.drawable.data_entry_icon_high, 40)
     }
 
     private val lowTideIcon: Bitmap by lazy {
-        drawableToBitmap(mContext, R.drawable.data_entry_icon_other, 40)
+        drawableToBitmap(mContext, R.drawable.data_entry_icon_low, 40)
     }
     private fun drawTideIcons(c: Canvas) {
         val dataSet = mChart.lineData?.getDataSetByIndex(0) ?: return
