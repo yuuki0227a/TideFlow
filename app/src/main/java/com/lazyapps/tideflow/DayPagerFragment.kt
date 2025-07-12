@@ -345,29 +345,24 @@ class DayPagerFragment : Fragment() {
         if(beforeTideFlowData != null){
             val hourlyTideLevel = beforeTideFlowData!!.hourlyTideLevels.last().toFloat()
             val dataEntry = Entry(hour.toFloat(), hourlyTideLevel)
-//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
         }
         hour++
         tideFlowData.hourlyTideLevels.forEach {
             val hourlyTideLevel = it.toFloat()
             val dataEntry = Entry(hour.toFloat(), hourlyTideLevel)
-//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
             hour++
         }
         if(afterTideFlowData != null){
             val dataEntry = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[0].toFloat())
-//            dataEntry.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry)
             hour++
             val dataEntry2 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[1].toFloat())
-//            dataEntry2.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
             dataEntries.add(dataEntry2)
             hour++
             if(beforeTideFlowData == null){
                 val dataEntry3 = Entry(hour.toFloat(), afterTideFlowData!!.hourlyTideLevels[3].toFloat())
-//                dataEntry3.icon = ContextCompat.getDrawable(mContext, R.drawable.data_entry_icon_other)
                 dataEntries.add(dataEntry3)
                 hour++
             }

@@ -22,12 +22,13 @@
     <color name="tab_location_center">#0048FF</color>
     <!-- 日付タブの本日の色 -->
     <color name="tab_date_center">@color/tab_location_center</color>
-    <!-- タブの下線の色 -->
-    <color name="tab_indicator">#0048FF</color>
+
     <!-- タブのテキストの色 -->
     <color name="tab_text">#CCCCCC</color>
     <!-- タブの選択中テキストの色 -->
-    <color name="tab_selected_text">#0048FF</color>
+    <color name="tab_selected_text">#1976D2</color>
+    <!-- タブの下線の色 -->
+    <color name="tab_indicator">#1976D2</color>
 
     <!-- res/values/colors.xml -->
     <color name="chart_orange">#FF9A00</color>
