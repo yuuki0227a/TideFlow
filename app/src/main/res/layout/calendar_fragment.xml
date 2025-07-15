@@ -24,6 +24,7 @@
             android:gravity="center"
             android:text="@string/calender_day_of_week_sunday"
             android:textColor="@color/calender_sunday_text_color"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,7 +34,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/calender_day_of_week_monday"
-            android:textStyle="bold"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView3"
@@ -42,6 +44,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/calender_day_of_week_tuesday"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -51,6 +54,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/calender_day_of_week_wednesday"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -60,6 +64,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/calender_day_of_week_thursday"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -68,6 +73,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/calender_day_of_week_friday"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
@@ -78,6 +84,7 @@
             android:gravity="center"
             android:text="@string/calender_day_of_week_saturday"
             android:textColor="@color/calender_saturday_text_color"
+            android:textSize="20sp"
             android:textStyle="bold" />
     </LinearLayout>
 

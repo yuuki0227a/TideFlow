@@ -34,13 +34,13 @@
     <color name="chart_orange">#FF9A00</color>
 
 
-    <!-- 潮状態の色 -->
-    <color name="tide_spring">#CC5050</color>
-    <color name="tide_middle">#CC6F00</color>
-    <color name="tide_neap">#4170CC</color>
-    <color name="tide_long">#E651CC</color>
-    <color name="tide_young">#00CC51</color>
-    <color name="tide_def">#CCCCCC</color>
+    <!-- 潮状態の色（落ち着いたトーン） -->
+    <color name="tide_spring">#B04A4A</color>    <!-- 大潮：くすんだ赤 -->
+    <color name="tide_middle">#B06A00</color>    <!-- 中潮：やや濃いオレンジ -->
+    <color name="tide_neap">#4A6FB0</color>      <!-- 小潮：落ち着いた青 -->
+    <color name="tide_long">#B04A9C</color>      <!-- 長潮：紫寄りのピンク -->
+    <color name="tide_young">#00A85A</color>     <!-- 若潮：くすみ緑 -->
+    <color name="tide_def">#999999</color>       <!-- その他：グレー -->
 
     <!-- 折線グラフ -->
     <color name="line_chart_data_point_text_color">#FFFFFF</color>
@@ -64,18 +64,20 @@
     <!-- bottomメニュー -->
     <color name="bottom_nav_item_checked_color">#C4BDFF</color> <!-- チェック済みカラー -->
     <color name="bottom_nav_item_unchecked_color">#808080</color> <!-- 未チェックカラー -->
-    <color name="bottom_nav_background_color">#222222</color> <!-- バックグラウンド -->
+    <color name="bottom_nav_background_color">#00222222</color> <!-- バックグラウンド -->
 
     <!-- nav home -->
-    <color name="day_pager_background_color">#0B0B0B</color>
+    <color name="day_pager_background_color">#00000000</color>
 
     <!-- カレンダー -->
-    <color name="calender_border_color">#55808080</color> <!-- 枠線 -->
-    <color name="calender_sunday_text_color">@color/tide_spring</color> <!-- 日曜日のテキストカラー -->
-    <color name="calender_holiday_text_color">@color/calender_sunday_text_color</color> <!-- 祝日のテキストカラー -->
-    <color name="calender_saturday_text_color">#0040FF</color> <!-- 土曜日のテキストカラー -->
+    <color name="calender_bk_color">#00000000</color> <!-- 背景色 -->
+    <color name="calender_border_color">#00000000</color> <!-- 枠線 -->
+    <color name="calender_sunday_text_color">#B04A4A</color>      <!-- 日曜：くすんだ赤 -->
+    <color name="calender_holiday_text_color">@color/calender_sunday_text_color</color> <!-- 祝日は日曜と同色でOK -->
+    <color name="calender_saturday_text_color">#4A6FB0</color>    <!-- 土曜：落ち着いた青 -->
     <color name="calender_moon_name_text_color">#C5C5C5</color> <!-- 月名のテキストカラー -->
     <color name="calender_disable_color">#5E5E5E</color> <!-- 無効カラー -->
+    <color name="calender_border_today_color">#AA55AAFF</color> <!-- 無効カラー -->
 
 </resources>
 

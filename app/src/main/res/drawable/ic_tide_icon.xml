@@ -1,0 +1,31 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 大きめの月（中央寄り） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,2a8,8 0 1,0 0,16a2.5,8 0 1,1 0,-16z" />
+    <!-- 満月（中央やや上寄り） -->
+<!--    <path-->
+<!--        android:fillColor="#FFFFFF"-->
+<!--        android:pathData="M12,5a6,6 0 1,0 0.01,0z" />-->
+
+
+    <!-- 波１ -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M2,18c1.5,-2 4.5,-2 6,0s4.5,2 6,0 4.5,-2 6,0"
+        android:strokeColor="#2196F3"
+        android:strokeWidth="1"/>
+
+    <!-- 波２ -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M2,21c1.5,-2 4.5,-2 6,0s4.5,2 6,0 4.5,-2 6,0"
+        android:strokeColor="#2196F3"
+        android:strokeWidth="1"/>
+
+</vector>

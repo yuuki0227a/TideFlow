@@ -1,56 +1,36 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
     android:height="108dp"
-    android:viewportWidth="512"
-    android:viewportHeight="512">
-  <group android:scaleX="0.69"
-      android:scaleY="0.69"
-      android:translateX="79.36"
-      android:translateY="79.36">
-    <path
-        android:pathData="M194.01,506.67C149.69,488.48 261.9,-72.31 369.72,66.2c72.56,93.23 172.18,238.59 131.13,243.66 -121.73,15.06 -83.86,69.2 -96.95,108.13 -14.63,43.54 -170.89,104.67 -209.9,88.67z"
-        android:strokeWidth="0.25">
-      <aapt:attr name="android:fillColor">
-        <gradient 
-            android:startX="42.55"
-            android:startY="189.21"
-            android:endX="503.68"
-            android:endY="371.26"
-            android:type="linear">
-          <item android:offset="1" android:color="#A30029B7"/>
-          <item android:offset="1" android:color="#00000000"/>
-        </gradient>
-      </aapt:attr>
-    </path>
-    <path
-        android:pathData="M19.49,504.4C-83.67,427.48 251.06,-116.02 359.68,22.49 432.78,115.71 554.88,153.52 496.82,188.71 433.34,227.18 300.63,371.44 276.65,401.98 241.91,446.24 52.84,529.26 19.49,504.4Z"
-        android:strokeWidth="0.25">
-      <aapt:attr name="android:fillColor">
-        <gradient 
-            android:startX="9.93"
-            android:startY="152.38"
-            android:endX="504.88"
-            android:endY="205.3"
-            android:type="linear">
-          <item android:offset="1" android:color="#FF002BCD"/>
-          <item android:offset="1" android:color="#004F489D"/>
-        </gradient>
-      </aapt:attr>
-    </path>
-    <path
-        android:pathData="M62.31,111.09a77.65,75 90,1 0,149.97 -3.22a77.65,75 90,1 0,-149.97 3.22z"
-        android:strokeWidth="0.217112">
-      <aapt:attr name="android:fillColor">
-        <gradient 
-            android:centerX="137.3"
-            android:centerY="109.48"
-            android:gradientRadius="106.36"
-            android:type="radial">
-          <item android:offset="0.58" android:color="#FFFFFF77"/>
-          <item android:offset="1" android:color="#00000000"/>
-        </gradient>
-      </aapt:attr>
-    </path>
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+  <group android:scaleX="0.6"
+      android:scaleY="0.6"
+      android:translateX="4.8"
+      android:translateY="4.8">
+
+      <!-- 大きめの月（中央寄り） -->
+      <path
+          android:fillColor="#FFFFFF"
+          android:pathData="M12,2a8,8 0 1,0 0,16a2.5,8 0 1,1 0,-16z" />
+      <!-- 満月（中央やや上寄り） -->
+  <!--    <path-->
+  <!--        android:fillColor="#FFFFFF"-->
+  <!--        android:pathData="M12,5a6,6 0 1,0 0.01,0z" />-->
+
+
+      <!-- 波１ -->
+      <path
+          android:fillColor="#00000000"
+          android:pathData="M2,18c1.5,-2 4.5,-2 6,0s4.5,2 6,0 4.5,-2 6,0"
+          android:strokeColor="#2196F3"
+          android:strokeWidth="1"/>
+
+      <!-- 波２ -->
+      <path
+          android:fillColor="#00000000"
+          android:pathData="M2,21c1.5,-2 4.5,-2 6,0s4.5,2 6,0 4.5,-2 6,0"
+          android:strokeColor="#2196F3"
+          android:strokeWidth="1"/>
+
   </group>
 </vector>

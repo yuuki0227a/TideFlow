@@ -1,0 +1,32 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 外枠 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M3,4h18a1,1 0 0 1 1,1v16a1,1 0 0 1 -1,1H3a1,1 0 0 1 -1,-1V5a1,1 0 0 1 1,-1zM3,8v12h18V8H3z"/>
+
+    <!-- 上部バー -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M3,4h18v4H3z"/>
+
+    <!-- 左のカレンダーリング -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M7,2a1,1 0 0 1 1,1v2a1,1 0 0 1 -2,0V3a1,1 0 0 1 1,-1z"/>
+
+    <!-- 右のカレンダーリング -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16,2a1,1 0 0 1 1,1v2a1,1 0 0 1 -2,0V3a1,1 0 0 1 1,-1z"/>
+
+    <!-- 中のグリッド（簡易3x2） -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6,10h2v2H6zM10,10h2v2h-2zM14,10h2v2h-2z
+                          M6,14h2v2H6zM10,14h2v2h-2zM14,14h2v2h-2z" />
+</vector>

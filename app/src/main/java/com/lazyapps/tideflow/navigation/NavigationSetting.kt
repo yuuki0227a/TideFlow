@@ -33,7 +33,7 @@ class NavigationSetting : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = NavigationSettingBinding.inflate(inflater, container, false)
         mContext = mBinding.root.context
-        mThemesSpinnerItemBefore = SettingSharedPref(mContext).mThemesSpinnerItem
+//        mThemesSpinnerItemBefore = SettingSharedPref(mContext).mThemesSpinnerItem
          return mBinding.root
     }
 
@@ -48,7 +48,7 @@ class NavigationSetting : Fragment() {
         mBinding.versionTextview.text = SettingSharedPref(mContext).mAppVersionName
 
         /* スピナーの初期値(position) */
-        mBinding.themesSpinner.setSelection(SettingSharedPref(mContext).mThemesSpinnerItem)
+//        mBinding.themesSpinner.setSelection(SettingSharedPref(mContext).mThemesSpinnerItem)
         mBinding.location0Spinner.setSelection(SettingSharedPref(mContext).mLocation0SpinnerPosition)
         mBinding.location1Spinner.setSelection(SettingSharedPref(mContext).mLocation1SpinnerPosition)
         mBinding.location2Spinner.setSelection(SettingSharedPref(mContext).mLocation2SpinnerPosition)
@@ -56,23 +56,23 @@ class NavigationSetting : Fragment() {
         mBinding.location4Spinner.setSelection(SettingSharedPref(mContext).mLocation4SpinnerPosition)
 
         /* テーマカラーのスピナー選択後のイベント */
-        mBinding.themesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if(SettingSharedPref(mContext).mThemesSpinnerItem != position){
-                    // position: 0 システム　1 ライト　2 ダーク
-                    SettingSharedPref(mContext).mThemesSpinnerItem = position
-                    // viewIdの保存
-                    SettingSharedPref(mContext).mBottomNavViewId = R.id.navi_setting
-                    (activity as MainActivity).restartActivity()
-                }
-            }
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+//        mBinding.themesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//            override fun onItemSelected(
+//                parent: AdapterView<*>?,
+//                view: View?,
+//                position: Int,
+//                id: Long
+//            ) {
+//                if(SettingSharedPref(mContext).mThemesSpinnerItem != position){
+//                    // position: 0 システム　1 ライト　2 ダーク
+//                    SettingSharedPref(mContext).mThemesSpinnerItem = position
+//                    // viewIdの保存
+//                    SettingSharedPref(mContext).mBottomNavViewId = R.id.navi_setting
+//                    (activity as MainActivity).restartActivity()
+//                }
+//            }
+//            override fun onNothingSelected(parent: AdapterView<*>?) {}
+//        }
 
         /* 観測地点のスピナー選択後のイベント */
         mBinding.location0Spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -85,7 +85,7 @@ class NavigationSetting : Fragment() {
                 val spinner = parent as? Spinner
                 SettingSharedPref(mContext).mLocation0SpinnerPosition = position
                 SettingSharedPref(mContext).mLocation0SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
+                    (spinner?.selectedItem as? String ?: "-").split(" ")[0]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -99,7 +99,7 @@ class NavigationSetting : Fragment() {
                 val spinner = parent as? Spinner
                 SettingSharedPref(mContext).mLocation1SpinnerPosition = position
                 SettingSharedPref(mContext).mLocation1SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
+                    (spinner?.selectedItem as? String ?: "-").split(" ")[0]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -113,7 +113,7 @@ class NavigationSetting : Fragment() {
                 val spinner = parent as? Spinner
                 SettingSharedPref(mContext).mLocation2SpinnerPosition = position
                 SettingSharedPref(mContext).mLocation2SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
+                    (spinner?.selectedItem as? String ?: "-").split(" ")[0]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -127,7 +127,7 @@ class NavigationSetting : Fragment() {
                 val spinner = parent as? Spinner
                 SettingSharedPref(mContext).mLocation3SpinnerPosition = position
                 SettingSharedPref(mContext).mLocation3SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
+                    (spinner?.selectedItem as? String ?: "-").split(" ")[0]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
@@ -142,7 +142,7 @@ class NavigationSetting : Fragment() {
                 val spinner = parent as? Spinner
                 SettingSharedPref(mContext).mLocation4SpinnerPosition = position
                 SettingSharedPref(mContext).mLocation4SpinnerItem =
-                    spinner?.selectedItem as? String ?: "-"
+                    (spinner?.selectedItem as? String ?: "-").split(" ")[0]
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }

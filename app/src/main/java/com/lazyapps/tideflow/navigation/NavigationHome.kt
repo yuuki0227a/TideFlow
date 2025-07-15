@@ -413,7 +413,7 @@ class NavigationHome : Fragment(), TideFlowManager.DataFetchCallback {
         // タブレイアウトから選択中のロケーションのシンボルを取得
         val locationNameStr = Util.getKeyFromValue(
             mLocationMap,
-            mBinding.tabLayout.getTabAt(mBinding.tabLayout.selectedTabPosition)?.text.toString()
+            mBinding.tabLayout.getTabAt(mBinding.tabLayout.selectedTabPosition)?.text.toString().split(" ")[0]
         )
         // 観測地点
         val locationName = locationNameStr ?: ""

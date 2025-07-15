@@ -208,7 +208,7 @@ class CustomLineChartRenderer(
             c.drawText(
                 x.toInt().toString(),
                 xPixel,
-                yBottom + 50f,
+                yBottom + 35f,
                 labelPaint
             )
         }

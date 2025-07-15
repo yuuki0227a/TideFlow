@@ -7,487 +7,385 @@
     </string-array>
 
     <string-array name="location_name_list_tab0">
-        <item>稚内</item>
-        <item>枝幸</item>
-        <item>紋別</item>
-        <item>網走</item>
-        <item>羅臼</item>
-        <item>根室</item>
-        <item>花咲</item>
-        <item>霧多布</item>
-        <item>釧路</item>
-        <item>十勝</item>
-        <item>浦河</item>
-        <item>苫小牧東</item>
-        <item>苫小牧西</item>
-        <item>白老</item>
-        <item>室蘭</item>
-        <item>森</item>
-        <item>函館</item>
-        <item>吉岡</item>
-        <item>松前</item>
-        <item>江差</item>
-        <item>奥尻</item>
-        <item>奥尻港</item>
-        <item>瀬棚</item>
-        <item>寿都</item>
-        <item>岩内</item>
-        <item>忍路</item>
-        <item>小樽</item>
-        <item>石狩新港</item>
-        <item>留萌</item>
-        <item>沓形</item>
-        <item>竜飛</item>
-        <item>青森</item>
-        <item>浅虫</item>
-        <item>大湊</item>
-        <item>大間</item>
-        <item>下北</item>
-        <item>むつ小川原</item>
-        <item>八戸港</item>
-        <item>久慈</item>
-        <item>宮古</item>
-        <item>釜石</item>
-        <item>大船渡</item>
-        <item>鮎川</item>
-        <item>石巻</item>
-        <item>塩釜</item>
-        <item>仙台新港</item>
-        <item>相馬</item>
-        <item>小名浜</item>
-        <item>日立</item>
-        <item>大洗</item>
-        <item>鹿島</item>
-        <item>銚子漁港</item>
-        <item>勝浦</item>
-        <item>布良</item>
-        <item>館山</item>
-        <item>木更津</item>
-        <item>千葉</item>
-        <item>千葉港</item>
-        <item>東京</item>
-        <item>川崎</item>
-        <item>京浜港</item>
-        <item>横浜</item>
-        <item>本牧</item>
-        <item>横須賀</item>
-        <item>油壺</item>
-        <item>岡田</item>
-        <item>神津島</item>
-        <item>三宅島（坪田）</item>
-        <item>三宅島（阿古）</item>
-        <item>八丈島（八重根）</item>
-        <item>八丈島（神湊）</item>
-        <item>父島</item>
-        <item>南鳥島</item>
-        <item>湘南港</item>
-        <item>小田原</item>
-        <item>伊東</item>
-        <item>下田</item>
-        <item>南伊豆</item>
-        <item>石廊崎</item>
-        <item>田子</item>
-        <item>内浦</item>
-        <item>清水港</item>
-        <item>焼津</item>
-        <item>御前崎</item>
-        <item>舞阪</item>
-        <item>赤羽根</item>
-        <item>三河</item>
-        <item>形原</item>
-        <item>衣浦</item>
-        <item>鬼崎</item>
-        <item>名古屋</item>
-        <item>四日市港</item>
-        <item>鳥羽</item>
-        <item>尾鷲</item>
-        <item>熊野</item>
-        <item>浦神</item>
-        <item>串本</item>
-        <item>白浜</item>
-        <item>御坊</item>
-        <item>下津</item>
-        <item>海南</item>
-        <item>和歌山</item>
-        <item>淡輪</item>
-        <item>関空島</item>
-        <item>岸和田</item>
-        <item>泉大津</item>
-        <item>堺</item>
-        <item>大阪</item>
-        <item>尼崎</item>
-        <item>西宮</item>
-        <item>神戸</item>
-        <item>明石</item>
-        <item>洲本</item>
-        <item>江井</item>
-        <item>姫路（飾磨）</item>
-        <item>三蟠</item>
-        <item>宇野</item>
-        <item>水島</item>
-        <item>乙島</item>
-        <item>糸崎</item>
-        <item>竹原</item>
-        <item>呉</item>
-        <item>広島</item>
-        <item>徳山</item>
-        <item>三田尻</item>
-        <item>宇部</item>
-        <item>長府</item>
-        <item>弟子待</item>
-        <item>田ノ首</item>
-        <item>大山の鼻</item>
-        <item>南風泊</item>
-        <item>松山</item>
-        <item>波止浜</item>
-        <item>今治市小島</item>
-        <item>来島航路</item>
-        <item>今治</item>
-        <item>新居浜</item>
-        <item>伊予三島</item>
-        <item>多度津</item>
-        <item>青木</item>
-        <item>与島</item>
-        <item>高松</item>
-        <item>小松島</item>
-        <item>橘</item>
-        <item>阿波由岐</item>
-        <item>日和佐</item>
-        <item>甲浦</item>
-        <item>室戸岬</item>
-        <item>高知</item>
-        <item>須崎</item>
-        <item>久礼</item>
-        <item>高知下田</item>
-        <item>土佐清水</item>
-        <item>片島</item>
-        <item>宇和島</item>
-        <item>日明</item>
-        <item>砂津</item>
-        <item>門司</item>
-        <item>青浜</item>
-        <item>苅田</item>
-        <item>別府</item>
-        <item>大分</item>
-        <item>佐伯</item>
-        <item>細島</item>
-        <item>宮崎</item>
-        <item>油津</item>
-        <item>志布志</item>
-        <item>大泊</item>
-        <item>鹿児島</item>
-        <item>枕崎</item>
-        <item>阿久根</item>
-        <item>西之表</item>
-        <item>種子島</item>
-        <item>中之島</item>
-        <item>名瀬</item>
-        <item>奄美</item>
-        <item>中城湾港</item>
-        <item>沖縄</item>
-        <item>那覇</item>
-        <item>南大東</item>
-        <item>平良</item>
-        <item>石垣</item>
-        <item>西表</item>
-        <item>与那国</item>
-        <item>水俣</item>
-        <item>八代</item>
-        <item>本渡瀬戸</item>
-        <item>苓北</item>
-        <item>三角</item>
-        <item>熊本</item>
-        <item>大牟田</item>
-        <item>大浦</item>
-        <item>口之津</item>
-        <item>長崎</item>
-        <item>皇后</item>
-        <item>福江</item>
-        <item>佐世保</item>
-        <item>平戸瀬戸</item>
-        <item>仮屋</item>
-        <item>唐津</item>
-        <item>博多</item>
-        <item>郷ノ浦</item>
-        <item>厳原</item>
-        <item>対馬</item>
-        <item>対馬比田勝</item>
-        <item>萩</item>
-        <item>須佐</item>
-        <item>浜田</item>
-        <item>境</item>
-        <item>西郷</item>
-        <item>田後</item>
-        <item>津居山</item>
-        <item>宮津</item>
-        <item>舞鶴</item>
-        <item>敦賀</item>
-        <item>三国</item>
-        <item>金沢</item>
-        <item>輪島</item>
-        <item>能登</item>
-        <item>七尾</item>
-        <item>伏木富山</item>
-        <item>新湊</item>
-        <item>富山</item>
-        <item>生地</item>
-        <item>直江津</item>
-        <item>柏崎</item>
-        <item>新潟西港</item>
-        <item>新潟東港</item>
-        <item>小木</item>
-        <item>両津</item>
-        <item>佐渡</item>
-        <item>粟島</item>
-        <item>鼠ヶ関</item>
-        <item>酒田</item>
-        <item>飛島</item>
-        <item>秋田</item>
-        <item>船川港</item>
-        <item>男鹿</item>
-        <item>深浦</item>
+        <item>枝幸　（北海道 枝幸郡 枝幸町 幸町）</item>
+        <item>沓形　（北海道 利尻郡 利尻町 沓形）</item>
+        <item>稚内　（北海道 稚内市 新港町）</item>
+        <item>留萌　（北海道 留萌市 大町１丁目）</item>
+        <item>石狩新港　（北海道 石狩市 新港東４丁目）</item>
+        <item>岩内　（北海道 岩内郡 岩内町 御崎）</item>
+        <item>忍路　（北海道 小樽市 忍路１丁目）</item>
+        <item>小樽　（北海道 小樽市 築港）</item>
+        <item>紋別　（北海道 紋別市 弁天町）</item>
+        <item>網走　（北海道 網走市 港町）</item>
+        <item>根室　（北海道 根室市 海岸町２丁目）</item>
+        <item>花咲　（北海道 根室市 花咲港）</item>
+        <item>霧多布　（北海道 厚岸郡 浜中町 霧多布）</item>
+        <item>釧路　（北海道 釧路市 港町）</item>
+        <item>十勝　（北海道 広尾郡 広尾町 会所前）</item>
+        <item>苫小牧東　（北海道 勇払郡 厚真町 浜厚真）</item>
+        <item>苫小牧西　（北海道 苫小牧市 汐見町１丁目）</item>
+        <item>室蘭　（北海道 室蘭市 祝津町１丁目）</item>
+        <item>白老　（北海道 白老郡 白老町 石山）</item>
+        <item>浦河　（北海道 浦河郡 浦河町 大通１丁目）</item>
+        <item>森　（北海道 茅部郡 森町 港町）</item>
+        <item>函館　（北海道 函館市 海岸町）</item>
+        <item>瀬棚　（北海道 久遠郡 せたな町 瀬棚区 本町）</item>
+        <item>奥尻　（北海道 奥尻郡 奥尻町 松江）</item>
+        <item>奥尻港　（北海道 奥尻郡 奥尻町 奥尻）</item>
+        <item>江差　（北海道 檜山郡 江差町 中歌町）</item>
+        <item>青森　（青森県 青森市 港町）</item>
+        <item>浅虫　（青森県 青森市 浅虫）</item>
+        <item>八戸港　（青森県 八戸市 鮫町）</item>
+        <item>下北　（青森県 むつ市 関根）</item>
+        <item>深浦　（青森県 西津軽郡 深浦町 深浦）</item>
+        <item>竜飛　（青森県 東津軽郡 外ヶ浜町 三厩梨ノ木間）</item>
+        <item>むつ小川原　（青森県 上北郡 六ヶ所村 鷹架）</item>
+        <item>男鹿　（秋田県 男鹿市 戸賀塩浜）</item>
+        <item>秋田　（秋田県 秋田市 土崎西１丁目）</item>
+        <item>宮古　（岩手県 宮古市 日立浜町）</item>
+        <item>大船渡　（岩手県 大船渡市 赤崎町）</item>
+        <item>釜石　（岩手県 釜石市 魚河岸町）</item>
+        <item>久慈　（岩手県 久慈市 長内町）</item>
+        <item>石巻　（宮城県 石巻市 西浜町地先）</item>
+        <item>仙台新港　（宮城県 仙台市 宮城野区 港３丁目）</item>
+        <item>鮎川　（宮城県 石巻市 鮎川浜）</item>
+        <item>鼠ヶ関　（山形県 鶴岡市 鼠ヶ関）</item>
+        <item>飛島　（山形県 酒田市 飛島）</item>
+        <item>酒田　（山形県 酒田市 宮野浦）</item>
+        <item>相馬　（福島県 相馬市 原釜）</item>
+        <item>小名浜　（福島県 いわき市 小名浜）</item>
+        <item>鹿島　（茨城県 神栖市 居切）</item>
+        <item>東京　（東京都 中央区 晴海５丁目）</item>
+        <item>岡田　（東京都 大島町 岡田）</item>
+        <item>三宅島（坪田）　（東京都 三宅村 坪田船戸）</item>
+        <item>父島　（東京都 小笠原村 父島東町）</item>
+        <item>神津島　（東京都 神津島村 神津島港）</item>
+        <item>三宅島（阿古）　（東京都 三宅村 阿古）</item>
+        <item>八丈島（神湊）　（東京都 八丈町 三根）</item>
+        <item>勝浦　（千葉県 勝浦市 興津）</item>
+        <item>布良　（千葉県 館山市 布良）</item>
+        <item>千葉　（千葉県 市原市 五井）</item>
+        <item>銚子漁港　（千葉県 銚子市 川口町２丁目）</item>
+        <item>京浜港　（神奈川県 横浜市 神奈川区 山内町）</item>
+        <item>油壺　（神奈川県 三浦市 三崎町）</item>
+        <item>小田原　（神奈川県 小田原市 早川地先）</item>
+        <item>横浜　（神奈川県 横浜市 中区 新港町１丁目）</item>
+        <item>横須賀　（神奈川県 横須賀市 西逸見町）</item>
+        <item>伊東　（静岡県 伊東市 富戸）</item>
+        <item>田子　（静岡県 賀茂郡 西伊豆町 田子）</item>
+        <item>焼津　（静岡県 焼津市 中港６丁目）</item>
+        <item>下田　（静岡県 下田市 柿崎弁天島地先）</item>
+        <item>石廊崎　（静岡県 賀茂郡 南伊豆町 手石）</item>
+        <item>内浦　（静岡県 沼津市 内浦長浜網代）</item>
+        <item>清水港　（静岡県 静岡市 清水区 三保）</item>
+        <item>御前崎　（静岡県 御前崎市 港）</item>
+        <item>舞阪　（静岡県 浜松市 中央区 舞阪町）</item>
+        <item>衣浦　（愛知県 半田市 11号地）</item>
+        <item>鬼崎　（愛知県 常滑市 港町２丁目）</item>
+        <item>三河　（愛知県 豊橋市 神野ふ頭）</item>
+        <item>名古屋　（愛知県 名古屋市 港区 港町）</item>
+        <item>赤羽根　（愛知県 田原市 池尻町）</item>
+        <item>四日市港　（三重県 四日市市 千歳町）</item>
+        <item>鳥羽　（三重県 鳥羽市 堅神町）</item>
+        <item>尾鷲　（三重県 尾鷲市 天満浦）</item>
+        <item>熊野　（三重県 熊野市 遊木町）</item>
+        <item>柏崎　（新潟県 柏崎市 鯨波）</item>
+        <item>小木　（新潟県 佐渡市 小木町）</item>
+        <item>新潟東港　（新潟県 新潟市 北区 太郎代）</item>
+        <item>佐渡　（新潟県 佐渡市 鷲崎）</item>
+        <item>上越市直江津（臨時）　（新潟県 上越市 直江津）</item>
+        <item>粟島　（新潟県 岩船郡 粟島浦村 内浦）</item>
+        <item>新潟西港　（新潟県 新潟市 中央区 入船町）</item>
+        <item>生地　（富山県 黒部市 生地）</item>
+        <item>新湊　（富山県 射水市 堀岡新明神）</item>
+        <item>富山　（富山県 富山市 草島）</item>
+        <item>伏木富山　（富山県 高岡市 伏木錦町）</item>
+        <item>輪島港（臨時）　（石川県 輪島市 河井町）</item>
+        <item>能登　（石川県 珠洲市 長橋町）</item>
+        <item>珠洲市飯田（臨時）　（石川県 珠洲市 飯田町）</item>
+        <item>七尾　（石川県 七尾市 府中町）</item>
+        <item>金沢　（石川県 金沢市 大野町４丁目）</item>
+        <item>三国　（福井県 坂井市 三国町）</item>
+        <item>敦賀　（福井県 敦賀市 川崎町地先）</item>
+        <item>舞鶴　（京都府 舞鶴市 浜）</item>
+        <item>淡輪　（大阪府 泉南郡 岬町 淡輪）</item>
+        <item>大阪　（大阪府 大阪市 港区 築港３丁目）</item>
+        <item>姫路（飾磨）　（兵庫県 姫路市 飾磨区 須賀）</item>
+        <item>津居山　（兵庫県 豊岡市 小島）</item>
+        <item>神戸　（兵庫県 神戸市 中央区 波止場町）</item>
+        <item>洲本　（兵庫県 洲本市 海岸通１丁目）</item>
+        <item>海南　（和歌山県 海南市 冷水）</item>
+        <item>浦神　（和歌山県 東牟婁郡 那智勝浦町 浦神）</item>
+        <item>串本　（和歌山県 東牟婁郡 串本町 串本）</item>
+        <item>白浜　（和歌山県 西牟婁郡 白浜町 堅田）</item>
+        <item>御坊　（和歌山県 御坊市 名田町）</item>
+        <item>和歌山　（和歌山県 和歌山市 湊青岸）</item>
+        <item>三蟠　（岡山県 岡山市 中区 新築港）</item>
+        <item>乙島　（岡山県 倉敷市 玉島 乙島）</item>
+        <item>宇野　（岡山県 玉野市 宇野１丁目）</item>
+        <item>広島　（広島県 広島市 南区 宇品海岸２丁目）</item>
+        <item>呉　（広島県 呉市 宝町）</item>
+        <item>浜田　（島根県 浜田市 大辻町）</item>
+        <item>西郷　（島根県 隠岐郡 隠岐の島町 港町）</item>
+        <item>田後　（鳥取県 岩美郡 岩美町 田後）</item>
+        <item>境　（鳥取県 境港市 境港）</item>
+        <item>小松島　（徳島県 小松島市 小松島町）</item>
+        <item>阿波由岐　（徳島県 海部郡 美波町 西由岐）</item>
+        <item>与島　（香川県 坂出市 与島町）</item>
+        <item>青木　（香川県 丸亀市 広島町）</item>
+        <item>多度津　（香川県 仲多度郡 多度津町 東浜）</item>
+        <item>高松　（香川県 高松市 北浜町）</item>
+        <item>来島航路　（愛媛県 今治市 馬島）</item>
+        <item>松山　（愛媛県 松山市 海岸通）</item>
+        <item>宇和島　（愛媛県 宇和島市 住吉３丁目）</item>
+        <item>久礼　（高知県 高岡郡 中土佐町 久礼）</item>
+        <item>室戸岬　（高知県 室戸市 室戸岬町）</item>
+        <item>高知　（高知県 高知市 浦戸）</item>
+        <item>土佐清水　（高知県 土佐清水市 旭町３丁目）</item>
+        <item>長府　（山口県 下関市 長府町）</item>
+        <item>須佐　（山口県 萩市 瓦浴）</item>
+        <item>田ノ首　（山口県 下関市 彦島田の首町１丁目）</item>
+        <item>大山の鼻　（山口県 下関市 彦島塩浜町４丁目）</item>
+        <item>南風泊　（山口県 下関市 彦島西山町３丁目）</item>
+        <item>宇部　（山口県 宇部市 沖宇部）</item>
+        <item>徳山　（山口県 周南市 那智町）</item>
+        <item>弟子待　（山口県 下関市 彦島弟子待町２丁目）</item>
+        <item>苅田　（福岡県 京都郡 苅田町 港町）</item>
+        <item>日明　（福岡県 北九州市 小倉北区 西港町）</item>
+        <item>青浜　（福岡県 北九州市 門司区 白野江）</item>
+        <item>門司　（福岡県 北九州市 門司区 西海岸通１丁目）</item>
+        <item>砂津　（福岡県 北九州市 小倉北区 浅野３丁目）</item>
+        <item>博多　（福岡県 福岡市 東区 東浜２丁目）</item>
+        <item>佐伯　（大分県 佐伯市 鶴見）</item>
+        <item>大分　（大分県 大分市 三佐）</item>
+        <item>別府　（大分県 別府市 南石垣）</item>
+        <item>皇后　（長崎県 長崎市 小瀬戸町）</item>
+        <item>口之津　（長崎県 南島原市 口之津町）</item>
+        <item>長崎　（長崎県 長崎市 松が枝町）</item>
+        <item>福江　（長崎県 五島市 東浜町）</item>
+        <item>対馬比田勝　（長崎県 対馬市 上対馬町）</item>
+        <item>佐世保　（長崎県 佐世保市 干尽町）</item>
+        <item>厳原　（長崎県 対馬市 厳原町）</item>
+        <item>平戸瀬戸　（長崎県 平戸市 田平町）</item>
+        <item>郷ノ浦　（長崎県 壱岐市 郷ノ浦町）</item>
+        <item>唐津　（佐賀県 唐津市 二夕子）</item>
+        <item>仮屋　（佐賀県 東松浦郡 玄海町 仮屋）</item>
+        <item>大浦　（佐賀県 藤津郡 太良町 大浦）</item>
+        <item>八代　（熊本県 八代市 港町）</item>
+        <item>熊本　（熊本県 熊本市 西区 沖新町）</item>
+        <item>本渡瀬戸　（熊本県 天草市 大門）</item>
+        <item>苓北　（熊本県 天草郡 苓北町 都呂々）</item>
+        <item>宮崎　（宮崎県 宮崎市 港１丁目）</item>
+        <item>細島　（宮崎県 日向市 細島町）</item>
+        <item>油津　（宮崎県 日南市 大節）</item>
+        <item>阿久根　（鹿児島県 阿久根市 波留）</item>
+        <item>鹿児島　（鹿児島県 鹿児島市 本港新町）</item>
+        <item>枕崎　（鹿児島県 枕崎市 松之尾町）</item>
+        <item>種子島　（鹿児島県 熊毛郡 中種子町 坂井）</item>
+        <item>奄美　（鹿児島県 奄美市 名瀬小湊）</item>
+        <item>大泊　（鹿児島県 肝属郡 南大隅町 佐多馬籠）</item>
+        <item>西之表　（鹿児島県 西之表市 西之表）</item>
+        <item>中之島　（鹿児島県 鹿児島郡 十島村 中之島）</item>
+        <item>名瀬　（鹿児島県 奄美市 名瀬長浜町）</item>
+        <item>志布志　（鹿児島県 志布志市 志布志町）</item>
+        <item>沖縄　（沖縄県 南城市 知念）</item>
+        <item>那覇　（沖縄県 那覇市 通堂町）</item>
+        <item>中城湾港　（沖縄県 沖縄市 海邦）</item>
+        <item>南大東　（沖縄県 島尻郡 南大東村 北）</item>
+        <item>平良　（沖縄県 宮古島市 平良西里）</item>
+        <item>石垣　（沖縄県 石垣市 八島町２丁目）</item>
+        <item>与那国　（沖縄県 八重山郡 与那国町 久部良）</item>
     </string-array>
 
     <string-array name="location_name_list">
         <item>-</item>
-        <item>稚内</item>
-        <item>枝幸</item>
-        <item>紋別</item>
-        <item>網走</item>
-        <item>羅臼</item>
-        <item>根室</item>
-        <item>花咲</item>
-        <item>霧多布</item>
-        <item>釧路</item>
-        <item>十勝</item>
-        <item>浦河</item>
-        <item>苫小牧東</item>
-        <item>苫小牧西</item>
-        <item>白老</item>
-        <item>室蘭</item>
-        <item>森</item>
-        <item>函館</item>
-        <item>吉岡</item>
-        <item>松前</item>
-        <item>江差</item>
-        <item>奥尻</item>
-        <item>奥尻港</item>
-        <item>瀬棚</item>
-        <item>寿都</item>
-        <item>岩内</item>
-        <item>忍路</item>
-        <item>小樽</item>
-        <item>石狩新港</item>
-        <item>留萌</item>
-        <item>沓形</item>
-        <item>竜飛</item>
-        <item>青森</item>
-        <item>浅虫</item>
-        <item>大湊</item>
-        <item>大間</item>
-        <item>下北</item>
-        <item>むつ小川原</item>
-        <item>八戸港</item>
-        <item>久慈</item>
-        <item>宮古</item>
-        <item>釜石</item>
-        <item>大船渡</item>
-        <item>鮎川</item>
-        <item>石巻</item>
-        <item>塩釜</item>
-        <item>仙台新港</item>
-        <item>相馬</item>
-        <item>小名浜</item>
-        <item>日立</item>
-        <item>大洗</item>
-        <item>鹿島</item>
-        <item>銚子漁港</item>
-        <item>勝浦</item>
-        <item>布良</item>
-        <item>館山</item>
-        <item>木更津</item>
-        <item>千葉</item>
-        <item>千葉港</item>
-        <item>東京</item>
-        <item>川崎</item>
-        <item>京浜港</item>
-        <item>横浜</item>
-        <item>本牧</item>
-        <item>横須賀</item>
-        <item>油壺</item>
-        <item>岡田</item>
-        <item>神津島</item>
-        <item>三宅島（坪田）</item>
-        <item>三宅島（阿古）</item>
-        <item>八丈島（八重根）</item>
-        <item>八丈島（神湊）</item>
-        <item>父島</item>
-        <item>南鳥島</item>
-        <item>湘南港</item>
-        <item>小田原</item>
-        <item>伊東</item>
-        <item>下田</item>
-        <item>南伊豆</item>
-        <item>石廊崎</item>
-        <item>田子</item>
-        <item>内浦</item>
-        <item>清水港</item>
-        <item>焼津</item>
-        <item>御前崎</item>
-        <item>舞阪</item>
-        <item>赤羽根</item>
-        <item>三河</item>
-        <item>形原</item>
-        <item>衣浦</item>
-        <item>鬼崎</item>
-        <item>名古屋</item>
-        <item>四日市港</item>
-        <item>鳥羽</item>
-        <item>尾鷲</item>
-        <item>熊野</item>
-        <item>浦神</item>
-        <item>串本</item>
-        <item>白浜</item>
-        <item>御坊</item>
-        <item>下津</item>
-        <item>海南</item>
-        <item>和歌山</item>
-        <item>淡輪</item>
-        <item>関空島</item>
-        <item>岸和田</item>
-        <item>泉大津</item>
-        <item>堺</item>
-        <item>大阪</item>
-        <item>尼崎</item>
-        <item>西宮</item>
-        <item>神戸</item>
-        <item>明石</item>
-        <item>洲本</item>
-        <item>江井</item>
-        <item>姫路（飾磨）</item>
-        <item>三蟠</item>
-        <item>宇野</item>
-        <item>水島</item>
-        <item>乙島</item>
-        <item>糸崎</item>
-        <item>竹原</item>
-        <item>呉</item>
-        <item>広島</item>
-        <item>徳山</item>
-        <item>三田尻</item>
-        <item>宇部</item>
-        <item>長府</item>
-        <item>弟子待</item>
-        <item>田ノ首</item>
-        <item>大山の鼻</item>
-        <item>南風泊</item>
-        <item>松山</item>
-        <item>波止浜</item>
-        <item>今治市小島</item>
-        <item>来島航路</item>
-        <item>今治</item>
-        <item>新居浜</item>
-        <item>伊予三島</item>
-        <item>多度津</item>
-        <item>青木</item>
-        <item>与島</item>
-        <item>高松</item>
-        <item>小松島</item>
-        <item>橘</item>
-        <item>阿波由岐</item>
-        <item>日和佐</item>
-        <item>甲浦</item>
-        <item>室戸岬</item>
-        <item>高知</item>
-        <item>須崎</item>
-        <item>久礼</item>
-        <item>高知下田</item>
-        <item>土佐清水</item>
-        <item>片島</item>
-        <item>宇和島</item>
-        <item>日明</item>
-        <item>砂津</item>
-        <item>門司</item>
-        <item>青浜</item>
-        <item>苅田</item>
-        <item>別府</item>
-        <item>大分</item>
-        <item>佐伯</item>
-        <item>細島</item>
-        <item>宮崎</item>
-        <item>油津</item>
-        <item>志布志</item>
-        <item>大泊</item>
-        <item>鹿児島</item>
-        <item>枕崎</item>
-        <item>阿久根</item>
-        <item>西之表</item>
-        <item>種子島</item>
-        <item>中之島</item>
-        <item>名瀬</item>
-        <item>奄美</item>
-        <item>中城湾港</item>
-        <item>沖縄</item>
-        <item>那覇</item>
-        <item>南大東</item>
-        <item>平良</item>
-        <item>石垣</item>
-        <item>西表</item>
-        <item>与那国</item>
-        <item>水俣</item>
-        <item>八代</item>
-        <item>本渡瀬戸</item>
-        <item>苓北</item>
-        <item>三角</item>
-        <item>熊本</item>
-        <item>大牟田</item>
-        <item>大浦</item>
-        <item>口之津</item>
-        <item>長崎</item>
-        <item>皇后</item>
-        <item>福江</item>
-        <item>佐世保</item>
-        <item>平戸瀬戸</item>
-        <item>仮屋</item>
-        <item>唐津</item>
-        <item>博多</item>
-        <item>郷ノ浦</item>
-        <item>厳原</item>
-        <item>対馬</item>
-        <item>対馬比田勝</item>
-        <item>萩</item>
-        <item>須佐</item>
-        <item>浜田</item>
-        <item>境</item>
-        <item>西郷</item>
-        <item>田後</item>
-        <item>津居山</item>
-        <item>宮津</item>
-        <item>舞鶴</item>
-        <item>敦賀</item>
-        <item>三国</item>
-        <item>金沢</item>
-        <item>輪島</item>
-        <item>能登</item>
-        <item>七尾</item>
-        <item>伏木富山</item>
-        <item>新湊</item>
-        <item>富山</item>
-        <item>生地</item>
-        <item>直江津</item>
-        <item>柏崎</item>
-        <item>新潟西港</item>
-        <item>新潟東港</item>
-        <item>小木</item>
-        <item>両津</item>
-        <item>佐渡</item>
-        <item>粟島</item>
-        <item>鼠ヶ関</item>
-        <item>酒田</item>
-        <item>飛島</item>
-        <item>秋田</item>
-        <item>船川港</item>
-        <item>男鹿</item>
-        <item>深浦</item>
+        <item>枝幸　（北海道 枝幸郡 枝幸町 幸町）</item>
+        <item>沓形　（北海道 利尻郡 利尻町 沓形）</item>
+        <item>稚内　（北海道 稚内市 新港町）</item>
+        <item>留萌　（北海道 留萌市 大町１丁目）</item>
+        <item>石狩新港　（北海道 石狩市 新港東４丁目）</item>
+        <item>岩内　（北海道 岩内郡 岩内町 御崎）</item>
+        <item>忍路　（北海道 小樽市 忍路１丁目）</item>
+        <item>小樽　（北海道 小樽市 築港）</item>
+        <item>紋別　（北海道 紋別市 弁天町）</item>
+        <item>網走　（北海道 網走市 港町）</item>
+        <item>根室　（北海道 根室市 海岸町２丁目）</item>
+        <item>花咲　（北海道 根室市 花咲港）</item>
+        <item>霧多布　（北海道 厚岸郡 浜中町 霧多布）</item>
+        <item>釧路　（北海道 釧路市 港町）</item>
+        <item>十勝　（北海道 広尾郡 広尾町 会所前）</item>
+        <item>苫小牧東　（北海道 勇払郡 厚真町 浜厚真）</item>
+        <item>苫小牧西　（北海道 苫小牧市 汐見町１丁目）</item>
+        <item>室蘭　（北海道 室蘭市 祝津町１丁目）</item>
+        <item>白老　（北海道 白老郡 白老町 石山）</item>
+        <item>浦河　（北海道 浦河郡 浦河町 大通１丁目）</item>
+        <item>森　（北海道 茅部郡 森町 港町）</item>
+        <item>函館　（北海道 函館市 海岸町）</item>
+        <item>瀬棚　（北海道 久遠郡 せたな町 瀬棚区 本町）</item>
+        <item>奥尻　（北海道 奥尻郡 奥尻町 松江）</item>
+        <item>奥尻港　（北海道 奥尻郡 奥尻町 奥尻）</item>
+        <item>江差　（北海道 檜山郡 江差町 中歌町）</item>
+        <item>青森　（青森県 青森市 港町）</item>
+        <item>浅虫　（青森県 青森市 浅虫）</item>
+        <item>八戸港　（青森県 八戸市 鮫町）</item>
+        <item>下北　（青森県 むつ市 関根）</item>
+        <item>深浦　（青森県 西津軽郡 深浦町 深浦）</item>
+        <item>竜飛　（青森県 東津軽郡 外ヶ浜町 三厩梨ノ木間）</item>
+        <item>むつ小川原　（青森県 上北郡 六ヶ所村 鷹架）</item>
+        <item>男鹿　（秋田県 男鹿市 戸賀塩浜）</item>
+        <item>秋田　（秋田県 秋田市 土崎西１丁目）</item>
+        <item>宮古　（岩手県 宮古市 日立浜町）</item>
+        <item>大船渡　（岩手県 大船渡市 赤崎町）</item>
+        <item>釜石　（岩手県 釜石市 魚河岸町）</item>
+        <item>久慈　（岩手県 久慈市 長内町）</item>
+        <item>石巻　（宮城県 石巻市 西浜町地先）</item>
+        <item>仙台新港　（宮城県 仙台市 宮城野区 港３丁目）</item>
+        <item>鮎川　（宮城県 石巻市 鮎川浜）</item>
+        <item>鼠ヶ関　（山形県 鶴岡市 鼠ヶ関）</item>
+        <item>飛島　（山形県 酒田市 飛島）</item>
+        <item>酒田　（山形県 酒田市 宮野浦）</item>
+        <item>相馬　（福島県 相馬市 原釜）</item>
+        <item>小名浜　（福島県 いわき市 小名浜）</item>
+        <item>鹿島　（茨城県 神栖市 居切）</item>
+        <item>東京　（東京都 中央区 晴海５丁目）</item>
+        <item>岡田　（東京都 大島町 岡田）</item>
+        <item>三宅島（坪田）　（東京都 三宅村 坪田船戸）</item>
+        <item>父島　（東京都 小笠原村 父島東町）</item>
+        <item>神津島　（東京都 神津島村 神津島港）</item>
+        <item>三宅島（阿古）　（東京都 三宅村 阿古）</item>
+        <item>八丈島（神湊）　（東京都 八丈町 三根）</item>
+        <item>勝浦　（千葉県 勝浦市 興津）</item>
+        <item>布良　（千葉県 館山市 布良）</item>
+        <item>千葉　（千葉県 市原市 五井）</item>
+        <item>銚子漁港　（千葉県 銚子市 川口町２丁目）</item>
+        <item>京浜港　（神奈川県 横浜市 神奈川区 山内町）</item>
+        <item>油壺　（神奈川県 三浦市 三崎町）</item>
+        <item>小田原　（神奈川県 小田原市 早川地先）</item>
+        <item>横浜　（神奈川県 横浜市 中区 新港町１丁目）</item>
+        <item>横須賀　（神奈川県 横須賀市 西逸見町）</item>
+        <item>伊東　（静岡県 伊東市 富戸）</item>
+        <item>田子　（静岡県 賀茂郡 西伊豆町 田子）</item>
+        <item>焼津　（静岡県 焼津市 中港６丁目）</item>
+        <item>下田　（静岡県 下田市 柿崎弁天島地先）</item>
+        <item>石廊崎　（静岡県 賀茂郡 南伊豆町 手石）</item>
+        <item>内浦　（静岡県 沼津市 内浦長浜網代）</item>
+        <item>清水港　（静岡県 静岡市 清水区 三保）</item>
+        <item>御前崎　（静岡県 御前崎市 港）</item>
+        <item>舞阪　（静岡県 浜松市 中央区 舞阪町）</item>
+        <item>衣浦　（愛知県 半田市 11号地）</item>
+        <item>鬼崎　（愛知県 常滑市 港町２丁目）</item>
+        <item>三河　（愛知県 豊橋市 神野ふ頭）</item>
+        <item>名古屋　（愛知県 名古屋市 港区 港町）</item>
+        <item>赤羽根　（愛知県 田原市 池尻町）</item>
+        <item>四日市港　（三重県 四日市市 千歳町）</item>
+        <item>鳥羽　（三重県 鳥羽市 堅神町）</item>
+        <item>尾鷲　（三重県 尾鷲市 天満浦）</item>
+        <item>熊野　（三重県 熊野市 遊木町）</item>
+        <item>柏崎　（新潟県 柏崎市 鯨波）</item>
+        <item>小木　（新潟県 佐渡市 小木町）</item>
+        <item>新潟東港　（新潟県 新潟市 北区 太郎代）</item>
+        <item>佐渡　（新潟県 佐渡市 鷲崎）</item>
+        <item>上越市直江津（臨時）　（新潟県 上越市 直江津）</item>
+        <item>粟島　（新潟県 岩船郡 粟島浦村 内浦）</item>
+        <item>新潟西港　（新潟県 新潟市 中央区 入船町）</item>
+        <item>生地　（富山県 黒部市 生地）</item>
+        <item>新湊　（富山県 射水市 堀岡新明神）</item>
+        <item>富山　（富山県 富山市 草島）</item>
+        <item>伏木富山　（富山県 高岡市 伏木錦町）</item>
+        <item>輪島港（臨時）　（石川県 輪島市 河井町）</item>
+        <item>能登　（石川県 珠洲市 長橋町）</item>
+        <item>珠洲市飯田（臨時）　（石川県 珠洲市 飯田町）</item>
+        <item>七尾　（石川県 七尾市 府中町）</item>
+        <item>金沢　（石川県 金沢市 大野町４丁目）</item>
+        <item>三国　（福井県 坂井市 三国町）</item>
+        <item>敦賀　（福井県 敦賀市 川崎町地先）</item>
+        <item>舞鶴　（京都府 舞鶴市 浜）</item>
+        <item>淡輪　（大阪府 泉南郡 岬町 淡輪）</item>
+        <item>大阪　（大阪府 大阪市 港区 築港３丁目）</item>
+        <item>姫路（飾磨）　（兵庫県 姫路市 飾磨区 須賀）</item>
+        <item>津居山　（兵庫県 豊岡市 小島）</item>
+        <item>神戸　（兵庫県 神戸市 中央区 波止場町）</item>
+        <item>洲本　（兵庫県 洲本市 海岸通１丁目）</item>
+        <item>海南　（和歌山県 海南市 冷水）</item>
+        <item>浦神　（和歌山県 東牟婁郡 那智勝浦町 浦神）</item>
+        <item>串本　（和歌山県 東牟婁郡 串本町 串本）</item>
+        <item>白浜　（和歌山県 西牟婁郡 白浜町 堅田）</item>
+        <item>御坊　（和歌山県 御坊市 名田町）</item>
+        <item>和歌山　（和歌山県 和歌山市 湊青岸）</item>
+        <item>三蟠　（岡山県 岡山市 中区 新築港）</item>
+        <item>乙島　（岡山県 倉敷市 玉島 乙島）</item>
+        <item>宇野　（岡山県 玉野市 宇野１丁目）</item>
+        <item>広島　（広島県 広島市 南区 宇品海岸２丁目）</item>
+        <item>呉　（広島県 呉市 宝町）</item>
+        <item>浜田　（島根県 浜田市 大辻町）</item>
+        <item>西郷　（島根県 隠岐郡 隠岐の島町 港町）</item>
+        <item>田後　（鳥取県 岩美郡 岩美町 田後）</item>
+        <item>境　（鳥取県 境港市 境港）</item>
+        <item>小松島　（徳島県 小松島市 小松島町）</item>
+        <item>阿波由岐　（徳島県 海部郡 美波町 西由岐）</item>
+        <item>与島　（香川県 坂出市 与島町）</item>
+        <item>青木　（香川県 丸亀市 広島町）</item>
+        <item>多度津　（香川県 仲多度郡 多度津町 東浜）</item>
+        <item>高松　（香川県 高松市 北浜町）</item>
+        <item>来島航路　（愛媛県 今治市 馬島）</item>
+        <item>松山　（愛媛県 松山市 海岸通）</item>
+        <item>宇和島　（愛媛県 宇和島市 住吉３丁目）</item>
+        <item>久礼　（高知県 高岡郡 中土佐町 久礼）</item>
+        <item>室戸岬　（高知県 室戸市 室戸岬町）</item>
+        <item>高知　（高知県 高知市 浦戸）</item>
+        <item>土佐清水　（高知県 土佐清水市 旭町３丁目）</item>
+        <item>長府　（山口県 下関市 長府町）</item>
+        <item>須佐　（山口県 萩市 瓦浴）</item>
+        <item>田ノ首　（山口県 下関市 彦島田の首町１丁目）</item>
+        <item>大山の鼻　（山口県 下関市 彦島塩浜町４丁目）</item>
+        <item>南風泊　（山口県 下関市 彦島西山町３丁目）</item>
+        <item>宇部　（山口県 宇部市 沖宇部）</item>
+        <item>徳山　（山口県 周南市 那智町）</item>
+        <item>弟子待　（山口県 下関市 彦島弟子待町２丁目）</item>
+        <item>苅田　（福岡県 京都郡 苅田町 港町）</item>
+        <item>日明　（福岡県 北九州市 小倉北区 西港町）</item>
+        <item>青浜　（福岡県 北九州市 門司区 白野江）</item>
+        <item>門司　（福岡県 北九州市 門司区 西海岸通１丁目）</item>
+        <item>砂津　（福岡県 北九州市 小倉北区 浅野３丁目）</item>
+        <item>博多　（福岡県 福岡市 東区 東浜２丁目）</item>
+        <item>佐伯　（大分県 佐伯市 鶴見）</item>
+        <item>大分　（大分県 大分市 三佐）</item>
+        <item>別府　（大分県 別府市 南石垣）</item>
+        <item>皇后　（長崎県 長崎市 小瀬戸町）</item>
+        <item>口之津　（長崎県 南島原市 口之津町）</item>
+        <item>長崎　（長崎県 長崎市 松が枝町）</item>
+        <item>福江　（長崎県 五島市 東浜町）</item>
+        <item>対馬比田勝　（長崎県 対馬市 上対馬町）</item>
+        <item>佐世保　（長崎県 佐世保市 干尽町）</item>
+        <item>厳原　（長崎県 対馬市 厳原町）</item>
+        <item>平戸瀬戸　（長崎県 平戸市 田平町）</item>
+        <item>郷ノ浦　（長崎県 壱岐市 郷ノ浦町）</item>
+        <item>唐津　（佐賀県 唐津市 二夕子）</item>
+        <item>仮屋　（佐賀県 東松浦郡 玄海町 仮屋）</item>
+        <item>大浦　（佐賀県 藤津郡 太良町 大浦）</item>
+        <item>八代　（熊本県 八代市 港町）</item>
+        <item>熊本　（熊本県 熊本市 西区 沖新町）</item>
+        <item>本渡瀬戸　（熊本県 天草市 大門）</item>
+        <item>苓北　（熊本県 天草郡 苓北町 都呂々）</item>
+        <item>宮崎　（宮崎県 宮崎市 港１丁目）</item>
+        <item>細島　（宮崎県 日向市 細島町）</item>
+        <item>油津　（宮崎県 日南市 大節）</item>
+        <item>阿久根　（鹿児島県 阿久根市 波留）</item>
+        <item>鹿児島　（鹿児島県 鹿児島市 本港新町）</item>
+        <item>枕崎　（鹿児島県 枕崎市 松之尾町）</item>
+        <item>種子島　（鹿児島県 熊毛郡 中種子町 坂井）</item>
+        <item>奄美　（鹿児島県 奄美市 名瀬小湊）</item>
+        <item>大泊　（鹿児島県 肝属郡 南大隅町 佐多馬籠）</item>
+        <item>西之表　（鹿児島県 西之表市 西之表）</item>
+        <item>中之島　（鹿児島県 鹿児島郡 十島村 中之島）</item>
+        <item>名瀬　（鹿児島県 奄美市 名瀬長浜町）</item>
+        <item>志布志　（鹿児島県 志布志市 志布志町）</item>
+        <item>沖縄　（沖縄県 南城市 知念）</item>
+        <item>那覇　（沖縄県 那覇市 通堂町）</item>
+        <item>中城湾港　（沖縄県 沖縄市 海邦）</item>
+        <item>南大東　（沖縄県 島尻郡 南大東村 北）</item>
+        <item>平良　（沖縄県 宮古島市 平良西里）</item>
+        <item>石垣　（沖縄県 石垣市 八島町２丁目）</item>
+        <item>与那国　（沖縄県 八重山郡 与那国町 久部良）</item>
     </string-array>
 </resources>

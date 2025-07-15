@@ -7,14 +7,14 @@
             <solid android:color="@android:color/transparent" />
             <stroke
                 android:width="4dp"
-                android:color="#B0F80000"/>
-            <corners android:radius="2dp" />
+                android:color="@color/calender_border_today_color"/>
+            <corners android:radius="8dp" />
         </shape>
     </item>
-    <item android:top="4dp"
-        android:right="4dp"
-        android:left="4dp"
-        android:bottom="4dp">
+    <item android:top="8dp"
+        android:right="8dp"
+        android:left="8dp"
+        android:bottom="8dp">
         <color android:color="@color/day_pager_background_color"/>
     </item>
 </layer-list>
