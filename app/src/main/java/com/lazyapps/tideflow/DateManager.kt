@@ -161,7 +161,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
         }
         // 月画像
         when(moonAge.toInt()){
-            0 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_shin)
+            0 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_00)
             1 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_01)
             2 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_02)
             3 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_03)
@@ -191,7 +191,7 @@ class DateAdapter(val context: Context, date:Date):RecyclerView.Adapter<DateAdap
             27 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_27)
             28 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_28)
             29 -> holder.calenderDayImageView.setImageResource(R.drawable.moon_29)
-            else -> holder.calenderDayImageView.setImageResource(R.drawable.moon_shin)
+            else -> holder.calenderDayImageView.setImageResource(R.drawable.moon_00)
         }
 
         // 当日の場合の設定

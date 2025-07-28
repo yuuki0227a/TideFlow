@@ -24,6 +24,7 @@ class SettingSharedPref(context: Context){
         private const val KEY_LOCATION_NAME_TAB_SELECTED = "key_location_name_tab_selected"
         private const val KEY_APP_VERSION_NAME = "key_app_version_name"
         private const val KEY_APP_VERSION_CODE = "key_app_version_code"
+        private const val KEY_TERMS_AGREED = "key_terms_agreed"
         // デフォルト値
         const val DEFAULT_IS_RESTART = false
         const val DEFAULT_BOTTOM_NAV_VIEW_ID = -9999999
@@ -37,6 +38,7 @@ class SettingSharedPref(context: Context){
         private const val DEFAULT_LOCATION_NAME_TAB_SELECTED = 0
         private const val DEFAULT_APP_VERSION_NAME = "1.0.0"
         private const val DEFAULT_APP_VERSION_CODE = 1L
+        private const val DEFAULT_KEY_TERMS_AGREED = false
         const val THEMES_SPINNER_POSITION_SYSTEM = -1
         const val THEMES_SPINNER_POSITION_LIGHT = 1
         const val THEMES_SPINNER_POSITION_DARK = 2
@@ -172,6 +174,14 @@ class SettingSharedPref(context: Context){
         set(value) {
             mSharedPreferences.edit()
                 .putString(KEY_APP_VERSION_NAME,value)
+                .apply()
+            field = value
+        }
+    // 利用規約　同意フラグ
+    var mKeyTermsAgreed: Boolean = mSharedPreferences.getBoolean(KEY_TERMS_AGREED, DEFAULT_KEY_TERMS_AGREED)
+        set(value) {
+            mSharedPreferences.edit()
+                .putBoolean(KEY_TERMS_AGREED,value)
                 .apply()
             field = value
         }

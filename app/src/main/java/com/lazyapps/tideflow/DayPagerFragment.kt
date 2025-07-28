@@ -129,7 +129,7 @@ class DayPagerFragment : Fragment() {
         // 月画像 TODO. 月画像を作成して実装する
 //        mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_debug)
         when(moonAge.toInt()){
-            0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_shin)
+            0 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
             1 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_01)
             2 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_02)
             3 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_03)
@@ -159,7 +159,7 @@ class DayPagerFragment : Fragment() {
             27 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_27)
             28 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_28)
             29 -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_29)
-            else -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_shin)
+            else -> mBinding.dayPagerMoonImageView.setImageResource(R.drawable.moon_00)
         }
 
         /* 満潮 */
