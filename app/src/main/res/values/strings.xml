@@ -23,13 +23,7 @@
 
     <string name="day_pager_def_str">-</string>
 
-    <!-- res/values/strings.xml -->
-    <string name="terms_text">
-    本アプリをご利用いただく前に、以下の利用規約をお読みください。\n
-    ・このアプリは潮汐情報の参考を提供するもので、正確性を保証しません。\n
-    ・ユーザーが本アプリを使用したことによるいかなる損害も、当方は責任を負いません。\n
-    ・情報は予告なく変更されることがあります。\n
-    ・本規約に同意いただけない場合は、アプリをご利用いただけません。
-</string>
+    <!-- 利用規約バージョン -->
+    <string name="current_terms_version">1</string>
 
 </resources>
