@@ -8,9 +8,22 @@ class SettingSharedPref(context: Context){
         // ファイル名
         private const val FILE_NAME = "setting"
         // キー
+        private const val KEY_IS_INITIAL_INSTALLATION = "key_is_initial_installation"
         private const val KEY_IS_RESTART = "key_is_restart"
         private const val KEY_BOTTOM_NAV_ITEM_POSITION = "key_bottom_nav_item_position"
         private const val KEY_THEMES_SPINNER_ITEM = "key_themes_Spinner_item"
+
+        private const val KEY_REGION_0_SPINNER_ITEM = "key_region_0_Spinner_item"
+        private const val KEY_REGION_0_SPINNER_POSITION = "key_region_0_spinner_position"
+        private const val KEY_REGION_1_SPINNER_ITEM = "key_region_1_Spinner_item"
+        private const val KEY_REGION_1_SPINNER_POSITION = "key_region_1_spinner_position"
+        private const val KEY_REGION_2_SPINNER_ITEM = "key_region_2_Spinner_item"
+        private const val KEY_REGION_2_SPINNER_POSITION = "key_region_2_spinner_position"
+        private const val KEY_REGION_3_SPINNER_ITEM = "key_region_3_Spinner_item"
+        private const val KEY_REGION_3_SPINNER_POSITION = "key_region_3_spinner_position"
+        private const val KEY_REGION_4_SPINNER_ITEM = "key_region_4_Spinner_item"
+        private const val KEY_REGION_4_SPINNER_POSITION = "key_region_4_spinner_position"
+
         private const val KEY_LOCATION_0_SPINNER_ITEM = "key_location_0_Spinner_item"
         private const val KEY_LOCATION_0_SPINNER_POSITION = "key_location_0_spinner_position"
         private const val KEY_LOCATION_1_SPINNER_ITEM = "key_location_1_Spinner_item"
@@ -27,14 +40,25 @@ class SettingSharedPref(context: Context){
         private const val KEY_TERMS_AGREED = "key_terms_agreed"
         private const val KEY_TERMS_VERSION_AGREED = "key_terms_version_agreed"
         // デフォルト値
+        const val DEFAULT_IS_INITIAL_INSTALLATION = true
         const val DEFAULT_IS_RESTART = false
         const val DEFAULT_BOTTOM_NAV_VIEW_ID = -9999999
         private const val DEFAULT_THEMES_SPINNER_ITEM = 0
+
+        const val DEFAULT_REGION_SPINNER_ITEM_0 = "関東地方"
+        private const val DEFAULT_REGION_SPINNER_ITEM_1 = "-"
+        private const val DEFAULT_REGION_SPINNER_ITEM_2 = "-"
+        private const val DEFAULT_REGION_SPINNER_ITEM_3 = "-"
+        private const val DEFAULT_REGION_SPINNER_ITEM_4 = "-"
+        private const val DEFAULT_REGION_SPINNER_POSITION_TAB0 = 2
+        private const val DEFAULT_REGION_SPINNER_POSITION = 0
+
         private const val DEFAULT_LOCATION_SPINNER_ITEM_0 = "東京"
-        private const val DEFAULT_LOCATION_SPINNER_ITEM_1 = "横浜"
-        private const val DEFAULT_LOCATION_SPINNER_ITEM_2 = "名古屋"
-        private const val DEFAULT_LOCATION_SPINNER_ITEM_3 = "大阪"
-        private const val DEFAULT_LOCATION_SPINNER_ITEM_4 = "神戸"
+        private const val DEFAULT_LOCATION_SPINNER_ITEM_1 = "-"
+        private const val DEFAULT_LOCATION_SPINNER_ITEM_2 = "-"
+        private const val DEFAULT_LOCATION_SPINNER_ITEM_3 = "-"
+        private const val DEFAULT_LOCATION_SPINNER_ITEM_4 = "-"
+        private const val DEFAULT_LOCATION_SPINNER_POSITION_TAB0 = 10
         private const val DEFAULT_LOCATION_SPINNER_POSITION = 0
         private const val DEFAULT_LOCATION_NAME_TAB_SELECTED = 0
         private const val DEFAULT_APP_VERSION_NAME = "1.0.0"
@@ -47,6 +71,15 @@ class SettingSharedPref(context: Context){
     }
 
     private val mSharedPreferences: SharedPreferences = context.getSharedPreferences(FILE_NAME , Context.MODE_PRIVATE)
+
+    // 初回インストールフラグ
+    var mIsInitialInstallation: Boolean = mSharedPreferences.getBoolean(KEY_IS_INITIAL_INSTALLATION, DEFAULT_IS_INITIAL_INSTALLATION)
+        set(value) {
+            mSharedPreferences.edit()
+                .putBoolean(KEY_IS_INITIAL_INSTALLATION, value)
+                .apply()
+            field = value
+        }
 
     // 再起動フラグ
     var mIsReStart: Boolean = mSharedPreferences.getBoolean(KEY_IS_RESTART, DEFAULT_IS_RESTART)
@@ -72,7 +105,96 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー0のアイテム
+
+
+    // 観測地点のスピナー0のアイテム（region）
+    var mRegion0SpinnerItem: String = mSharedPreferences.getString(KEY_REGION_0_SPINNER_ITEM, DEFAULT_REGION_SPINNER_ITEM_0)!!
+        set(value) {
+            mSharedPreferences.edit()
+                .putString(KEY_REGION_0_SPINNER_ITEM,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー0のポジション（region）
+    var mRegion0SpinnerPosition: Int = mSharedPreferences.getInt(KEY_REGION_0_SPINNER_POSITION, DEFAULT_REGION_SPINNER_POSITION_TAB0)
+        set(value) {
+            mSharedPreferences.edit()
+                .putInt(KEY_REGION_0_SPINNER_POSITION,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー1のアイテム（region）
+    var mRegion1SpinnerItem: String = mSharedPreferences.getString(KEY_REGION_1_SPINNER_ITEM, DEFAULT_REGION_SPINNER_ITEM_1)!!
+        set(value) {
+            mSharedPreferences.edit()
+                .putString(KEY_REGION_1_SPINNER_ITEM,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー1のポジション（region）
+    var mRegion1SpinnerPosition: Int = mSharedPreferences.getInt(KEY_REGION_1_SPINNER_POSITION, DEFAULT_REGION_SPINNER_POSITION)
+        set(value) {
+            mSharedPreferences.edit()
+                .putInt(KEY_REGION_1_SPINNER_POSITION,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー2のアイテム（region）
+    var mRegion2SpinnerItem: String = mSharedPreferences.getString(KEY_REGION_2_SPINNER_ITEM, DEFAULT_REGION_SPINNER_ITEM_2)!!
+        set(value) {
+            mSharedPreferences.edit()
+                .putString(KEY_REGION_2_SPINNER_ITEM,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー2のポジション（region）
+    var mRegion2SpinnerPosition: Int = mSharedPreferences.getInt(KEY_REGION_2_SPINNER_POSITION, DEFAULT_REGION_SPINNER_POSITION)
+        set(value) {
+            mSharedPreferences.edit()
+                .putInt(KEY_REGION_2_SPINNER_POSITION,value)
+                .apply()
+            field = value
+        }
+
+    // 観測地点のスピナー3のアイテム（region）
+    var mRegion3SpinnerItem: String = mSharedPreferences.getString(KEY_REGION_3_SPINNER_ITEM, DEFAULT_REGION_SPINNER_ITEM_3)!!
+        set(value) {
+            mSharedPreferences.edit()
+                .putString(KEY_REGION_3_SPINNER_ITEM,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー3のポジション（region）
+    var mRegion3SpinnerPosition: Int = mSharedPreferences.getInt(KEY_REGION_3_SPINNER_POSITION, DEFAULT_REGION_SPINNER_POSITION)
+        set(value) {
+            mSharedPreferences.edit()
+                .putInt(KEY_REGION_3_SPINNER_POSITION,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー4のアイテム（region）
+    var mRegion4SpinnerItem: String = mSharedPreferences.getString(KEY_REGION_4_SPINNER_ITEM, DEFAULT_REGION_SPINNER_ITEM_4)!!
+        set(value) {
+            mSharedPreferences.edit()
+                .putString(KEY_REGION_4_SPINNER_ITEM,value)
+                .apply()
+            field = value
+        }
+    // 観測地点のスピナー4のポジション（region）
+    var mRegion4SpinnerPosition: Int = mSharedPreferences.getInt(KEY_REGION_4_SPINNER_POSITION, DEFAULT_REGION_SPINNER_POSITION)
+        set(value) {
+            mSharedPreferences.edit()
+                .putInt(KEY_REGION_4_SPINNER_POSITION,value)
+                .apply()
+            field = value
+        }
+
+
+
+
+
+
+    // 観測地点のスピナー0のアイテム（location）
     var mLocation0SpinnerItem: String = mSharedPreferences.getString(KEY_LOCATION_0_SPINNER_ITEM, DEFAULT_LOCATION_SPINNER_ITEM_0)!!
         set(value) {
             mSharedPreferences.edit()
@@ -80,15 +202,15 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー0のポジション
-    var mLocation0SpinnerPosition: Int = mSharedPreferences.getInt(KEY_LOCATION_0_SPINNER_POSITION, DEFAULT_LOCATION_SPINNER_POSITION)
+    // 観測地点のスピナー0のポジション（location）
+    var mLocation0SpinnerPosition: Int = mSharedPreferences.getInt(KEY_LOCATION_0_SPINNER_POSITION, DEFAULT_LOCATION_SPINNER_POSITION_TAB0)
         set(value) {
             mSharedPreferences.edit()
                 .putInt(KEY_LOCATION_0_SPINNER_POSITION,value)
                 .apply()
             field = value
         }
-    // 観測地点のスピナー1のアイテム
+    // 観測地点のスピナー1のアイテム（location）
     var mLocation1SpinnerItem: String = mSharedPreferences.getString(KEY_LOCATION_1_SPINNER_ITEM, DEFAULT_LOCATION_SPINNER_ITEM_1)!!
         set(value) {
             mSharedPreferences.edit()
@@ -96,7 +218,7 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー1のポジション
+    // 観測地点のスピナー1のポジション（location）
     var mLocation1SpinnerPosition: Int = mSharedPreferences.getInt(KEY_LOCATION_1_SPINNER_POSITION, DEFAULT_LOCATION_SPINNER_POSITION)
         set(value) {
             mSharedPreferences.edit()
@@ -104,7 +226,7 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー2のアイテム
+    // 観測地点のスピナー2のアイテム（location）
     var mLocation2SpinnerItem: String = mSharedPreferences.getString(KEY_LOCATION_2_SPINNER_ITEM, DEFAULT_LOCATION_SPINNER_ITEM_2)!!
         set(value) {
             mSharedPreferences.edit()
@@ -112,7 +234,7 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー2のポジション
+    // 観測地点のスピナー2のポジション（location）
     var mLocation2SpinnerPosition: Int = mSharedPreferences.getInt(KEY_LOCATION_2_SPINNER_POSITION, DEFAULT_LOCATION_SPINNER_POSITION)
         set(value) {
             mSharedPreferences.edit()
@@ -121,7 +243,7 @@ class SettingSharedPref(context: Context){
             field = value
         }
 
-    // 観測地点のスピナー3のアイテム
+    // 観測地点のスピナー3のアイテム（location）
     var mLocation3SpinnerItem: String = mSharedPreferences.getString(KEY_LOCATION_3_SPINNER_ITEM, DEFAULT_LOCATION_SPINNER_ITEM_3)!!
         set(value) {
             mSharedPreferences.edit()
@@ -129,7 +251,7 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー3のポジション
+    // 観測地点のスピナー3のポジション（location）
     var mLocation3SpinnerPosition: Int = mSharedPreferences.getInt(KEY_LOCATION_3_SPINNER_POSITION, DEFAULT_LOCATION_SPINNER_POSITION)
         set(value) {
             mSharedPreferences.edit()
@@ -137,7 +259,7 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー4のアイテム
+    // 観測地点のスピナー4のアイテム（location）
     var mLocation4SpinnerItem: String = mSharedPreferences.getString(KEY_LOCATION_4_SPINNER_ITEM, DEFAULT_LOCATION_SPINNER_ITEM_4)!!
         set(value) {
             mSharedPreferences.edit()
@@ -145,7 +267,7 @@ class SettingSharedPref(context: Context){
                 .apply()
             field = value
         }
-    // 観測地点のスピナー4のポジション
+    // 観測地点のスピナー4のポジション（location）
     var mLocation4SpinnerPosition: Int = mSharedPreferences.getInt(KEY_LOCATION_4_SPINNER_POSITION, DEFAULT_LOCATION_SPINNER_POSITION)
         set(value) {
             mSharedPreferences.edit()

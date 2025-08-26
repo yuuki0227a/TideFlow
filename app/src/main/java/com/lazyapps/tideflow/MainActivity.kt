@@ -19,6 +19,7 @@ import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private val mContext by lazy { mBinding.root.context }
     private lateinit var mNavController: NavController      // 下部芽メニュー管理
     private lateinit var mMenu: Menu                        // メニューのオブジェクト
 
@@ -33,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         /* バージョン情報の取得と設定 */
-        SettingSharedPref(mBinding.root.context).mAppVersionName = getVersionName()
-        SettingSharedPref(mBinding.root.context).mAppVersionCode = getVersionCode()
+        SettingSharedPref(mContext).mAppVersionName = getVersionName()
+        SettingSharedPref(mContext).mAppVersionCode = getVersionCode()
 
         // システムのテーマ
 //        when(SettingSharedPref(mBinding.root.context).mThemesSpinnerItem){

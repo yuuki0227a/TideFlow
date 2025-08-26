@@ -9,6 +9,7 @@ import com.lazyapps.tideflow.databinding.ActivityTermsBinding
 
 class TermsActivity : AppCompatActivity() {
     private val mBinding by lazy { ActivityTermsBinding.inflate(layoutInflater) }
+    private val mContext by lazy { mBinding.root.context }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,6 +29,17 @@ class TermsActivity : AppCompatActivity() {
             mBinding.buttonAgree.setOnClickListener {
                 SettingSharedPref(mBinding.root.context).mTermsVersionAgreed = currentTermsVersion
                 startActivity(Intent(this, MainActivity::class.java))
+
+                // 初回起動フラグ確認
+                if(SettingSharedPref(mContext).mIsInitialInstallation){
+                    SettingSharedPref(mContext).mIsInitialInstallation = false
+                    // region0/location0の初期値
+                    SettingSharedPref(mContext).mRegion0SpinnerItem = "関東地方"
+                    SettingSharedPref(mContext).mRegion0SpinnerPosition = 2
+                    SettingSharedPref(mContext).mLocation0SpinnerItem = "東京"
+                    SettingSharedPref(mContext).mLocation0SpinnerPosition = 10
+                }
+
                 finish()
             }
 

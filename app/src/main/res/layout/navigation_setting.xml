@@ -105,11 +105,20 @@
                     android:orientation="horizontal">
 
                     <Spinner
+                        android:id="@+id/region_0_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/region_list_tab0" />
+
+                    <Spinner
                         android:id="@+id/location_0_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="130dp"
-                        android:entries="@array/location_name_list_tab0" />
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/region_kanto_tab0" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -137,10 +146,19 @@
                     android:orientation="horizontal">
 
                     <Spinner
+                        android:id="@+id/region_1_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/region_list" />
+
+                    <Spinner
                         android:id="@+id/location_1_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="130dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
                         android:entries="@array/location_name_list" />
                 </LinearLayout>
 
@@ -169,10 +187,19 @@
                     android:orientation="horizontal">
 
                     <Spinner
+                        android:id="@+id/region_2_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/region_list" />
+
+                    <Spinner
                         android:id="@+id/location_2_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="130dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
                         android:entries="@array/location_name_list"
                         android:gravity="center_vertical" />
                 </LinearLayout>
@@ -202,10 +229,19 @@
                     android:orientation="horizontal">
 
                     <Spinner
+                        android:id="@+id/region_3_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/region_list" />
+
+                    <Spinner
                         android:id="@+id/location_3_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="130dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
                         android:entries="@array/location_name_list"
                         android:gravity="center_vertical" />
                 </LinearLayout>
@@ -235,10 +271,19 @@
                     android:orientation="horizontal">
 
                     <Spinner
+                        android:id="@+id/region_4_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/region_list" />
+
+                    <Spinner
                         android:id="@+id/location_4_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:layout_marginStart="130dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_weight="1"
                         android:entries="@array/location_name_list"
                         android:gravity="center_vertical" />
                 </LinearLayout>
